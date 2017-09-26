@@ -1,0 +1,18 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+/.webpack
+
+.DS_STORE
+npm-debug.log*
+yarn-error.log*
+.env
+/dist
+/build
+/typings
+/.awcache
+/.ssh
+/electron.js*

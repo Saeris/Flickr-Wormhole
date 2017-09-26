@@ -1,0 +1,95 @@
+{
+  "env": {
+    "node": {
+      "presets": [
+        ["env", {
+          "targets": { "node": "6.10" },
+          "modules": false,
+          "loose": true,
+          "useBuiltIns": true
+        }],
+        ["es2015", { "modules": false }],
+        "stage-0"
+      ]
+    },
+    "test": {
+      "plugins": [
+        ["transform-runtime", {
+          "polyfill": false,
+          "regenerator": true
+        }],
+        [ "babel-plugin-webpack-alias", { "config": "./webpack.config.babel.js" } ],
+        "transform-commonjs-es2015-modules",
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "transform-es2015-shorthand-properties",
+        "transform-function-bind",
+        "lodash"
+      ],
+      "presets": [
+        ["env", {
+          "targets": { "node": "6.10" },
+          "modules": false,
+          "loose": true,
+          "useBuiltIns": true
+        }],
+        ["es2015", { "modules": false }],
+        "stage-0",
+        "flow"
+      ]
+    },
+    "development": {
+      "plugins": [
+        ["transform-runtime", {
+          "polyfill": false,
+          "regenerator": true
+        }],
+        "transform-commonjs-es2015-modules",
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "transform-es2015-shorthand-properties",
+        "transform-function-bind",
+        "lodash"
+      ],
+      "presets": [
+        ["env", {
+          "targets": { "node": "6.10" },
+          "modules": false,
+          "loose": true,
+          "useBuiltIns": true
+        }],
+        ["es2015", { "modules": false }],
+        "stage-0",
+        "flow"
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["transform-runtime", {
+          "polyfill": false,
+          "regenerator": true
+        }],
+        "transform-commonjs-es2015-modules",
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "transform-es2015-shorthand-properties",
+        "transform-function-bind",
+        "lodash"
+      ],
+      "presets": [
+        ["env", {
+          "targets": { "node": "6.10" },
+          "modules": false,
+          "loose": true,
+          "useBuiltIns": true
+        }],
+        ["es2015", { "modules": false }],
+        "stage-0",
+        "flow"
+      ]
+    }
+  }
+}
