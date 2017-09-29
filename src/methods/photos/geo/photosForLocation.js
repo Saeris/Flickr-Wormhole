@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function photosForLocation(
+async function photosForLocation(
   { apiKey = Flickr.apiKey, lat = ``, lon = `` } = {},
   { accuracy = ``, extras = ``, page = 1, perPage = 100 } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function photosForLocation(
     `read`
   )
 }
+
+export default photosForLocation

@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function setPerms(
+async function setPerms(
   { apiKey = Flickr.apiKey, photoId = ``, isPublic = 0, isFriend = 0, isFamily = 0 } = {},
   { permComment = 3, permAddmeta = 3 } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function setPerms(
     `write`
   )
 }
+
+export default setPerms

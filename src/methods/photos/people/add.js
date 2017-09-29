@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function add(
+async function add(
   { apiKey = Flickr.apiKey, photoId = ``, userId = `` } = {},
   { personX = ``, personY = ``, personW = ``, personH = `` } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function add(
     `write`
   )
 }
+
+export default add

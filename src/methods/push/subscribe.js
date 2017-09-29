@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function subscribe(
+async function subscribe(
   { apiKey = Flickr.apiKey, topic = ``, callback = ``, verify = `` } = {},
   {
     verifyToken = ``,
@@ -23,3 +23,5 @@ export default async function subscribe(
     `read`
   )
 }
+
+export default subscribe

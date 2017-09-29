@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function placesForTags(
+async function placesForTags(
   { apiKey = Flickr.apiKey, placeTypeId = `` } = {},
   {
     tags = ``,
@@ -34,3 +34,5 @@ export default async function placesForTags(
     }
   )
 }
+
+export default placesForTags

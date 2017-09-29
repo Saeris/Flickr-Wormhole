@@ -3,21 +3,18 @@ import { invariant } from "@/utilities"
 import getListPhoto from "@/methods/tags/getListPhoto"
 
 async function fetchPhotoTags(photoId = ``) {
-  invariant(photoId, missingArgument({photoId}))
+  invariant(photoId, missingArgument({ photoId }))
 
   try {
-    let results = []
+    const { photo = {} } = await getListPhoto({ photoId })
+    const results = []
 
-    const data = await getListPhoto({ photoId })
-
-    if (!!data.photo && !!data.photo.tags && !!data.photo.tags.tag) {
-      for (const res  of data.photo.tags.tag) {
-        results.push({
-          id: res.id,
-          author: res.author,
-          text: res.raw
-        })
-      }
+    for (const res of (photo?.tags)?.tag || []) {
+      results.push({
+        id: res?.id,
+        author: res?.author,
+        text: res?.raw
+      })
     }
 
     info(`Successfully ran fetchPhotoTags`, { photoId, results })

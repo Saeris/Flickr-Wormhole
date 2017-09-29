@@ -3,22 +3,19 @@ import { invariant } from "@/utilities"
 import getList from "@/methods/photos/comments/getList"
 
 async function fetchPhotoComments(photoId = ``) {
-  invariant(photoId, missingArgument({photoId}))
+  invariant(photoId, missingArgument({ photoId }))
   try {
+    const { comments = {} } = await getList({ photoId })
     const results = []
 
-    const data = await getList({ photoId })
-
-    if (!!data.comments && !!data.comments.comment) {
-      for (const res of data.comments.comment) {
-        results.push({
-          id: res.id,
-          author: res.author,
-          created: res.datecreate,
-          url: decodeURI(res.permalink),
-          text: res._content
-        })
-      }
+    for (const res of comments?.comment || []) {
+      results.push({
+        id: res?.id,
+        author: res?.author,
+        created: res?.datecreate,
+        url: decodeURI(res?.permalink),
+        text: res?._content
+      })
     }
 
     info(`Successfully ran fetchPhotoComments`, { photoId, results })

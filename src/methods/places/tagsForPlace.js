@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function tagsForPlace(
+async function tagsForPlace(
   { apiKey = Flickr.apiKey } = {},
   { minUploadDate = ``, maxUploadDate = ``, minTakenDate = ``, maxTakenDate = ``, placeId = ``, woeId = `` } = {}
 ) {
@@ -10,3 +10,5 @@ export default async function tagsForPlace(
     { minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, placeId, woeId }
   )
 }
+
+export default tagsForPlace

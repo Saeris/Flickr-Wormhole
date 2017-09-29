@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getRecentValues(
+async function getRecentValues(
   { apiKey = Flickr.apiKey } = {},
   { namespace = ``, predicate = ``, addedSince = `` } = {}
 ) {
@@ -10,3 +10,5 @@ export default async function getRecentValues(
     { namespace, predicate, addedSince }
   )
 }
+
+export default getRecentValues

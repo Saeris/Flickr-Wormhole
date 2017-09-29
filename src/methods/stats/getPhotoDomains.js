@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getPhotoDomains(
+async function getPhotoDomains(
   { apiKey = Flickr.apiKey, date = `` } = {},
   { photoId = ``, page = 1, perPage = 25 } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function getPhotoDomains(
     `read`
   )
 }
+
+export default getPhotoDomains

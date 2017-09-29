@@ -1,4 +1,11 @@
-import { fetchUserByID, fetchUserAlbums, fetchUserPhotos } from "./resolvers"
+import {
+  fetchUserByID,
+  fetchUserPhotos,
+  fetchUserGalleries,
+  fetchUserAlbums,
+  fetchUserFavorites,
+  fetchPhotoByID
+} from "./resolvers"
 import { Photo } from "./photo"
 import { Gallery } from "./gallery"
 import { Album } from "./album"
@@ -49,19 +56,16 @@ export const User = new GqlObject({
     favorites: {
       type: new GqlList(Photo),
       description: `A list of Photos this User has favorited.`,
-      resolve: type => fetchUserFavorites(type.id)
+      resolve: async type => await fetchUserFavorites(type.id)
+        .then(results => results.map(res => fetchPhotoByID(res.id)))
     },
     isPro: {
       type: GqlBool,
       description: `Flag specifying whether the User is a professional user.`
     },
-    iconServer: {
-      type: GqlString,
-      description: `Server ID used to fetch the User's Icon.`
-    },
-    iconFarm: {
-      type: GqlString,
-      description: `Farm ID used to fetch the User's Icon.`
+    icon: {
+      type: GqlURL,
+      description: `A URL linking to the User's Buddy Icon.`
     },
     alias: {
       type: GqlString,

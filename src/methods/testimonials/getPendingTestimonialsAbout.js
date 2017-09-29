@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getPendingTestimonialsAbout(
+async function getPendingTestimonialsAbout(
   { apiKey = Flickr.apiKey, userId = `` } = {},
   { page = 1, perPage = 10 } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function getPendingTestimonialsAbout(
     `read`
   )
 }
+
+export default getPendingTestimonialsAbout

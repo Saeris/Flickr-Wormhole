@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function placesForContacts(
+async function placesForContacts(
   { apiKey = Flickr.apiKey, placeTypeId = `` } = {},
   {
     contacts = `all`,
@@ -20,3 +20,5 @@ export default async function placesForContacts(
     `read`
   )
 }
+
+export default placesForContacts

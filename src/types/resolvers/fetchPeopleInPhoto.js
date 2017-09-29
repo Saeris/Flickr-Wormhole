@@ -3,23 +3,20 @@ import { invariant } from "@/utilities"
 import getList from "@/methods/photos/people/getList"
 
 async function fetchPeopleInPhoto(photoId = ``) {
-  invariant(photo, missingArgument({photo}))
+  invariant(photoId, missingArgument({ photoId }))
   try {
+    const { people = {} } = await getList({ photoId })
     const results = []
 
-    const data = await getList({ photoId })
-
-    if (!!data.people && !!data.people.person) {
-      for (const res of data.people.person) {
-        results.push({
-          person: res.nsid,
-          addedBy: res.added_by,
-          x: res.x || null,
-          y: res.y || null,
-          width: res.w || null,
-          height: res.h || null
-        })
-      }
+    for (const res of people?.person || []) {
+      results.push({
+        person: res?.nsid,
+        addedBy: res?.added_by,
+        x: res?.x || null,
+        y: res?.y || null,
+        width: res?.w || null,
+        height: res?.h || null
+      })
     }
 
     info(`Successfully ran fetchPeopleInPhoto`, { photoId, results })

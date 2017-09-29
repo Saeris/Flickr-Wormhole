@@ -2,17 +2,15 @@ import getInfo from "@/methods/photos/licenses/getInfo"
 
 async function fetchLicenses() {
   try {
+    const { licenses = {} } = await getInfo()
     const results = []
-    const data = await getInfo()
 
-    if (!!data.licenses && !!data.licenses.license) {
-      for (const res of data.licenses.license) {
-        results.push({
-          id: res.id,
-          name: res.name,
-          url: res.url
-        })
-      }
+    for (const res of licenses?.license || []) {
+      results.push({
+        id: res?.id,
+        name: res?.name,
+        url: res?.url
+      })
     }
 
     info(`Successfully ran fetchLicenses`, { results })

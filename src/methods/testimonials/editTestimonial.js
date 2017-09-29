@@ -1,8 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function editTestimonial(
-  { apiKey = Flickr.apiKey, userId = ``, testimonialId = ``, testimonialText = `` } = {}
-) {
+async function editTestimonial({ apiKey = Flickr.apiKey, userId = ``, testimonialId = ``, testimonialText = `` } = {}) {
   return await Flickr.fetchResource(
     `flickr.testimonials.editTestimonial`,
     { apiKey, testimonialId, testimonialText },
@@ -10,3 +8,5 @@ export default async function editTestimonial(
     `write`
   )
 }
+
+export default editTestimonial

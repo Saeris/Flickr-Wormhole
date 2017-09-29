@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getPhotosetReferrers(
+async function getPhotosetReferrers(
   { apiKey = Flickr.apiKey, date = ``, domain = `` } = {},
   { photosetId = ``, page = 1, perPage = 25 } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function getPhotosetReferrers(
     `read`
   )
 }
+
+export default getPhotosetReferrers

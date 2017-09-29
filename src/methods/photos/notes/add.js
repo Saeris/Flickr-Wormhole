@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function add(
+async function add(
   { apiKey = Flickr.apiKey, photoId = ``, noteX = ``, noteY = ``, noteW = ``, noteH = ``, noteText = `` } = {}
 ) {
   return await Flickr.fetchResource(
@@ -10,3 +10,5 @@ export default async function add(
     `write`
   )
 }
+
+export default add

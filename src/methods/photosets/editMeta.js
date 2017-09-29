@@ -1,9 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function editMeta(
-  { apiKey = Flickr.apiKey, photosetId = ``, title = `` } = {},
-  { description = `` } = {}
-) {
+async function editMeta({ apiKey = Flickr.apiKey, photosetId = ``, title = `` } = {}, { description = `` } = {}) {
   return await Flickr.fetchResource(
     `flickr.photosets.editMeta`,
     { apiKey, photosetId, title },
@@ -11,3 +8,5 @@ export default async function editMeta(
     `write`
   )
 }
+
+export default editMeta

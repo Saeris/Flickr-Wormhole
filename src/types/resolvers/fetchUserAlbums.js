@@ -3,33 +3,31 @@ import { invariant } from "@/utilities"
 import getList from "@/methods/photosets/getList"
 
 async function fetchUserAlbums(userId = ``) {
-  invariant(userId, missingArgument({userId}))
+  invariant(userId, missingArgument({ userId }))
   try {
     let page = 1
     let total = 0
     const results = []
 
     do {
-      const data = await getList({}, { userId, page: page++ })
+      const { photosets = {} } = await getList({}, { userId, page: page++ })
 
-      if (!!data.photosets && !!data.photosets.photoset) {
-        total = data.photosets.pages
+      total = photosets?.pages
 
-        for (const res of data.photosets.photoset) {
-          results.push({
-            id: res.id,
-            title: res.title._content,
-            description: res.description._content,
-            owner: userId,
-            photoCount: res.photos,
-            videoCount: res.videos,
-            views: res.count_views,
-            commentCount: res.count_comments,
-            created: res.date_create,
-            updated: res.date_update,
-            primary: res.primary
-          })
-        }
+      for (const res of photosets?.photoset || []) {
+        results.push({
+          id: res?.id,
+          title: (res?.title)?._content || null,
+          description: (res?.description)?._content || null,
+          owner: userId,
+          photoCount: res?.photos,
+          videoCount: res?.videos,
+          views: res?.count_views,
+          commentCount: res?.count_comments,
+          created: res?.date_create,
+          updated: res?.date_update,
+          primary: res?.primary
+        })
       }
     } while (page <= total)
 

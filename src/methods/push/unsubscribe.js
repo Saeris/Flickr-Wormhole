@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function unsubscribe(
+async function unsubscribe(
   { apiKey = Flickr.apiKey, topic = ``, callback = ``, verify = `` } = {},
   { verifyToken = `` } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function unsubscribe(
     `read`
   )
 }
+
+export default unsubscribe

@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function add({ apiKey = Flickr.apiKey, groupId = ``, topicId = ``, message = `` } = {}) {
+async function add({ apiKey = Flickr.apiKey, groupId = ``, topicId = ``, message = `` } = {}) {
   return await Flickr.fetchResource(
     `flickr.groups.discuss.replies.add`,
     { apiKey, groupId, topicId, message },
@@ -8,3 +8,5 @@ export default async function add({ apiKey = Flickr.apiKey, groupId = ``, topicI
     `write`
   )
 }
+
+export default add

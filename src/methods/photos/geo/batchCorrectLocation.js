@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function batchCorrectLocation(
+async function batchCorrectLocation(
   { apiKey = Flickr.apiKey, lat = ``, lon = ``, accuracy = `` } = {},
   { placeId = ``, woeId = `` } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function batchCorrectLocation(
     `write`
   )
 }
+
+export default batchCorrectLocation

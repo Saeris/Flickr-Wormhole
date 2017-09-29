@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function suggestLocation(
+async function suggestLocation(
   { apiKey = Flickr.apiKey, photoId = ``, lat = ``, lon = `` } = {},
   { accuracy = 16, placeId = ``, woeId = ``, note = `` } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function suggestLocation(
     `write`
   )
 }
+
+export default suggestLocation

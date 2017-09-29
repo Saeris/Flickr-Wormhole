@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function correctLocation(
+async function correctLocation(
   { apiKey = Flickr.apiKey, photoId = ``, foursquareId = `` } = {},
   { placeId = ``, woeId = `` } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function correctLocation(
     `write`
   )
 }
+
+export default correctLocation

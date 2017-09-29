@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getContactsPublicPhotos(
+async function getContactsPublicPhotos(
   { apiKey = Flickr.apiKey, userId = `` } = {},
   { count = 10, justFriends = false, singlePhoto = false, includeSelf = false, extras = `` } = {}
 ) {
@@ -10,3 +10,5 @@ export default async function getContactsPublicPhotos(
     { count, justFriends, singlePhoto, includeSelf, extras }
   )
 }
+
+export default getContactsPublicPhotos

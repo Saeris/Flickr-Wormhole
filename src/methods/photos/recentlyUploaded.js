@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function recentlyUploaded(
+async function recentlyUploaded(
   { apiKey = Flickr.apiKey } = {},
   { minDate = ``, extras = ``, page = 1, perPage = 100 } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function recentlyUploaded(
     `read`
   )
 }
+
+export default recentlyUploaded

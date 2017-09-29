@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getWithoutGeoData(
+async function getWithoutGeoData(
   { apiKey = Flickr.apiKey } = {},
   {
     minUploadDate = ``,
@@ -21,3 +21,5 @@ export default async function getWithoutGeoData(
     `read`
   )
 }
+
+export default getWithoutGeoData

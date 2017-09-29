@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function placesForUser(
+async function placesForUser(
   { apiKey = Flickr.apiKey, userId = ``, placeTypeId = `` } = {},
   {
     minUploadDate = ``,
@@ -19,3 +19,5 @@ export default async function placesForUser(
     `read`
   )
 }
+
+export default placesForUser

@@ -1,5 +1,13 @@
 import { loadLicenses } from "./loaders"
-import { fetchUserByID, fetchPhotoExif, fetchUserPhotos, fetchPhotoImages } from "./resolvers"
+import {
+  fetchUserByID,
+  fetchPhotoExif,
+  fetchPhotoComments,
+  fetchPeopleInPhoto,
+  fetchPhotoTags,
+  fetchPhotoImages,
+  fetchUserPhotos
+} from "./resolvers"
 import { License } from "./license"
 import { User } from "./user"
 import { Exif } from "./exif"
@@ -34,7 +42,7 @@ export const Photo = new GqlObject({
     owner: {
       type: User,
       description: `The User who owns this Photo.`,
-      resolve: async type => await fetchUserByID(type.addedBy)
+      resolve: async type => await fetchUserByID(type.owner)
     },
     title: {
       type: GqlString,

@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getWithGeoData(
+async function getWithGeoData(
   { apiKey = Flickr.apiKey } = {},
   {
     minUploadDate = ``,
@@ -21,3 +21,5 @@ export default async function getWithGeoData(
     `read`
   )
 }
+
+export default getWithGeoData

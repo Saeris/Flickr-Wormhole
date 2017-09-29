@@ -1,4 +1,4 @@
-import { fetchPhotoComments, fetchUserByID } from "./resolvers"
+import { fetchUserByID } from "./resolvers"
 import { User } from "./user"
 
 export const Comment = new GqlObject({
@@ -30,16 +30,6 @@ export const Comment = new GqlObject({
 })
 
 export const Queries = {
-  getPhotoComments: {
-    type: Comment,
-    args: {
-      id: {
-        type: new GqlNonNull(GqlID),
-        description: `A Photo ID used to fetch Comments left on that Photo.`
-      }
-    },
-    resolve: (parent, args, context) => fetchPhotoComments(args.id)
-  }
 }
 
 export const Definition = Comment

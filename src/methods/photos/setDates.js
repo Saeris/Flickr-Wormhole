@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function setDates(
+async function setDates(
   { apiKey = Flickr.apiKey, photoId = `` } = {},
   { datePosted = ``, dateTaken = ``, dateTakenGranularity = `` } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function setDates(
     `write`
   )
 }
+
+export default setDates

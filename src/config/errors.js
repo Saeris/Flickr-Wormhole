@@ -5,8 +5,9 @@ export const unknownError = createError(`UnknownError`, {
 })
 
 export const missingArgument = (argName) => {
+  if (process.env.NODE_ENV === `production`) return `Missing Required Argument`
   if (!!Object.keys(argName)[0] && Object.keys(argName).length === 1) {
-    return `Missing Argument: '${Object.keys(argName)[0]}' cannot be empty.`
+    return `Missing Required Argument: '${Object.keys(argName)[0]}' cannot be empty.`
   }
-  throw new Error(`Missing Argument: Must pass a hash containing a single key.`)
+  throw new Error(`Missing Required Argument: Must pass a hash containing a single key.`)
 }

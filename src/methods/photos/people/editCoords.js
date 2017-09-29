@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function editCoords(
+async function editCoords(
   { apiKey = Flickr.apiKey, photoId = ``, userId = ``, personX = ``, personY = ``, personW = ``, personH = `` } = {}
 ) {
   return await Flickr.fetchResource(
@@ -10,3 +10,5 @@ export default async function editCoords(
     `write`
   )
 }
+
+export default editCoords

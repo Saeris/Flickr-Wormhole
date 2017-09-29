@@ -3,7 +3,7 @@ import { invariant } from "@/utilities"
 import getPhotos from "@/methods/people/getPhotos"
 
 async function fetchUserPhotos(userId = ``) {
-  invariant(userId, missingArgument({userId}))
+  invariant(userId, missingArgument({ userId }))
   try {
     const extras = [
       `description`,
@@ -21,32 +21,29 @@ async function fetchUserPhotos(userId = ``) {
     const results = []
 
     do {
-      const data = await getPhotos({ userId }, { extras, page: page++ })
-      console.log(data)
+      const { photos = {} } = await getPhotos({ userId }, { extras, page: page++ })
 
-      if (!!data.photos && !!data.photos.pages && !!data.photos.photo) {
-        total = data.photos.pages
+      total = photos?.pages
 
-        for (const res of data.photos.photo) {
-          results.push({
-            id: res.id,
-            secret: res.secret,
-            server: res.server,
-            license: res.license,
-            owner: res.owner,
-            title: res.title,
-            caption: res.description._content,
-            views: res.views,
-            format: res.originalformat,
-            media: res.media,
-            public: !!res.ispublic,
-            friends: !!res.isfriend,
-            family: !!res.isfamily,
-            posted: res.dataupload,
-            taken: res.datetaken,
-            updated: res.lastupdate
-          })
-        }
+      for (const res of photos?.photo || []) {
+        results.push({
+          id: res?.id,
+          secret: res?.secret,
+          server: res?.server,
+          license: res?.license,
+          owner: res?.owner,
+          title: res?.title,
+          caption: (res?.description)?._content,
+          views: res?.views,
+          format: res?.originalformat,
+          media: res?.media,
+          public: !!res?.ispublic,
+          friends: !!res?.isfriend,
+          family: !!res?.isfamily,
+          posted: res?.dataupload,
+          taken: res?.datetaken,
+          updated: res?.lastupdate
+        })
       }
     } while (page <= total)
 

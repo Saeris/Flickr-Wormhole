@@ -2,22 +2,21 @@ import getInfo from "@/methods/people/getInfo"
 
 async function fetchUserByID(userId = `me`) {
   try {
-    const data = await getInfo({ userId })
+    const { person = {} } = await getInfo({ userId })
 
-    const result = !!data.person
-      ? {
-        id: data.person.id,
-        username: data.person.username._content,
-        fullname: data.person.realname._content,
-        bio: data.person.description._content,
-        location: data.person.location._content,
-        profile: data.person.profileurl._content,
-        isPro: !!data.person.isPro,
-        iconServer: data.person.iconserver,
-        iconFarm: data.person.iconfarm,
-        alias: data.person.path_alias
-      }
-      : {}
+    const result = {
+      id: person?.id,
+      username: (person?.username)?._content,
+      fullname: (person?.realname)?._content,
+      bio: (person?.description)?._content,
+      location: (person?.location)?._content,
+      profile: (person?.profileurl)?._content,
+      isPro: !!person?.isPro,
+      icon: !!person?.iconfarm && !!person?.iconserver && !!person?.id
+        ? `http://farm${person?.iconfarm}.staticflickr.com/${person?.iconserver}/buddyicons/${person?.id}.jpg`
+        : `https://www.flickr.com/images/buddyicon.gif`,
+      alias: person?.path_alias
+    }
 
     info(`Successfully ran fetchUserByID`, { userId, result })
     return result

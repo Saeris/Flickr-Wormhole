@@ -1,5 +1,7 @@
 import Flickr from "@/flickr"
 
-export default async function getRelated({ apiKey = Flickr.apiKey, tag = `` } = {}) {
+async function getRelated({ apiKey = Flickr.apiKey, tag = `` } = {}) {
   return await Flickr.fetchResource(`flickr.tags.getRelated`, { apiKey, tag })
 }
+
+export default getRelated

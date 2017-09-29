@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function postPhoto(
+async function postPhoto(
   { apiKey = Flickr.apiKey, photoId = ``, title = ``, description = `` } = {},
   { blogId = ``, blogPassword = ``, service = `` } = {}
 ) {
@@ -11,3 +11,5 @@ export default async function postPhoto(
     `write`
   )
 }
+
+export default postPhoto

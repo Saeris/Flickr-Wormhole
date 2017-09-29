@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getPublicList(
+async function getPublicList(
   { apiKey = Flickr.apiKey, userId = `` } = {},
   { minFaveDate = ``, maxFaveDate = ``, extras = ``, page = 1, perPage = 100 } = {}
 ) {
@@ -10,3 +10,5 @@ export default async function getPublicList(
     { minFaveDate, maxFaveDate, extras, page, perPage }
   )
 }
+
+export default getPublicList

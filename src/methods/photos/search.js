@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function search(
+async function search(
   { apiKey = Flickr.apiKey } = {},
   {
     userId = ``,
@@ -80,3 +80,5 @@ export default async function search(
     }
   )
 }
+
+export default search
