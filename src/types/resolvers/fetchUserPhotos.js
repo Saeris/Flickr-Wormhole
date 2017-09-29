@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getPhotos from "@/methods/people/getPhotos"
 
-export default async function fetchUserPhotos(userId = ``) {
+async function fetchUserPhotos(userId = ``) {
   invariant(userId, missingArgument({userId}))
   try {
     const extras = [
@@ -56,3 +56,5 @@ export default async function fetchUserPhotos(userId = ``) {
     error(`Failed to run fetchUserPhotos`, err)
   }
 }
+
+export default fetchUserPhotos

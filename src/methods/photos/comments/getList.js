@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getList(
+async function getList(
   { apiKey = Flickr.apiKey, photoId = `` } = {},
   { minCommentDate = ``, maxCommentDate = `` } = {}
 ) {
@@ -10,3 +10,5 @@ export default async function getList(
     { minCommentDate, maxCommentDate }
   )
 }
+
+export default getList

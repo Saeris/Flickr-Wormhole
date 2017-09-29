@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getExif from "@/methods/photos/getExif"
 
-export default async function fetchPhotoExif(photoId = ``) {
+async function fetchPhotoExif(photoId = ``) {
   invariant(photoId, missingArgument({photoId}))
   try {
     const data = await getExif({ photoId })
@@ -68,3 +68,5 @@ export default async function fetchPhotoExif(photoId = ``) {
     error(`Failed to run fetchPhotoExif`, err)
   }
 }
+
+export default fetchPhotoExif

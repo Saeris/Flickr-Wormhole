@@ -2,7 +2,6 @@ const { join } = require(`path`)
 const slsw = require(`serverless-webpack`)
 const nodeExternals = require(`webpack-node-externals`)
 const MinifyPlugin = require(`babel-minify-webpack-plugin`)
-const LodashModuleReplacementPlugin = require(`lodash-webpack-plugin`)
 const { DefinePlugin, ProvidePlugin, optimize } = require(`webpack`)
 const { ModuleConcatenationPlugin } = optimize
 
@@ -14,15 +13,18 @@ const envDev = ENV === `development`
 const envProd = ENV === `production`
 //const envTest = ENV === `test`
 const srcDir = join(__dirname, `src`)
+const outDir = join(__dirname, `dist`)
 const npmDir = join(__dirname, `node_modules`)
 
 module.exports = {
   entry: slsw.lib.entries,
   target: `node`,
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    modulesFromFile: true
+  })],
   output: {
     libraryTarget: `commonjs`,
-    path: join(__dirname, `.webpack`),
+    path: outDir,
     filename: `[name].js`
   },
   stats: {
@@ -37,15 +39,25 @@ module.exports = {
     extensions: [`.js`, `.json`, `.gql`, `.graphql`],
     alias: {
       '@': srcDir
-    },
-    modules: [
-      srcDir,
-      npmDir
-    ]
+    }
   },
   module: {
     rules: [
-      { test: /\.js$/, loader: `babel-loader`, options: { forceEnv: ENV } },
+      { test: /\.js$/, loader: `babel-loader`, exclude: npmDir, options: {
+        plugins: [
+          `transform-optional-chaining`,
+          `transform-object-rest-spread`,
+          `transform-es2015-shorthand-properties`
+        ],
+        presets: [
+          [`env`, {
+            targets: { node: `6.10` },
+            useBuiltIns: `usage`
+          }],
+          `stage-0`,
+          `flow`
+        ]
+      } },
       { test: /\.json$/, loader: `json-loader` },
       { test: /\.(graphql|gql)$/, exclude: npmDir, loader: `graphql-tag/loader` }
     ]
@@ -84,13 +96,12 @@ module.exports = {
       GqlURL: [`graphql-custom-types`, `GraphQLURL`],
       // Daraloader
       Dataloader: `dataloader`,
-      // winston
+      // Winston
       log: [`winston`, `log`],
       info: [`winston`, `info`],
       debug: [`winston`, `debug`],
       error: [`winston`, `error`]
     }),
-    new LodashModuleReplacementPlugin(),
     new ModuleConcatenationPlugin(),
     new MinifyPlugin({
       keepFnName: envDev,

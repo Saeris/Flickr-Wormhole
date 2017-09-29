@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getSizes from "@/methods/photos/getSizes"
 
-export default async function fetchPhotoImages(photoId = ``) {
+async function fetchPhotoImages(photoId = ``) {
   invariant(photoId, missingArgument({photoId}))
   try {
     const data = await getSizes({ photoId })
@@ -31,3 +31,5 @@ export default async function fetchPhotoImages(photoId = ``) {
     error(`Failed to run fetchPhotoImages`, err)
   }
 }
+
+export default fetchPhotoImages

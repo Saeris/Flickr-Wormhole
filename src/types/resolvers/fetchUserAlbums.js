@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getList from "@/methods/photosets/getList"
 
-export default async function fetchUserAlbums(userId = ``) {
+async function fetchUserAlbums(userId = ``) {
   invariant(userId, missingArgument({userId}))
   try {
     let page = 1
@@ -39,3 +39,5 @@ export default async function fetchUserAlbums(userId = ``) {
     error(`Failed to run fetchUserAlbums`, err)
   }
 }
+
+export default fetchUserAlbums

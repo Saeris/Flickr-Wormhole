@@ -11,7 +11,7 @@ class Flickr {
 
   endpoint = `https://api.flickr.com/services/rest/`
 
-  async fetchResource(method = ``, args = {}, options = {}, requiresAuth = false) {
+  fetchResource = async(method = ``, args = {}, options = {}, requiresAuth = false) => {
     const required = Object.entries(args)
       .map(([key, value]) => {
         invariant(value, missingArgument({[snake(`${key}`)]: key}))
@@ -27,10 +27,10 @@ class Flickr {
       .then(res => res.json())
       .then((data) => {
         if (data.stat === `fail`) throw new Error(data.message)
+        info(`Successfully fetched resource: ${method}`, { method, args, options, requiresAuth })
         return data
       })
       .catch(err => error(`Failed to fetch resource: ${method}`, err))
-      .finally(info(`Successfully fetched resource: ${method}`, { method, args, options, requiresAuth }))
   }
 }
 

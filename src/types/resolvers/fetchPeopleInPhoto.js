@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getList from "@/methods/photos/people/getList"
 
-export default async function fetchPeopleInPhoto(photoId = ``) {
+async function fetchPeopleInPhoto(photoId = ``) {
   invariant(photo, missingArgument({photo}))
   try {
     const results = []
@@ -28,3 +28,5 @@ export default async function fetchPeopleInPhoto(photoId = ``) {
     error(`Failed to run fetchPeopleInPhoto`, err)
   }
 }
+
+export default fetchPeopleInPhoto

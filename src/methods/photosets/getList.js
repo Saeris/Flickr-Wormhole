@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getList(
+async function getList(
   { apiKey = Flickr.apiKey } = {},
   { userId = ``, primaryPhotoExtras = ``, page = 0, perPage = 0 } = {}
 ) {
@@ -10,3 +10,5 @@ export default async function getList(
     { userId, primaryPhotoExtras, page, perPage }
   )
 }
+
+export default getList

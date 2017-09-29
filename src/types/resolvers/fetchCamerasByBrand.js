@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getBrandModels from "@/methods/cameras/getBrandModels"
 
-export default async function fetchCamerasByBrand(brand = ``) {
+async function fetchCamerasByBrand(brand = ``) {
   invariant(brand, missingArgument({brand}))
   try {
     const results = []
@@ -40,3 +40,5 @@ export default async function fetchCamerasByBrand(brand = ``) {
     error(`Failed to run fetchCamerasByBrand`, err)
   }
 }
+
+export default fetchCamerasByBrand

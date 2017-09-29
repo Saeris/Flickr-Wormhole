@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getListPhoto from "@/methods/tags/getListPhoto"
 
-export default async function fetchPhotoTags(photoId = ``) {
+async function fetchPhotoTags(photoId = ``) {
   invariant(photoId, missingArgument({photoId}))
 
   try {
@@ -26,3 +26,5 @@ export default async function fetchPhotoTags(photoId = ``) {
     error(`Failed to run fetchPhotoTags`, err)
   }
 }
+
+export default fetchPhotoTags

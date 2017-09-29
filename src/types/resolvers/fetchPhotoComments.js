@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getList from "@/methods/photos/comments/getList"
 
-export default async function fetchPhotoComments(photoId = ``) {
+async function fetchPhotoComments(photoId = ``) {
   invariant(photoId, missingArgument({photoId}))
   try {
     const results = []
@@ -27,3 +27,5 @@ export default async function fetchPhotoComments(photoId = ``) {
     error(`Failed to run fetchPhotoComments`, err)
   }
 }
+
+export default fetchPhotoComments

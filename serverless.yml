@@ -11,11 +11,18 @@ provider:
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-domain-manager
 
 custom:
   serverless-offline:
     port: 1337
   webpackIncludeModules: true
+  customDomain:
+    domainName: flickr.saeris.io
+    basePath: ''
+    stage: ${self:provider.stage}
+    certificateName: 
+    createRoute53Record: true
 
 functions:
   api:

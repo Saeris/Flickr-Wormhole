@@ -1,17 +1,15 @@
 import getBrands from "@/methods/cameras/getBrands"
 
-export default async function fetchBrands() {
+async function fetchBrands() {
   try {
     const results = []
     const data = await getBrands()
 
-    if (!!data.brands && !!data.brands.brand) {
-      for (const res of data.brands.brand) {
-        results.push({
-          id: res.id,
-          name: res.name
-        })
-      }
+    for (const res of data?.brands?.brand) {
+      results.push({
+        id: res.id,
+        name: res.name
+      })
     }
 
     info(`Successfully ran fetchBrands`, { results })
@@ -20,3 +18,5 @@ export default async function fetchBrands() {
     error(`Failed to run fetchBrands`, err)
   }
 }
+
+export default fetchBrands

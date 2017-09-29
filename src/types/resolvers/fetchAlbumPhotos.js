@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getPhotos from "@/methods/photosets/getPhotos"
 
-export default async function fetchAlbumPhotos(userId = ``, photosetId = ``) {
+async function fetchAlbumPhotos(userId = ``, photosetId = ``) {
   invariant(userId, missingArgument({userId}))
   invariant(photosetId, missingArgument({photosetId}))
   try {
@@ -57,3 +57,5 @@ export default async function fetchAlbumPhotos(userId = ``, photosetId = ``) {
     error(`Failed to run fetchAlbumPhotos`, err)
   }
 }
+
+export default fetchAlbumPhotos

@@ -2,7 +2,7 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getList from "@/methods/favorites/getList"
 
-export default async function fetchUserFavorites(userId = ``) {
+async function fetchUserFavorites(userId = ``) {
   invariant(userId, missingArgument({userId}))
   try {
     let page = 1
@@ -29,3 +29,5 @@ export default async function fetchUserFavorites(userId = ``) {
     error(`Failed to run fetchUserFavorites`, err)
   }
 }
+
+export default fetchUserFavorites

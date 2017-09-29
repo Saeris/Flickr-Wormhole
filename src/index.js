@@ -1,4 +1,3 @@
-'use strict' // eslint-disable-line strict
 import hapi from "hapi"
 import good from "./good"
 import api from "./api"

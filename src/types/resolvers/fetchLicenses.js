@@ -1,6 +1,6 @@
 import getInfo from "@/methods/photos/licenses/getInfo"
 
-export default async function fetchLicenses() {
+async function fetchLicenses() {
   try {
     const results = []
     const data = await getInfo()
@@ -21,3 +21,5 @@ export default async function fetchLicenses() {
     error(`Failed to run fetchLicenses`, err)
   }
 }
+
+export default fetchLicenses

@@ -1,6 +1,6 @@
 import getInfo from "@/methods/people/getInfo"
 
-export default async function fetchUserByID(userId = `me`) {
+async function fetchUserByID(userId = `me`) {
   try {
     const data = await getInfo({ userId })
 
@@ -25,3 +25,5 @@ export default async function fetchUserByID(userId = `me`) {
     error(`Failed to run fetchUserByID`, err)
   }
 }
+
+export default fetchUserByID

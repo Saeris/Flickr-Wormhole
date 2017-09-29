@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-export default async function getPhotos(
+async function getPhotos(
   { apiKey = Flickr.apiKey, userId = `` } = {},
   {
     safeSearch = 0,
@@ -32,3 +32,5 @@ export default async function getPhotos(
     }
   )
 }
+
+export default getPhotos
