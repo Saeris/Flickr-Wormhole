@@ -13,6 +13,7 @@
     "node": "8.5.0"
   },
   "scripts": {
+    "precommit": "lint-staged",
     "start": "npm run start-server-lambda:offline",
     "start-server-lambda:offline": "env-cmd ./env/security.env.local serverless offline start --dontPrintOutput",
     "deploy-server-lambda-prod": "npm run generate:config:prod && serverless --stage=production deploy"
