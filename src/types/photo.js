@@ -2,6 +2,9 @@ import { loadLicenses } from "./loaders"
 import {
   fetchUserByID,
   fetchPhotoExif,
+  fetchPhotoLocation,
+  fetchPlaceByID,
+  fetchPhotoNotes,
   fetchPhotoComments,
   fetchPeopleInPhoto,
   fetchPhotoTags,
@@ -12,6 +15,7 @@ import { License } from "./license"
 import { User } from "./user"
 import { Exif } from "./exif"
 import { Place } from "./place"
+import { Note } from "./note"
 import { Comment } from "./comment"
 import { Person } from "./person"
 import { Tag } from "./tag"
@@ -100,7 +104,12 @@ export const Photo = new GqlObject({
     location: {
       type: Place,
       description: `The Place where the Photo was taken.`,
-      resolve: async type => await fetchPlaceByID(type.place)
+      resolve: async type => await fetchPhotoLocation(type.id).then(res => !!res ? fetchPlaceByID(res) : null)
+    },
+    notes: {
+      type: new GqlList(Note),
+      description: `A List of Notes left on this Photo.`,
+      resolve: async type => await fetchPhotoNotes(type.id)
     },
     comments: {
       type: new GqlList(Comment),

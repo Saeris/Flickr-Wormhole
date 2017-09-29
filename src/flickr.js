@@ -30,7 +30,10 @@ class Flickr {
         info(`Successfully fetched resource: ${method}`, { method, args, options, requiresAuth })
         return data
       })
-      .catch(err => error(`Failed to fetch resource: ${method}`, err))
+      .catch((err) => {
+        error(`Failed to fetch resource: ${method}`, err)
+        return {}
+      })
   }
 }
 

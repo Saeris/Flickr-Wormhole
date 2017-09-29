@@ -2,6 +2,10 @@ export const Place = new GqlObject({
   name: `Place`,
   description: `A Flickr Place Object.`,
   fields: () => ({
+    name: {
+      type: GqlString,
+      description: `The Name of the Place, if it has one.`
+    },
     id: {
       type: GqlID,
       description: `Flickr Places ID`
@@ -14,7 +18,7 @@ export const Place = new GqlObject({
       type: GqlFloat,
       description: `Latitude value of the Place.`
     },
-    long: {
+    lon: {
       type: GqlFloat,
       description: `Longitude value of the Place.`
     },
@@ -26,10 +30,12 @@ export const Place = new GqlObject({
       type: new GqlEnum({
         name: `PlaceType`,
         values: {
+          neighbourhood: {},
           locality: {},
           county: {},
           region: {},
-          country: {}
+          country: {},
+          continent: {}
         }
       }),
       description: `The category of Place this is organized under.`
