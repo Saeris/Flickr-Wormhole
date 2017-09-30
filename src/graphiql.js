@@ -5,7 +5,7 @@ export default {
   options: {
     path: `/graphiql`,
     graphiqlOptions: {
-      endpointURL: `/graphql`
+      endpointURL: `${ENV === `production` ? `/production` : ``}/`
     }
   }
 }

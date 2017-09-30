@@ -5,7 +5,7 @@ export const unknownError = createError(`UnknownError`, {
 })
 
 export const missingArgument = (argName) => {
-  if (process.env.NODE_ENV === `production`) return `Missing Required Argument`
+  if (ENV === `production`) return `Missing Required Argument`
   if (!!Object.keys(argName)[0] && Object.keys(argName).length === 1) {
     return `Missing Required Argument: '${Object.keys(argName)[0]}' cannot be empty.`
   }

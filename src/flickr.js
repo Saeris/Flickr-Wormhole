@@ -1,3 +1,4 @@
+import "isomorphic-fetch"
 import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 
@@ -37,4 +38,4 @@ class Flickr {
   }
 }
 
-export default new Flickr(process.env.FLICKR_API_KEY)
+export default new Flickr(FLICKR_API_KEY)

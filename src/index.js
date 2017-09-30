@@ -1,19 +1,7 @@
-import hapi from "hapi"
-import good from "./good"
-import api from "./api"
-import graphiql from "./graphiql"
-
-const server = new hapi.Server()
-server.connection({routes: { cors: true}})
-
-const plugins = [
-  good,
-  api,
-  graphiql
-]
+import server from "./server"
 
 exports.handler = (event, context, callback) => { // eslint-disable-line
-  server.register(plugins, (err) => { //eslint-disable-line
+  server.makeReady((err) => { //eslint-disable-line
     if (err) throw err
 
     let path = event.path

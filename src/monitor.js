@@ -7,14 +7,14 @@ Winston.configure({
   transports: [
     /*
     new (Winston.transports.Loggly)({
-      token: process.env.LOGGLY_TOKEN,
-      subdomain: process.env.LOGGLY_SUBDOMAIN,
+      token: LOGGLY_TOKEN,
+      subdomain: LOGGLY_SUBDOMAIN,
       tags: [`Winston-NodeJS`],
       json: true
     }),
     */
     new (Winston.transports.Console)({
-      level: process.env.LOGLEVEL || `info`,
+      level: ENV === `production` ? `error` : LOGLEVEL || `info`,
       prettyPrint: true,
       handleExceptions: true,
       humanReadableUnhandledException: true,

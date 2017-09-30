@@ -9,7 +9,7 @@ const dotenv = require(`dotenv`)
 dotenv.config()
 
 const ENV = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() || (process.env.NODE_ENV = `development`)
-const envDev = ENV === `development`
+//const envDev = ENV === `development`
 const envProd = ENV === `production`
 //const envTest = ENV === `test`
 const srcDir = join(__dirname, `src`)
@@ -66,12 +66,8 @@ module.exports = {
     new DefinePlugin({
       '__DEV__': !envProd,
       'ENV': JSON.stringify(ENV),
-      'process.env': {
-        ENV: JSON.stringify(ENV),
-        NODE_ENV: JSON.stringify(ENV),
-        LOGLEVEL: JSON.stringify(process.env.LOGLEVEL),
-        FLICKR_API_KEY: JSON.stringify(process.env.FLICKR_API_KEY)
-      }
+      LOGLEVEL: JSON.stringify(process.env.LOGLEVEL),
+      FLICKR_API_KEY: JSON.stringify(process.env.FLICKR_API_KEY)
     }),
     new ProvidePlugin({
       // GraphQL
@@ -104,13 +100,13 @@ module.exports = {
     }),
     new ModuleConcatenationPlugin(),
     new MinifyPlugin({
-      keepFnName: envDev,
-      keepClassName: envDev,
+      keepFnName: true,
+      keepClassName: true,
       booleans: envProd,
       deadcode: true,
       evaluate: envProd,
       flipComparisons: envProd,
-      mangle: envProd,
+      mangle: false,
       memberExpressions: envProd,
       mergeVars: envProd,
       numericLiterals: envProd,
