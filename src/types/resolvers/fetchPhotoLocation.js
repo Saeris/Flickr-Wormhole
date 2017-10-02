@@ -2,10 +2,11 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getLocation from "@/methods/photos/geo/getLocation"
 
-async function fetchPhotoLocation(photoId = ``) {
+async function fetchPhotoLocation({ flickr, photoId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(photoId, missingArgument({ photoId }))
   try {
-    const { photo = {} } = await getLocation({ photoId })
+    const { photo = {} } = await getLocation({ flickr, photoId })
     const result = (photo?.location)?.place_id || null
 
     info(`Successfully ran fetchPhotoLocation`, { photoId, result })

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getHotList({ apiKey = Flickr.apiKey } = {}, { period = `day`, count = 20 } = {}) {
-  return await Flickr.fetchResource(`flickr.tags.getHotList`, { apiKey }, { period, count })
+async function getHotList({ flickr = Flickr } = {}, { period = `day`, count = 20 } = {}) {
+  return await flickr.fetchResource(`flickr.tags.getHotList`, {}, { period, count })
 }
 
 export default getHotList

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function addComment({ apiKey = Flickr.apiKey, photoId = ``, commentText = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.comments.addComment`, { apiKey, photoId, commentText }, {}, `write`)
+async function addComment({ flickr = Flickr, photoId = ``, commentText = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.comments.addComment`, { photoId, commentText }, {}, `write`)
 }
 
 export default addComment

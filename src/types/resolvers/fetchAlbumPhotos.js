@@ -2,50 +2,21 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getPhotos from "@/methods/photosets/getPhotos"
 
-async function fetchAlbumPhotos(userId = ``, photosetId = ``) {
+async function fetchAlbumPhotos({ flickr, userId = ``, photosetId = ``, offset = 1, perPage = 500 } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(userId, missingArgument({ userId }))
   invariant(photosetId, missingArgument({ photosetId }))
   try {
-    const extras = [
-      `description`,
-      `license`,
-      `date_upload`,
-      `date_taken`,
-      `original_format`,
-      `last_update`,
-      `tags`,
-      `views`,
-      `media`
-    ].join(`,`)
-    let page = 1
+    let page = offset
     let total = 0
     const results = []
 
     do {
-      const { photoset = {} } = await getPhotos({ userId, photosetId }, { extras, page: page++ })
+      const { photoset = {} } = await getPhotos({ flickr, userId, photosetId }, { page: page++, perPage })
 
-      total = photoset?.pages
+      total = perPage < 500 ? 1 : perPage > 500 ? parseInt(perPage / 500, 10) : photoset?.pages
 
-      for (const res of photoset?.photo || []) {
-        results.push({
-          id: res?.id,
-          secret: res?.secret,
-          server: res?.server,
-          license: res?.license,
-          owner: res?.owner,
-          title: res?.title,
-          caption: (res?.description)?._content,
-          views: res?.views,
-          format: res?.originalformat,
-          media: res?.media,
-          public: !!res?.ispublic,
-          friends: !!res?.isfriend,
-          family: !!res?.isfamily,
-          posted: res?.dataupload,
-          taken: res?.datetaken,
-          updated: res?.lastupdate
-        })
-      }
+      photoset?.photo?.map(res => results.push(res?.id))
     } while (page <= total)
 
     info(`Successfully ran fetchAlbumPhotos`, { userId, photosetId, results })

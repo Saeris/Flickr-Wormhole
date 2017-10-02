@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function browse({ apiKey = Flickr.apiKey } = {}, { catId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.groups.browse`, { apiKey }, { catId }, `read`)
+async function browse({ flickr = Flickr } = {}, { catId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.groups.browse`, {}, { catId }, `read`)
 }
 
 export default browse

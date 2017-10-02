@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getLimits({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.people.getLimits`, { apiKey }, {}, `read`)
+async function getLimits({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.people.getLimits`, {}, {}, `read`)
 }
 
 export default getLimits

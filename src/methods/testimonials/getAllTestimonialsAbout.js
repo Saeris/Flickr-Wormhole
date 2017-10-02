@@ -1,9 +1,9 @@
 import Flickr from "@/flickr"
 
-async function getAllTestimonialsAbout({ apiKey = Flickr.apiKey, userId = `` } = {}, { page = 1, perPage = 10 } = {}) {
-  return await Flickr.fetchResource(
+async function getAllTestimonialsAbout({ flickr = Flickr, userId = `` } = {}, { page = 1, perPage = 10 } = {}) {
+  return await flickr.fetchResource(
     `flickr.testimonials.getAllTestimonialsAbout`,
-    { apiKey, userId },
+    { userId },
     { page, perPage },
     `read`
   )

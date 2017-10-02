@@ -1,4 +1,5 @@
-import { fetchUserByID, fetchPhotoByID, fetchAlbumPhotos, fetchAlbumComments } from "./resolvers"
+import { loadUser, loadPhoto } from "./loaders"
+import { fetchAlbumPhotos, fetchAlbumComments, fetchAlbumByID } from "./resolvers"
 import { User } from "./user"
 import { Photo } from "./photo"
 import { Comment } from "./comment"
@@ -8,7 +9,7 @@ export const Album = new GqlObject({
   description: `A Flickr Album (Photoset) Object.`,
   fields: () => ({
     id: {
-      type: GqlID,
+      type: new GqlNonNull(GqlID),
       description: `The album's ID.`
     },
     title: {
@@ -20,9 +21,10 @@ export const Album = new GqlObject({
       description: `A description of the album.`
     },
     owner: {
-      type: User,
+      type: new GqlNonNull(User),
       description: `The User who is the owner of this album.`,
-      resolve: type => fetchUserByID(type.owner)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ owner: userId }, args, { flickr }) => loadUser(flickr).load(userId)
     },
     photoCount: {
       type: GqlInt,
@@ -41,32 +43,60 @@ export const Album = new GqlObject({
       description: `How many comments this album has.`
     },
     created: {
-      type: GqlDateTime,
+      type: new GqlNonNull(GqlDateTime),
       description: `The date and time when this album was created.`
     },
     updated: {
-      type: GqlDateTime,
+      type: new GqlNonNull(GqlDateTime),
       description: `The last date and time that this album was updated.`
     },
     primary: {
       type: Photo,
       description: `The primary Photo of this album, used as a thumbnail and banner image.`,
-      resolve: type => fetchPhotoByID(type.primary)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ primary: photoID }, args, { flickr }) => loadPhoto(flickr).load(photoId)
     },
     photos: {
       type: new GqlList(Photo),
       description: `A list of Photos belonging to this Album.`,
-      resolve: type => fetchAlbumPhotos(type.owner, type.id)
+      args: {
+        first: { type: GqlInt, defaultValue: 0 },
+        last : { type: GqlInt, defaultValue: 0 },
+        count: { type: GqlInt, defaultValue: 500 },
+        offset: { type: GqlInt, defaultValue: 0 }
+      },
+      complexity: ({ count }, childComplexity) => childComplexity * count,
+      resolve: async({ owner: userId, id: photosetId, photoCount, videoCount }, { first, last, count, offset }, { flickr }) =>
+        await fetchAlbumPhotos({
+          flickr,
+          userId,
+          photosetId,
+          offset: !!last
+            ? Math.floor((photoCount + videoCount) / ((photoCount + videoCount) - (last + offset))) // count offset by n from the total
+            : !!first // total pages
+              ? (Math.floor((photoCount + videoCount) / first) || 1) * (first + offset)
+              : offset || 1, //
+          perPage: !!last ? (photoCount + videoCount) : first || count || (photoCount + videoCount)
+        }).then(results => results.length > 0 ? loadPhoto(flickr).loadMany(results) : [])
     },
     comments: {
       type: new GqlList(Comment),
       description: `A list of Comments left on this Album.`,
-      resolve: type => fetchAlbumComments(type.id)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ id: photosetId }, args, { flickr }) => fetchAlbumComments({ flickr, photosetId })
     }
   })
 })
 
 export const Queries = {
+  getAlbumByID: {
+    type: Album,
+    args: {
+      user: { type: new GqlNonNull(GqlID) },
+      id: { type: new GqlNonNull(GqlID) }
+    },
+    resolve: (parent, { user: userId, id: photosetId }, { flickr }) => fetchAlbumByID({ flickr, userId, photosetId })
+  }
 }
 
 export const Definition = Album

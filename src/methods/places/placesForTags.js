@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
 async function placesForTags(
-  { apiKey = Flickr.apiKey, placeTypeId = `` } = {},
+  { flickr = Flickr, placeTypeId = `` } = {},
   {
     tags = ``,
     tagsMode = ``,
@@ -16,9 +16,9 @@ async function placesForTags(
     woeId = ``
   } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.places.placesForTags`,
-    { apiKey, placeTypeId },
+    { placeTypeId },
     {
       tags,
       tagsMode,

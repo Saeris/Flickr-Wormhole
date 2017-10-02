@@ -1,4 +1,4 @@
-import { fetchPhotoByID, fetchUserByID } from "./resolvers"
+import { loadPhoto, loadUser } from "./loaders"
 import { Photo } from "./photo"
 import { User } from "./user"
 
@@ -13,12 +13,14 @@ export const Note = new GqlObject({
     photo: {
       type: Photo,
       description: `The Photo this Note belongs to.`,
-      resolve: async type => fetchPhotoByID(type.photo)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ photo: photoId }, args, { flickr }) => loadPhoto(flickr).load(photoId)
     },
     author: {
       type: User,
       description: `The User who wrote this Note.`,
-      resolve: async type => await fetchUserByID(type.author)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ author: userId }, args, { flickr }) => loadUser(flickr).load(userId)
     },
     text: {
       type: GqlString,

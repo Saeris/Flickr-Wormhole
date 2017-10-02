@@ -2,7 +2,8 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getList from "@/methods/favorites/getList"
 
-async function fetchUserFavorites(userId = ``) {
+async function fetchUserFavorites({ flickr, userId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(userId, missingArgument({ userId }))
   try {
     let page = 1
@@ -10,15 +11,11 @@ async function fetchUserFavorites(userId = ``) {
     const results = []
 
     do {
-      const { photos = {} } = await getList({}, { userId, page: page++ })
+      const { photos = {} } = await getList({ flickr }, { userId, page: page++ })
 
       total = photos?.pages
 
-      for (const res of photos?.photo || []) {
-        results.push({
-          id: res?.id
-        })
-      }
+      photos?.photo?.map(res => results.push(res?.id))
     } while (page <= total)
 
     info(`Successfully ran fetchUserFavorites`, { userId, results })

@@ -1,10 +1,15 @@
+import { loadPhoto } from "./loaders"
+import { Photo } from "./photo"
+
 export const Image = new GqlObject({
   name: `Image`,
   description: `A Flickr Image Object`,
   fields: () => ({
-    id: {
-      type: GqlID,
-      description: `The ID of the Photo this Image is associated with.`
+    photo: {
+      type: Photo,
+      description: `Rhe Photo this Image is associated with.`,
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ photoId }, args, { flickr }) => loadPhoto(flickr).load(photoId)
     },
     canBlog: {
       type: GqlBool,
@@ -62,16 +67,6 @@ export const Image = new GqlObject({
 })
 
 export const Queries = {
-  getImage: {
-    type: Image,
-    args: {
-      id: {
-        type: new GqlNonNull(GqlID),
-        description: ``
-      }
-    }
-    //resolve: (parent, args, context) => fetchCamerasByBrand(args.id)
-  }
 }
 
 export const Definition = Image

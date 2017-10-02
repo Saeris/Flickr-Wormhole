@@ -1,10 +1,7 @@
+import { loadUser, loadUserPhotos, loadUserAlbums, loadPhoto } from "./loaders"
 import {
-  fetchUserByID,
-  fetchUserPhotos,
   fetchUserGalleries,
-  fetchUserAlbums,
-  fetchUserFavorites,
-  fetchPhotoByID
+  fetchUserFavorites
 } from "./resolvers"
 import { Photo } from "./photo"
 import { Gallery } from "./gallery"
@@ -40,24 +37,33 @@ export const User = new GqlObject({
     },
     photos: {
       type: new GqlList(Photo),
+      args: {
+        first: { type: GqlInt },
+        count: { type: GqlInt },
+        offset: { type: GqlInt }
+      },
       description: `A list of the User's photos.`,
-      resolve: type => fetchUserPhotos(type.id)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ id: userId }, args, { flickr }) => loadUserPhotos(flickr).load(userId)
     },
     galleries: {
       type: new GqlList(Gallery),
       description: `A list of the User's galleries.`,
-      resolve: type => fetchUserGalleries(type.id)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ id: userId }, args, { flickr }) => fetchUserGalleries({ flickr, userId })
     },
     albums: {
       type: new GqlList(Album),
       description: `A list of the User's albums.`,
-      resolve: type => fetchUserAlbums(type.id)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ id: userId }, args, { flickr }) => loadUserAlbums(flickr).load(userId)
     },
     favorites: {
       type: new GqlList(Photo),
       description: `A list of Photos this User has favorited.`,
-      resolve: async type => await fetchUserFavorites(type.id)
-        .then(results => results.map(res => fetchPhotoByID(res.id)))
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ id: userId }, args, { flickr }) => await fetchUserFavorites({ flickr, userId })
+        .then(results => results.length > 0 ? loadPhoto(flickr).loadMany(results) : [])
     },
     isPro: {
       type: GqlBool,
@@ -80,7 +86,7 @@ export const Queries = {
     args: {
       id: { type: new GqlNonNull(GqlID) }
     },
-    resolve: (parent, args, context) => fetchUserByID(args.id)
+    resolve: (parent, { id: userId }, { flickr }) => loadUser(flickr).load(userId)
   }
 }
 

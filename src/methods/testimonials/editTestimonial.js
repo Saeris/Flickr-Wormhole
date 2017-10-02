@@ -1,9 +1,9 @@
 import Flickr from "@/flickr"
 
-async function editTestimonial({ apiKey = Flickr.apiKey, userId = ``, testimonialId = ``, testimonialText = `` } = {}) {
-  return await Flickr.fetchResource(
+async function editTestimonial({ flickr = Flickr, userId = ``, testimonialId = ``, testimonialText = `` } = {}) {
+  return await flickr.fetchResource(
     `flickr.testimonials.editTestimonial`,
-    { apiKey, testimonialId, testimonialText },
+    { testimonialId, testimonialText },
     {},
     `write`
   )

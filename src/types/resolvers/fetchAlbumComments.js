@@ -2,10 +2,11 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getList from "@/methods/photosets/comments/getList"
 
-async function fetchAlbumComments(photosetId = ``) {
+async function fetchAlbumComments({ flickr, photosetId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(photosetId, missingArgument({ photosetId }))
   try {
-    const { comments = {} } = await getList({ photosetId })
+    const { comments = {} } = await getList({ flickr, photosetId })
     const results = []
 
     for (const res of comments?.comment || []) {

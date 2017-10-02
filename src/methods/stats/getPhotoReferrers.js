@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function getPhotoReferrers(
-  { apiKey = Flickr.apiKey, date = ``, domain = `` } = {},
+  { flickr = Flickr, date = ``, domain = `` } = {},
   { photoId = ``, page = 1, perPage = 25 } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.stats.getPhotoReferrers`,
-    { apiKey, date, domain },
+    { date, domain },
     { photoId, page, perPage },
     `read`
   )

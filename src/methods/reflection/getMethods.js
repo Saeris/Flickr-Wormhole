@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getMethods({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.reflection.getMethods`, { apiKey })
+async function getMethods({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.reflection.getMethods`)
 }
 
 export default getMethods

@@ -1,8 +1,11 @@
+import { missingArgument } from "@/config/errors"
+import { invariant } from "@/utilities"
 import getInfo from "@/methods/people/getInfo"
 
-async function fetchUserByID(userId = `me`) {
+async function fetchUserByID({ flickr, userId = `me` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   try {
-    const { person = {} } = await getInfo({ userId })
+    const { person = {} } = await getInfo({ flickr, userId })
 
     const result = {
       id: person?.id,

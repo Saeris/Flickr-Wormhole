@@ -2,7 +2,8 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getList from "@/methods/galleries/getList"
 
-async function fetchUserGalleries(userId = ``) {
+async function fetchUserGalleries({ flickr, userId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(userId, missingArgument({ userId }))
   try {
     let page = 1
@@ -10,7 +11,7 @@ async function fetchUserGalleries(userId = ``) {
     const results = []
 
     do {
-      const { galleries = {} } = await getList({ userId }, { page: page++ })
+      const { galleries = {} } = await getList({ flickr, userId }, { page: page++ })
 
       total = galleries?.pages
 

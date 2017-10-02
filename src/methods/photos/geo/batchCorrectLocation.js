@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function batchCorrectLocation(
-  { apiKey = Flickr.apiKey, lat = ``, lon = ``, accuracy = `` } = {},
+  { flickr = Flickr, lat = ``, lon = ``, accuracy = `` } = {},
   { placeId = ``, woeId = `` } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.photos.geo.batchCorrectLocation`,
-    { apiKey, lat, lon, accuracy },
+    { lat, lon, accuracy },
     { placeId, woeId },
     `write`
   )

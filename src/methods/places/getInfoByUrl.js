@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getInfoByUrl({ apiKey = Flickr.apiKey, url = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.places.getInfoByUrl`, { apiKey, url })
+async function getInfoByUrl({ flickr = Flickr, url = `` } = {}) {
+  return await flickr.fetchResource(`flickr.places.getInfoByUrl`, { url })
 }
 
 export default getInfoByUrl

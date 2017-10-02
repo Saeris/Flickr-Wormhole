@@ -2,10 +2,11 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getInfo from "@/methods/places/getInfo"
 
-async function fetchPlaceByID(placeId = ``) {
+async function fetchPlaceByID({ flickr, placeId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(placeId, missingArgument({ placeId }))
   try {
-    const { place = {} } = await getInfo({}, { placeId })
+    const { place = {} } = await getInfo({}, { flickr, placeId })
     const result = {
       name: place?.name,
       id: place?.place_id,

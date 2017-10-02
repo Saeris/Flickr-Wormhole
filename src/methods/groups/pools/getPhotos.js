@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function getPhotos(
-  { apiKey = Flickr.apiKey, groupId = `` } = {},
+  { flickr = Flickr, groupId = `` } = {},
   { tags = ``, userId = ``, extras = ``, page = 1, perPage = 100 } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.groups.pools.getPhotos`,
-    { apiKey, groupId },
+    { groupId },
     { tags, userId, extras, page, perPage }
   )
 }

@@ -12,7 +12,8 @@ export const Comment = new GqlObject({
     author: {
       type: User,
       description: `The User who wrote the Comment.`,
-      resolve: type => fetchUserByID(type.author)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ author: userId }, args, { flickr }) => fetchUserByID({ flickr, userId })
     },
     created: {
       type: GqlDateTime,

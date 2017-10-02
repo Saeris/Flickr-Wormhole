@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getUploadStatus({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.people.getUploadStatus`, { apiKey }, {}, `read`)
+async function getUploadStatus({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.people.getUploadStatus`, {}, {}, `read`)
 }
 
 export default getUploadStatus

@@ -1,5 +1,6 @@
 import { loadBrands } from "./loaders"
-import { fetchCamerasByBrand, fetchPhotoExif } from "./resolvers"
+import { fetchPhotoByID, fetchCamerasByBrand, fetchPhotoExif } from "./resolvers"
+import { Photo } from "./photo"
 import { Brand } from "./brand"
 import { Camera } from "./camera"
 
@@ -7,9 +8,11 @@ export const Exif = new GqlObject({
   name: `Exif`,
   description: `EXIF Data for a Photo.`,
   fields: () => ({
-    id: {
-      type: GqlID,
-      description: `ID of the Photo this EXIF Data belongs to.`
+    photo: {
+      type: Photo,
+      description: `The Photo this EXIF Data belongs to.`,
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ photoId }, args, { flickr }) => fetchPhotoByID({ flickr, photoId })
     },
     camera: {
       type: GqlString,
@@ -18,17 +21,19 @@ export const Exif = new GqlObject({
     make: {
       type: Brand,
       description: `The Brand of of Camera used to take this Photo.`,
-      resolve: async type => type.make
-        ? await loadBrands.load(`brands`)
-          .then(results => results.filter(res => res.id === type.make.toLowerCase())[0])
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ make }, args, { flickr }) => !!make
+        ? await loadBrands(flickr).load(`brands`)
+          .then(results => results.filter(({ id }) => id === make.toLowerCase())[0])
         : null
     },
     model: {
       type: Camera,
       description: `The Camera used to take this Photo.`,
-      resolve: async type => type.make
-        ? await fetchCamerasByBrand(type.make.toLowerCase())
-          .then(results => results.filter(res => res.id === type.model.toLowerCase().replace(` `, `_`))[0])
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ make, model }, args, { flickr }) => !!make
+        ? await fetchCamerasByBrand({ flickr, brand: make.toLowerCase() })
+          .then(results => results.filter(({ id }) => id === model.toLowerCase().replace(` `, `_`))[0])
         : null
     },
     xResolution: {
@@ -163,7 +168,7 @@ export const Queries = {
         description: `ID of the Photo to get EXIF data for.`
       }
     },
-    resolve: (parent, args, context) => fetchPhotoExif(args.id)
+    resolve: (parent, { id: photoId }, { flickr }) => fetchPhotoExif({ flickr, photoId })
   }
 }
 

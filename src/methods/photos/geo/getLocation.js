@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getLocation({ apiKey = Flickr.apiKey, photoId = `` } = {}, { extras = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.geo.getLocation`, { apiKey, photoId }, { extras })
+async function getLocation({ flickr = Flickr, photoId = `` } = {}, { extras = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.geo.getLocation`, { photoId }, { extras })
 }
 
 export default getLocation

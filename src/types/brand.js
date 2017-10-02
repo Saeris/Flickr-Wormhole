@@ -18,7 +18,7 @@ export const Brand = new GqlObject({
 export const Queries = {
   getBrands: {
     type: new GqlList(Brand),
-    resolve: (parent, args, context) => loadBrands.load(`brands`)
+    resolve: (parent, args, { flickr }) => loadBrands(flickr).load(`brands`)
   }
 }
 

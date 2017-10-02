@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getMostFrequentlyUsed({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.tags.getMostFrequentlyUsed`, { apiKey }, {}, `read`)
+async function getMostFrequentlyUsed({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.tags.getMostFrequentlyUsed`, {}, {}, `read`)
 }
 
 export default getMostFrequentlyUsed

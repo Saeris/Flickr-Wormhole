@@ -1,3 +1,4 @@
 import { fetchCamerasByBrand } from "../resolvers"
 
-export const loadCamerasByBrand = new Dataloader(arr => Promise.all(arr.map(fetchCamerasByBrand)))
+export const loadCamerasByBrand = flickr =>
+  new Dataloader(arr => Promise.all(arr.map(brand => fetchCamerasByBrand({ flickr, brand }))))

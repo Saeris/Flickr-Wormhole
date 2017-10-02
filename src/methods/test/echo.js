@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function echo({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.test.echo`, { apiKey })
+async function echo({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.test.echo`)
 }
 
 export default echo

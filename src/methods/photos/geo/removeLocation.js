@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function removeLocation({ apiKey = Flickr.apiKey, photoId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.geo.removeLocation`, { apiKey, photoId }, {}, `write`)
+async function removeLocation({ flickr = Flickr, photoId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.geo.removeLocation`, { photoId }, {}, `write`)
 }
 
 export default removeLocation

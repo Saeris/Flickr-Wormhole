@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getClusterPhotos({ apiKey = Flickr.apiKey, tag = ``, clusterId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.tags.getClusterPhotos`, { apiKey, tag, clusterId })
+async function getClusterPhotos({ flickr = Flickr, tag = ``, clusterId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.tags.getClusterPhotos`, { tag, clusterId })
 }
 
 export default getClusterPhotos

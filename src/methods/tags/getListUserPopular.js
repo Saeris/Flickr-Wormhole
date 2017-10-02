@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getListUserPopular({ apiKey = Flickr.apiKey } = {}, { userId = ``, count = 10 } = {}) {
-  return await Flickr.fetchResource(`flickr.tags.getListUserPopular`, { apiKey }, { userId, count })
+async function getListUserPopular({ flickr = Flickr } = {}, { userId = ``, count = 10 } = {}) {
+  return await flickr.fetchResource(`flickr.tags.getListUserPopular`, {}, { userId, count })
 }
 
 export default getListUserPopular

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getCounts({ apiKey = Flickr.apiKey } = {}, { dates = ``, takenDates = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.getCounts`, { apiKey }, { dates, takenDates }, `read`)
+async function getCounts({ flickr = Flickr } = {}, { dates = ``, takenDates = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.getCounts`, {}, { dates, takenDates }, `read`)
 }
 
 export default getCounts

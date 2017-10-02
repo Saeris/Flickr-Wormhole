@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
 async function subscribe(
-  { apiKey = Flickr.apiKey, topic = ``, callback = ``, verify = `` } = {},
+  { flickr = Flickr, topic = ``, callback = ``, verify = `` } = {},
   {
     verifyToken = ``,
     leaseSeconds = 0,
@@ -16,9 +16,9 @@ async function subscribe(
     woeIds = ``
   } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.push.subscribe`,
-    { apiKey, topic, callback, verify },
+    { topic, callback, verify },
     { verifyToken, leaseSeconds, lat, lon, radius, radiusUnits, accuracy, nsids, tags, placeIds, woeIds },
     `read`
   )

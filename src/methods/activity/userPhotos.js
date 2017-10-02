@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function userPhotos({ apiKey = Flickr.apiKey } = {}, { timeframe = ``, page = 1, perPage = 10 } = {}) {
-  return await Flickr.fetchResource(`flickr.activity.userPhotos`, { apiKey }, { timeframe, page, perPage }, `read`)
+async function userPhotos({ flickr = Flickr } = {}, { timeframe = ``, page = 1, perPage = 10 } = {}) {
+  return await flickr.fetchResource(`flickr.activity.userPhotos`, {}, { timeframe, page, perPage }, `read`)
 }
 
 export default userPhotos

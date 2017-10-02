@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function setDates(
-  { apiKey = Flickr.apiKey, photoId = `` } = {},
+  { flickr = Flickr, photoId = `` } = {},
   { datePosted = ``, dateTaken = ``, dateTakenGranularity = `` } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.photos.setDates`,
-    { apiKey, photoId },
+    { photoId },
     { datePosted, dateTaken, dateTakenGranularity },
     `write`
   )

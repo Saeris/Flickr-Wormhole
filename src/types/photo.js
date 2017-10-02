@@ -1,15 +1,11 @@
-import { loadLicenses } from "./loaders"
+import { loadLicenses, loadUser, loadImages } from "./loaders"
 import {
-  fetchUserByID,
   fetchPhotoExif,
   fetchPhotoLocation,
   fetchPlaceByID,
-  fetchPhotoNotes,
   fetchPhotoComments,
   fetchPeopleInPhoto,
-  fetchPhotoTags,
-  fetchPhotoImages,
-  fetchUserPhotos
+  fetchPhotoByID
 } from "./resolvers"
 import { License } from "./license"
 import { User } from "./user"
@@ -40,13 +36,15 @@ export const Photo = new GqlObject({
     license: {
       type: License,
       description: `The License the Photo was released under.`,
-      resolve: async type => await loadLicenses.load(`licenses`)
-        .then(results => results.filter(res => res.id === type.license)[0]) || null
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ license }, args, { flickr }) => await loadLicenses(flickr).load(`licenses`)
+        .then(results => results.filter(({ id }) => id === license)[0]) || null
     },
     owner: {
       type: User,
       description: `The User who owns this Photo.`,
-      resolve: async type => await fetchUserByID(type.owner)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ owner: userId }, args, { flickr }) => loadUser(flickr).load(userId)
     },
     title: {
       type: GqlString,
@@ -59,7 +57,8 @@ export const Photo = new GqlObject({
     exif: {
       type: Exif,
       description: `The EXIF Data of the Photo.`,
-      resolve: async type => await fetchPhotoExif(type.id)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ id: photoId }, args, { flickr }) => fetchPhotoExif({ flickr, photoId })
     },
     views: {
       type: GqlInt,
@@ -104,32 +103,39 @@ export const Photo = new GqlObject({
     location: {
       type: Place,
       description: `The Place where the Photo was taken.`,
-      resolve: async type => await fetchPhotoLocation(type.id).then(res => !!res ? fetchPlaceByID(res) : null)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ id: photoId, hasLocation }, args, { flickr }) => !!hasLocation
+        ? await fetchPhotoLocation({ flickr, photoId })
+          .then(placeId => !!placeId ? fetchPlaceByID(({ flickr, placeId })) : null)
+        : null
     },
     notes: {
       type: new GqlList(Note),
-      description: `A List of Notes left on this Photo.`,
-      resolve: async type => await fetchPhotoNotes(type.id)
+      description: `A List of Notes left on this Photo.`
     },
     comments: {
       type: new GqlList(Comment),
       description: `A list of Comments left on this Photo.`,
-      resolve: async type => await fetchPhotoComments(type.id)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ id: photoId, hasComments }, args, { flickr }) =>
+        await !!hasComments ? fetchPhotoComments({ flickr, photoId }) : []
     },
     people: {
       type: new GqlList(Person),
       description: `A list of People who are tagged in this photo.`,
-      resolve: async type => await fetchPeopleInPhoto(type.id)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ id: photoId, hasPeople }, args, { flickr }) =>
+        await !!hasPeople ? fetchPeopleInPhoto({ flickr, photoId }) : []
     },
     tags: {
       type: new GqlList(Tag),
-      description: `A list of Tags this Photo has been tagged with.`,
-      resolve: async type => await fetchPhotoTags(type.id)
+      description: `A list of Tags this Photo has been tagged with.`
     },
     images: {
       type: new GqlList(Image),
       description: `A list of Image URLs for this Photo.`,
-      resolve: async type => await fetchPhotoImages(type.id)
+      complexity: (args, childComplexity) => childComplexity * 5,
+      resolve: ({ id: photoId }, args, { flickr }) => loadImages(flickr).load(photoId)
     }
   })
 })
@@ -143,7 +149,7 @@ export const Queries = {
         description: ``
       }
     },
-    resolve: (parent, args, context) => fetchUserPhotos(args.id)
+    resolve: (parent, { id: photoId }, context) => fetchPhotoByID({ flickr, photoId })
   }
 }
 

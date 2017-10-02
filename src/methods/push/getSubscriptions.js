@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getSubscriptions({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.push.getSubscriptions`, { apiKey }, {}, `read`)
+async function getSubscriptions({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.push.getSubscriptions`, {}, {}, `read`)
 }
 
 export default getSubscriptions

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function rejectSuggestion({ apiKey = Flickr.apiKey, suggestionId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.suggestions.rejectSuggestion`, { apiKey, suggestionId }, {}, `write`)
+async function rejectSuggestion({ flickr = Flickr, suggestionId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.suggestions.rejectSuggestion`, { suggestionId }, {}, `write`)
 }
 
 export default rejectSuggestion

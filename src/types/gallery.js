@@ -45,16 +45,6 @@ export const Gallery = new GqlObject({
 })
 
 export const Queries = {
-  getGallery: {
-    type: Gallery,
-    args: {
-      id: {
-        type: new GqlNonNull(GqlID),
-        description: ``
-      }
-    }
-    //resolve: (parent, args, context) => fetchCamerasByBrand(args.id)
-  }
 }
 
 export const Definition = Gallery

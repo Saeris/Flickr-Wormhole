@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getNamespaces({ apiKey = Flickr.apiKey } = {}, { predicate = ``, page = 1, perPage = 100 } = {}) {
-  return await Flickr.fetchResource(`flickr.machinetags.getNamespaces`, { apiKey }, { predicate, page, perPage })
+async function getNamespaces({ flickr = Flickr } = {}, { predicate = ``, page = 1, perPage = 100 } = {}) {
+  return await flickr.fetchResource(`flickr.machinetags.getNamespaces`, {}, { predicate, page, perPage })
 }
 
 export default getNamespaces

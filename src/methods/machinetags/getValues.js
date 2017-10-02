@@ -1,10 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getValues(
-  { apiKey = Flickr.apiKey, namespace = ``, predicate = `` } = {},
-  { page = 1, perPage = 100 } = {}
-) {
-  return await Flickr.fetchResource(`flickr.machinetags.getValues`, { apiKey, namespace, predicate }, { page, perPage })
+async function getValues({ flickr = Flickr, namespace = ``, predicate = `` } = {}, { page = 1, perPage = 100 } = {}) {
+  return await flickr.fetchResource(`flickr.machinetags.getValues`, { namespace, predicate }, { page, perPage })
 }
 
 export default getValues

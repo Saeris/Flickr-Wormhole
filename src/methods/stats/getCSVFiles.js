@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getCSVFiles({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.stats.getCSVFiles`, { apiKey }, {}, `read`)
+async function getCSVFiles({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.stats.getCSVFiles`, {}, {}, `read`)
 }
 
 export default getCSVFiles

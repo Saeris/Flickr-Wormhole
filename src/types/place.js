@@ -48,16 +48,6 @@ export const Place = new GqlObject({
 })
 
 export const Queries = {
-  getPlaceById: {
-    type: Place,
-    args: {
-      id: {
-        type: new GqlNonNull(GqlID),
-        description: ``
-      }
-    }
-    //resolve: (parent, args, context) => fetchCamerasByBrand(args.id)
-  }
 }
 
 export const Definition = Place

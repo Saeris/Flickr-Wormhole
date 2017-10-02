@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getProfile({ apiKey = Flickr.apiKey, userId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.profile.getProfile`, { apiKey, userId })
+async function getProfile({ flickr = Flickr, userId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.profile.getProfile`, { userId })
 }
 
 export default getProfile

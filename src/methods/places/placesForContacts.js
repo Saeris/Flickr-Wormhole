@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
 async function placesForContacts(
-  { apiKey = Flickr.apiKey, placeTypeId = `` } = {},
+  { flickr = Flickr, placeTypeId = `` } = {},
   {
     contacts = `all`,
     minUploadDate = ``,
@@ -13,9 +13,9 @@ async function placesForContacts(
     woeId = ``
   } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.places.placesForContacts`,
-    { apiKey, placeTypeId },
+    { placeTypeId },
     { contacts, minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, threshold, placeId, woeId },
     `read`
   )

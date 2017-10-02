@@ -1,3 +1,4 @@
+import { loadUser } from "./loaders"
 import { fetchPhotoTags } from "./resolvers"
 import { User } from "./user"
 
@@ -12,7 +13,8 @@ export const Tag = new GqlObject({
     author: {
       type: User,
       description: `The User who created the Tag.`,
-      resolve: type => fetchUserByID(type.author)
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ author: userId }, args, { flickr }) => loadUser(flickr).load(userId)
     },
     text: {
       type: GqlString,
@@ -30,7 +32,7 @@ export const Queries = {
         description: `A Photo ID to fetch Tags for. (Required)`
       }
     },
-    resolve: (parent, args, context) => fetchPhotoTags(args.id)
+    resolve: (parent, { id: photoId }, context) => fetchPhotoTags({ flickr, photoId })
   }
 }
 

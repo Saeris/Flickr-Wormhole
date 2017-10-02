@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getGeoPerms({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.prefs.getGeoPerms`, { apiKey }, {}, `read`)
+async function getGeoPerms({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.prefs.getGeoPerms`, {}, {}, `read`)
 }
 
 export default getGeoPerms

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function findByUsername({ apiKey = Flickr.apiKey, username = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.people.findByUsername`, { apiKey, username })
+async function findByUsername({ flickr = Flickr, username = `` } = {}) {
+  return await flickr.fetchResource(`flickr.people.findByUsername`, { username })
 }
 
 export default findByUsername

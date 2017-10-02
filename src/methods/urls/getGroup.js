@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getGroup({ apiKey = Flickr.apiKey, groupId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.urls.getGroup`, { apiKey, groupId })
+async function getGroup({ flickr = Flickr, groupId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.urls.getGroup`, { groupId })
 }
 
 export default getGroup

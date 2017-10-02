@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function removeTag({ apiKey = Flickr.apiKey, tagId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.removeTag`, { apiKey, tagId }, {}, `write`)
+async function removeTag({ flickr = Flickr, tagId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.removeTag`, { tagId }, {}, `write`)
 }
 
 export default removeTag

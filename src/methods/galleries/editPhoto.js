@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function editPhoto({ apiKey = Flickr.apiKey, galleryId = ``, photoId = ``, comment = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.galleries.editPhoto`, { apiKey, galleryId, photoId, comment }, {}, `write`)
+async function editPhoto({ flickr = Flickr, galleryId = ``, photoId = ``, comment = `` } = {}) {
+  return await flickr.fetchResource(`flickr.galleries.editPhoto`, { galleryId, photoId, comment }, {}, `write`)
 }
 
 export default editPhoto

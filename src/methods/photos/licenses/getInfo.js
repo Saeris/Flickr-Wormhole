@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getInfo({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.licenses.getInfo`, { apiKey })
+async function getInfo({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.photos.licenses.getInfo`)
 }
 
 export default getInfo

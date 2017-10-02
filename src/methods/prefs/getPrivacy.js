@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getPrivacy({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.prefs.getPrivacy`, { apiKey }, {}, `read`)
+async function getPrivacy({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.prefs.getPrivacy`, {}, {}, `read`)
 }
 
 export default getPrivacy

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function remove({ apiKey = Flickr.apiKey, photoId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.favorites.remove`, { apiKey, photoId }, {}, `write`)
+async function remove({ flickr = Flickr, photoId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.favorites.remove`, { photoId }, {}, `write`)
 }
 
 export default remove

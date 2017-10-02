@@ -1,15 +1,7 @@
 import Flickr from "@/flickr"
 
-async function recentlyUploaded(
-  { apiKey = Flickr.apiKey } = {},
-  { minDate = ``, extras = ``, page = 1, perPage = 100 } = {}
-) {
-  return await Flickr.fetchResource(
-    `flickr.photos.recentlyUpdated`,
-    { apiKey },
-    { minDate, extras, page, perPage },
-    `read`
-  )
+async function recentlyUploaded({ flickr = Flickr } = {}, { minDate = ``, extras = ``, page = 1, perPage = 100 } = {}) {
+  return await flickr.fetchResource(`flickr.photos.recentlyUpdated`, {}, { minDate, extras, page, perPage }, `read`)
 }
 
 export default recentlyUploaded

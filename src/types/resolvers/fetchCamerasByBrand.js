@@ -2,10 +2,11 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getBrandModels from "@/methods/cameras/getBrandModels"
 
-async function fetchCamerasByBrand(brand = ``) {
+async function fetchCamerasByBrand({ flickr, brand = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(brand, missingArgument({ brand }))
   try {
-    const { cameras = {} } = await getBrandModels({ brand })
+    const { cameras = {} } = await getBrandModels({ flickr, brand })
     const results = []
 
     for (const res of cameras?.camera || []) {

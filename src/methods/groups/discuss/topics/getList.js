@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getList({ apiKey = Flickr.apiKey, groupId = `` } = {}, { page = 1, perPage = 100 } = {}) {
-  return await Flickr.fetchResource(`flickr.groups.discuss.topics.getList`, { apiKey, groupId }, { page, perPage })
+async function getList({ flickr = Flickr, groupId = `` } = {}, { page = 1, perPage = 100 } = {}) {
+  return await flickr.fetchResource(`flickr.groups.discuss.topics.getList`, { groupId }, { page, perPage })
 }
 
 export default getList

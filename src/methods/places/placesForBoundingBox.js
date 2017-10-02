@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function placesForBoundingBox({ apiKey = Flickr.apiKey, bbox = ``, placeTypeId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.places.placesForBoundingBox`, { apiKey, bbox, placeTypeId })
+async function placesForBoundingBox({ flickr = Flickr, bbox = ``, placeTypeId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.places.placesForBoundingBox`, { bbox, placeTypeId })
 }
 
 export default placesForBoundingBox

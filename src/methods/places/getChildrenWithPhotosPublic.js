@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getChildrenWithPhotosPublic({ apiKey = Flickr.apiKey } = {}, { placeId = ``, woeId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.places.getChildrenWithPhotosPublic`, { apiKey }, { placeId, woeId })
+async function getChildrenWithPhotosPublic({ flickr = Flickr } = {}, { placeId = ``, woeId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.places.getChildrenWithPhotosPublic`, {}, { placeId, woeId })
 }
 
 export default getChildrenWithPhotosPublic

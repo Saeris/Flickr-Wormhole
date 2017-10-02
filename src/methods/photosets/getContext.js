@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getContext({ apiKey = Flickr.apiKey, photosetId = ``, photoId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photosets.getContext`, { apiKey, photosetId, photoId })
+async function getContext({ flickr = Flickr, photosetId = ``, photoId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photosets.getContext`, { photosetId, photoId })
 }
 
 export default getContext

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getExif({ apiKey = Flickr.apiKey, photoId = `` } = {}, { secret = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.getExif`, { apiKey, photoId }, { secret })
+async function getExif({ flickr = Flickr, photoId = `` } = {}, { secret = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.getExif`, { photoId }, { secret })
 }
 
 export default getExif

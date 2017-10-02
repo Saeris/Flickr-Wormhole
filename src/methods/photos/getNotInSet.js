@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
 async function getNotInSet(
-  { apiKey = Flickr.apiKey } = {},
+  { flickr = Flickr } = {},
   {
     minUploadDate = ``,
     maxUploadDate = ``,
@@ -14,9 +14,9 @@ async function getNotInSet(
     perPage = 100
   } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.photos.getNotInSet`,
-    { apiKey },
+    {},
     { minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, privacyFilter, media, extras, page, perPage },
     `read`
   )

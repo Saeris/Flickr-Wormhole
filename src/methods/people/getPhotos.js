@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
 async function getPhotos(
-  { apiKey = Flickr.apiKey, userId = `` } = {},
+  { flickr = Flickr, userId = `` } = {},
   {
     safeSearch = 0,
     minUploadDate = ``,
@@ -15,9 +15,9 @@ async function getPhotos(
     perPage = 100
   } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.people.getPhotos`,
-    { apiKey, userId },
+    { userId },
     {
       safeSearch,
       minUploadDate,

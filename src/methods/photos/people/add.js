@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function add(
-  { apiKey = Flickr.apiKey, photoId = ``, userId = `` } = {},
+  { flickr = Flickr, photoId = ``, userId = `` } = {},
   { personX = ``, personY = ``, personW = ``, personH = `` } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.photos.people.add`,
-    { apiKey, photoId, userId },
+    { photoId, userId },
     { personX, personY, personW, personH },
     `write`
   )

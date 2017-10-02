@@ -2,11 +2,12 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getListPhoto from "@/methods/tags/getListPhoto"
 
-async function fetchPhotoTags(photoId = ``) {
+async function fetchPhotoTags({ flickr, photoId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(photoId, missingArgument({ photoId }))
 
   try {
-    const { photo = {} } = await getListPhoto({ photoId })
+    const { photo = {} } = await getListPhoto({ flickr, photoId })
     const results = []
 
     for (const res of (photo?.tags)?.tag || []) {

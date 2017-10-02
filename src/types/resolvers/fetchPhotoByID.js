@@ -2,10 +2,11 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getInfo from "@/methods/photos/getInfo"
 
-async function fetchPhotoByID(photoId = ``) {
+async function fetchPhotoByID({ flickr, photoId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(photoId, missingArgument({ photoId }))
   try {
-    const { photo = {} } = await getInfo({ photoId })
+    const { photo = {} } = await getInfo({ flickr, photoId })
     const result = {
       id: photo?.id,
       secret: photo?.secret,
@@ -20,6 +21,24 @@ async function fetchPhotoByID(photoId = ``) {
       public: !!(photo?.visibility)?.ispublic,
       friends: !!(photo?.visibility)?.isfriend,
       family: !!(photo?.visibility)?.isfamily,
+      notes: (photo?.notes)?.note.map(note => ({
+        id: note?.id,
+        photo: photoId,
+        author: note?.author,
+        text: note?._content,
+        x: note?.x,
+        y: note?.y,
+        width: note?.w,
+        height: note?.h
+      })),
+      tags: (photo?.tags)?.tag.map(tag => ({
+        id: tag?.id,
+        author: tag?.author,
+        text: tag?.raw
+      })),
+      hasLocation: !!photo?.location,
+      hasComments: parseInt((photo?.comments)?._content || 0, 10),
+      hasPeople: !!(photo?.people)?.haspeople,
       posted: (photo?.dates)?.posted,
       taken: (photo?.dates)?.taken,
       updated: (photo?.dates)?.lastupdate

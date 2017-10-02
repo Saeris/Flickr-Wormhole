@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function getPublicList(
-  { apiKey = Flickr.apiKey, userId = `` } = {},
+  { flickr = Flickr, userId = `` } = {},
   { minFaveDate = ``, maxFaveDate = ``, extras = ``, page = 1, perPage = 100 } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.favorites.getPublicList`,
-    { apiKey, userId },
+    { userId },
     { minFaveDate, maxFaveDate, extras, page, perPage }
   )
 }

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getPlaceTypes({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.places.getPlaceTypes`, { apiKey })
+async function getPlaceTypes({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.places.getPlaceTypes`)
 }
 
 export default getPlaceTypes

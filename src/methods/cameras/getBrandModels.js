@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getBrandModels({ apiKey = Flickr.apiKey, brand = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.cameras.getBrandModels`, { apiKey, brand })
+async function getBrandModels({ flickr = Flickr, brand = `` } = {}) {
+  return await flickr.fetchResource(`flickr.cameras.getBrandModels`, { brand })
 }
 
 export default getBrandModels

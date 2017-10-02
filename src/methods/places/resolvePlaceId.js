@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function resolvePlaceId({ apiKey = Flickr.apiKey, placeId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.places.resolvePlaceId`, { apiKey, placeId })
+async function resolvePlaceId({ flickr = Flickr, placeId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.places.resolvePlaceId`, { placeId })
 }
 
 export default resolvePlaceId

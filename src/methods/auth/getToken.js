@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getToken({ apiKey = Flickr.apiKey, frob = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.auth.getToken`, { apiKey, frob })
+async function getToken({ flickr = Flickr, frob = `` } = {}) {
+  return await flickr.fetchResource(`flickr.auth.getToken`, { frob })
 }
 
 export default getToken

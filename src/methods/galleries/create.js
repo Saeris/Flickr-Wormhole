@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function create(
-  { apiKey = Flickr.apiKey, title = ``, description = `` } = {},
+  { flickr = Flickr, title = ``, description = `` } = {},
   { primaryPhotoId = ``, fullResult = `` } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.galleries.create`,
-    { apiKey, title, description },
+    { title, description },
     { primaryPhotoId, fullResult },
     `write`
   )

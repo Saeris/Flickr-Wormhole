@@ -76,6 +76,7 @@ module.exports = {
       GqlDateTime: [`graphql-iso-date`, `GraphQLDateTime`],
       GqlEmail: [`graphql-custom-types`, `GraphQLEmail`],
       GqlEnum: [`graphql`, `GraphQLEnumType`],
+      GqlError: [`graphql`, `GraphQLError`],
       GqlFloat: [`graphql`, `GraphQLFloat`],
       GqlID: [`graphql`, `GraphQLID`],
       GqlInput: [`graphql`, `GraphQLInputObjectType`],

@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function addTags({ apiKey = Flickr.apiKey, photoId = ``, tags = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.addTags`, { apiKey, photoId, tags }, {}, `write`)
+async function addTags({ flickr = Flickr, photoId = ``, tags = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.addTags`, { photoId, tags }, {}, `write`)
 }
 
 export default addTags

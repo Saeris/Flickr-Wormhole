@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getTaggingSuggestions({ apiKey = Flickr.apiKey } = {}, { page = 1, perPage = 0 } = {}) {
-  return await Flickr.fetchResource(`flickr.contacts.getTaggingSuggestions`, { apiKey }, { page, perPage }, `read`)
+async function getTaggingSuggestions({ flickr = Flickr } = {}, { page = 1, perPage = 0 } = {}) {
+  return await flickr.fetchResource(`flickr.contacts.getTaggingSuggestions`, {}, { page, perPage }, `read`)
 }
 
 export default getTaggingSuggestions

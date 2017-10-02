@@ -1,9 +1,12 @@
 import Flickr from "@/flickr"
 
-async function setSafetyLevel({ apiKey = Flickr.apiKey, photoId = `` } = {}, { safetyLevel = 1, hidden = `0` } = {}) {
-  return await Flickr.fetchResource(
+async function setSafetyLevel(
+  { flickr = Flickr, photoId = `` } = {},
+  { safetyLevel = 1, hidden = `0` } = {}
+) {
+  return await flickr.fetchResource(
     `flickr.photos.setSafetyLevel`,
-    { apiKey, photoId },
+    { photoId },
     { safetyLevel, hidden },
     `write`
   )

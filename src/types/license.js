@@ -22,7 +22,7 @@ export const License = new GqlObject({
 export const Queries = {
   getLicenses: {
     type: License,
-    resolve: (parent, args, context) => loadLicenses.load(`licenses`)
+    resolve: (parent, args, { flickr }) => loadLicenses(flickr).load(`licenses`)
   }
 }
 

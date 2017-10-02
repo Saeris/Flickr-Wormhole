@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function add({ apiKey = Flickr.apiKey, photoId = ``, groupId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.groups.pools.add`, { apiKey, photoId, groupId }, {}, `write`)
+async function add({ flickr = Flickr, photoId = ``, groupId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.groups.pools.add`, { photoId, groupId }, {}, `write`)
 }
 
 export default add

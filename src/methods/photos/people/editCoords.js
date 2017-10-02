@@ -1,11 +1,11 @@
 import Flickr from "@/flickr"
 
 async function editCoords(
-  { apiKey = Flickr.apiKey, photoId = ``, userId = ``, personX = ``, personY = ``, personW = ``, personH = `` } = {}
+  { flickr = Flickr, photoId = ``, userId = ``, personX = ``, personY = ``, personW = ``, personH = `` } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.photos.people.editCoords`,
-    { apiKey, photoId, userId, personX, personY, personW, personH },
+    { photoId, userId, personX, personY, personW, personH },
     {},
     `write`
   )

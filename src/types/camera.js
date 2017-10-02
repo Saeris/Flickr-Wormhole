@@ -16,8 +16,9 @@ export const Camera = new GqlObject({
     brand: {
       type: Brand,
       description: `The Brand of the Camera.`,
-      resolve: async type => await loadBrands.load(`brands`)
-        .then(results => results.filter(res => res.id === type.brand)[0]) || null
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: async({ brand }, args, { flickr }) => await loadBrands(flickr).load(`brands`)
+        .then(results => results.filter(res => res.id === brand)[0]) || null
     },
     megapixels: {
       type: GqlFloat,
@@ -51,7 +52,7 @@ export const Queries = {
         description: `A Brand ID used to fetch Cameras of that Brand.`
       }
     },
-    resolve: (parent, args, context) => loadCamerasByBrand.load(args.id)
+    resolve: (parent, { id }, { flickr }) => loadCamerasByBrand(flickr).load(id)
   }
 }
 

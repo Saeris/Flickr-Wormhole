@@ -2,10 +2,11 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getExif from "@/methods/photos/getExif"
 
-async function fetchPhotoExif(photoId = ``) {
+async function fetchPhotoExif({ flickr, photoId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(photoId, missingArgument({ photoId }))
   try {
-    const { photo = {} } = await getExif({ photoId })
+    const { photo = {} } = await getExif({ flickr, photoId })
     let result = {}
 
     if (!!photo && !!photo.exif) {
@@ -23,7 +24,7 @@ async function fetchPhotoExif(photoId = ``) {
       }, {})
 
       result = {
-        id: photoId,
+        photoId,
         camera: photo?.camera || null,
         make: exif[`IFD0`]?.Make || null,
         model: exif[`IFD0`]?.Model || null,

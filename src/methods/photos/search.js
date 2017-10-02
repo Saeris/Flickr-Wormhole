@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
 async function search(
-  { apiKey = Flickr.apiKey } = {},
+  { flickr = Flickr } = {},
   {
     userId = ``,
     tags = ``,
@@ -39,9 +39,9 @@ async function search(
     sort = ``
   } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.photos.search`,
-    { apiKey },
+    {},
     {
       userId,
       tags,

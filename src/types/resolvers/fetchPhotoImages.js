@@ -2,15 +2,16 @@ import { missingArgument } from "@/config/errors"
 import { invariant } from "@/utilities"
 import getSizes from "@/methods/photos/getSizes"
 
-async function fetchPhotoImages(photoId = ``) {
+async function fetchPhotoImages({ flickr, photoId = `` } = {}) {
+  invariant(flickr, missingArgument({ flickr }))
   invariant(photoId, missingArgument({ photoId }))
   try {
-    const { sizes = {} } = await getSizes({ photoId })
+    const { sizes = {} } = await getSizes({ flickr, photoId })
     const results = []
 
     for (const res of sizes?.size || []) {
       results.push({
-        id: photoId,
+        photoId,
         canBlog: !!sizes?.canBlog,
         canPrint: !!sizes?.canPrint,
         canDownload: !!sizes?.canDownload,

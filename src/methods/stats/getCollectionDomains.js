@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function getCollectionDomains(
-  { apiKey = Flickr.apiKey, date = `` } = {},
+  { flickr = Flickr, date = `` } = {},
   { collectionId = ``, page = 1, perPage = 25 } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.stats.getCollectionDomains`,
-    { apiKey, date },
+    { date },
     { collectionId, page, perPage },
     `read`
   )

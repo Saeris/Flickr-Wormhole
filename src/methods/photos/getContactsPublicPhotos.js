@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function getContactsPublicPhotos(
-  { apiKey = Flickr.apiKey, userId = `` } = {},
+  { flickr = Flickr, userId = `` } = {},
   { count = 10, justFriends = false, singlePhoto = false, includeSelf = false, extras = `` } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.photos.getContactsPublicPhotos`,
-    { apiKey, userId },
+    { userId },
     { count, justFriends, singlePhoto, includeSelf, extras }
   )
 }

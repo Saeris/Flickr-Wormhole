@@ -1,12 +1,12 @@
 import Flickr from "@/flickr"
 
 async function tagsForPlace(
-  { apiKey = Flickr.apiKey } = {},
+  { flickr = Flickr } = {},
   { minUploadDate = ``, maxUploadDate = ``, minTakenDate = ``, maxTakenDate = ``, placeId = ``, woeId = `` } = {}
 ) {
-  return await Flickr.fetchResource(
+  return await flickr.fetchResource(
     `flickr.places.tagsForPlace`,
-    { apiKey },
+    {},
     { minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, placeId, woeId }
   )
 }

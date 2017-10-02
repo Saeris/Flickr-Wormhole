@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getPerms({ apiKey = Flickr.apiKey, photoId = `` } = {}) {
-  return await Flickr.fetchResource(`flickr.photos.getPerms`, { apiKey, photoId }, {}, `read`)
+async function getPerms({ flickr = Flickr, photoId = `` } = {}) {
+  return await flickr.fetchResource(`flickr.photos.getPerms`, { photoId }, {}, `read`)
 }
 
 export default getPerms

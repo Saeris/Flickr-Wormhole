@@ -1,7 +1,7 @@
 import Flickr from "@/flickr"
 
-async function getHidden({ apiKey = Flickr.apiKey } = {}) {
-  return await Flickr.fetchResource(`flickr.prefs.getHidden`, { apiKey }, {}, `read`)
+async function getHidden({ flickr = Flickr } = {}) {
+  return await flickr.fetchResource(`flickr.prefs.getHidden`, {}, {}, `read`)
 }
 
 export default getHidden
