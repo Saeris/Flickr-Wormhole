@@ -1,8 +1,4 @@
-import { loadUser, loadUserPhotos, loadUserAlbums, loadPhoto } from "./loaders"
-import {
-  fetchUserGalleries,
-  fetchUserFavorites
-} from "./resolvers"
+import { fetchUserGalleries, fetchUserFavorites } from "@/resolvers"
 import { Photo } from "./photo"
 import { Gallery } from "./gallery"
 import { Album } from "./album"
@@ -44,7 +40,7 @@ export const User = new GqlObject({
       },
       description: `A list of the User's photos.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ id: userId }, args, { flickr }) => loadUserPhotos(flickr).load(userId)
+      resolve: ({ id: userId }, args, { userPhotos }) => userPhotos.load(userId)
     },
     galleries: {
       type: new GqlList(Gallery),
@@ -56,14 +52,14 @@ export const User = new GqlObject({
       type: new GqlList(Album),
       description: `A list of the User's albums.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ id: userId }, args, { flickr }) => loadUserAlbums(flickr).load(userId)
+      resolve: ({ id: userId }, args, { userAlbums }) => userAlbums.load(userId)
     },
     favorites: {
       type: new GqlList(Photo),
       description: `A list of Photos this User has favorited.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ id: userId }, args, { flickr }) => await fetchUserFavorites({ flickr, userId })
-        .then(results => results.length > 0 ? loadPhoto(flickr).loadMany(results) : [])
+      resolve: async({ id: userId }, args, { flickr, photo }) => await fetchUserFavorites({ flickr, userId })
+        .then(results => results.length > 0 ? photo.loadMany(results) : [])
     },
     isPro: {
       type: GqlBool,
@@ -86,7 +82,7 @@ export const Queries = {
     args: {
       id: { type: new GqlNonNull(GqlID) }
     },
-    resolve: (parent, { id: userId }, { flickr }) => loadUser(flickr).load(userId)
+    resolve: (parent, { id: userId }, { user }) => user.load(userId)
   }
 }
 

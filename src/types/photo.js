@@ -1,12 +1,10 @@
-import { loadLicenses, loadUser, loadImages } from "./loaders"
 import {
   fetchPhotoExif,
   fetchPhotoLocation,
   fetchPlaceByID,
   fetchPhotoComments,
-  fetchPeopleInPhoto,
-  fetchPhotoByID
-} from "./resolvers"
+  fetchPeopleInPhoto
+} from "@/resolvers"
 import { License } from "./license"
 import { User } from "./user"
 import { Exif } from "./exif"
@@ -37,14 +35,14 @@ export const Photo = new GqlObject({
       type: License,
       description: `The License the Photo was released under.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ license }, args, { flickr }) => await loadLicenses(flickr).load(`licenses`)
+      resolve: async({ license }, args, { licenses }) => await licenses.load(`licenses`)
         .then(results => results.filter(({ id }) => id === license)[0]) || null
     },
     owner: {
       type: User,
       description: `The User who owns this Photo.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ owner: userId }, args, { flickr }) => loadUser(flickr).load(userId)
+      resolve: ({ owner: userId }, args, { user }) => user.load(userId)
     },
     title: {
       type: GqlString,
@@ -76,7 +74,7 @@ export const Photo = new GqlObject({
       type: GqlBool,
       description: `Flag determining whether the current User has favorited this Photo.`
     },
-    public: {
+    isPublic: {
       type: GqlBool,
       description: `Flag determining whether the Photo is viewable publicly.`
     },
@@ -135,7 +133,7 @@ export const Photo = new GqlObject({
       type: new GqlList(Image),
       description: `A list of Image URLs for this Photo.`,
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: ({ id: photoId }, args, { flickr }) => loadImages(flickr).load(photoId)
+      resolve: ({ id: photoId }, args, { images }) => images.load(photoId)
     }
   })
 })
@@ -149,7 +147,7 @@ export const Queries = {
         description: ``
       }
     },
-    resolve: (parent, { id: photoId }, context) => fetchPhotoByID({ flickr, photoId })
+    resolve: (parent, { id: photoId }, { photo }) => photo.load(photoId)
   }
 }
 

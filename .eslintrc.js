@@ -177,7 +177,7 @@ module.exports = {
     "import/no-deprecated"                      : 2,
     "import/no-mutable-exports"                 : 2,
     "import/no-duplicates"                      : 2,
-    "import/no-namespace"                       : 2,
+    "import/no-namespace"                       : 0,
     "import/newline-after-import"               : 2,
     "import/order"                              : [2, { "newlines-between": "never", "groups": ["builtin", ["internal", "external"], ["parent", "sibling"], "index"] }],
 

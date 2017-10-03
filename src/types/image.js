@@ -1,4 +1,3 @@
-import { loadPhoto } from "./loaders"
 import { Photo } from "./photo"
 
 export const Image = new GqlObject({
@@ -9,7 +8,7 @@ export const Image = new GqlObject({
       type: Photo,
       description: `Rhe Photo this Image is associated with.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ photoId }, args, { flickr }) => loadPhoto(flickr).load(photoId)
+      resolve: ({ photoId }, args, { photo }) => photo.load(photoId)
     },
     canBlog: {
       type: GqlBool,

@@ -1,4 +1,3 @@
-import { loadPhoto, loadUser } from "./loaders"
 import { Photo } from "./photo"
 import { User } from "./user"
 
@@ -14,13 +13,13 @@ export const Note = new GqlObject({
       type: Photo,
       description: `The Photo this Note belongs to.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ photo: photoId }, args, { flickr }) => loadPhoto(flickr).load(photoId)
+      resolve: ({ photo: photoId }, args, { photo }) => photo.load(photoId)
     },
     author: {
       type: User,
       description: `The User who wrote this Note.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ author: userId }, args, { flickr }) => loadUser(flickr).load(userId)
+      resolve: ({ author: userId }, args, { user }) => user.load(userId)
     },
     text: {
       type: GqlString,

@@ -1,5 +1,4 @@
-import { loadUser, loadPhoto } from "./loaders"
-import { fetchAlbumPhotos, fetchAlbumComments, fetchAlbumByID } from "./resolvers"
+import { fetchAlbumPhotos, fetchAlbumComments, fetchAlbumByID } from "@/resolvers"
 import { User } from "./user"
 import { Photo } from "./photo"
 import { Comment } from "./comment"
@@ -24,7 +23,17 @@ export const Album = new GqlObject({
       type: new GqlNonNull(User),
       description: `The User who is the owner of this album.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ owner: userId }, args, { flickr }) => loadUser(flickr).load(userId)
+      resolve: ({ owner: userId }, args, { user }) => user.load(userId)
+    },
+    primary: {
+      type: Photo,
+      description: `The primary Photo of this album, used as a thumbnail and banner image.`,
+      complexity: (args, childComplexity) => childComplexity * 10,
+      resolve: ({ primary: photoID }, args, { photo }) => photo.load(photoId)
+    },
+    url: {
+      type: GqlURL,
+      description: `A URL linking to the Gallery on Flickr.`
     },
     photoCount: {
       type: GqlInt,
@@ -34,27 +43,13 @@ export const Album = new GqlObject({
       type: GqlInt,
       description: `How many videos are in this album.`
     },
-    views: {
-      type: GqlInt,
-      description: `How many views this album has.`
-    },
     commentCount: {
       type: GqlInt,
       description: `How many comments this album has.`
     },
-    created: {
-      type: new GqlNonNull(GqlDateTime),
-      description: `The date and time when this album was created.`
-    },
-    updated: {
-      type: new GqlNonNull(GqlDateTime),
-      description: `The last date and time that this album was updated.`
-    },
-    primary: {
-      type: Photo,
-      description: `The primary Photo of this album, used as a thumbnail and banner image.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ primary: photoID }, args, { flickr }) => loadPhoto(flickr).load(photoId)
+    views: {
+      type: GqlInt,
+      description: `How many views this album has.`
     },
     photos: {
       type: new GqlList(Photo),
@@ -66,7 +61,7 @@ export const Album = new GqlObject({
         offset: { type: GqlInt, defaultValue: 0 }
       },
       complexity: ({ count }, childComplexity) => childComplexity * count,
-      resolve: async({ owner: userId, id: photosetId, photoCount, videoCount }, { first, last, count, offset }, { flickr }) =>
+      resolve: async({ owner: userId, id: photosetId, photoCount, videoCount }, { first, last, count, offset }, { flickr, photo }) =>
         await fetchAlbumPhotos({
           flickr,
           userId,
@@ -77,13 +72,21 @@ export const Album = new GqlObject({
               ? (Math.floor((photoCount + videoCount) / first) || 1) * (first + offset)
               : offset || 1, //
           perPage: !!last ? (photoCount + videoCount) : first || count || (photoCount + videoCount)
-        }).then(results => results.length > 0 ? loadPhoto(flickr).loadMany(results) : [])
+        }).then(results => results.length > 0 ? photo.loadMany(results) : [])
     },
     comments: {
       type: new GqlList(Comment),
       description: `A list of Comments left on this Album.`,
       complexity: (args, childComplexity) => childComplexity * 10,
       resolve: ({ id: photosetId }, args, { flickr }) => fetchAlbumComments({ flickr, photosetId })
+    },
+    created: {
+      type: new GqlNonNull(GqlDateTime),
+      description: `The date and time when this album was created.`
+    },
+    updated: {
+      type: new GqlNonNull(GqlDateTime),
+      description: `The last date and time that this album was updated.`
     }
   })
 })

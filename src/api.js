@@ -1,7 +1,8 @@
 import { graphqlHapi } from "apollo-server-hapi"
 import depthLimit from 'graphql-depth-limit'
 import queryComplexity from "graphql-query-complexity"
-import { formatError } from "./utilities"
+import * as loaders from "@/loaders"
+import { formatError } from "@/utilities"
 import { schema } from "./schema"
 import { Flickr } from "./flickr"
 
@@ -14,7 +15,17 @@ export default {
       return {
         schema: schema,
         context: {
-          flickr
+          flickr,
+          album: loaders.loadAlbum(flickr),
+          albumPhotos: loaders.loadAlbumPhotos(flickr),
+          brands: loaders.loadBrands(flickr),
+          cameras: loaders.loadCamerasByBrand(flickr),
+          photo: loaders.loadPhoto(flickr),
+          images: loaders.loadImages(flickr),
+          licenses: loaders.loadLicenses(flickr),
+          user: loaders.loadUser(flickr),
+          userAlbums: loaders.loadUserAlbums(flickr),
+          userPhotos: loaders.loadUserPhotos(flickr)
         },
         root_value: schema,
         formatError: formatError,

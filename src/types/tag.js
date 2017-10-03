@@ -1,5 +1,4 @@
-import { loadUser } from "./loaders"
-import { fetchPhotoTags } from "./resolvers"
+import { fetchPhotoTags } from "@/resolvers"
 import { User } from "./user"
 
 export const Tag = new GqlObject({
@@ -14,7 +13,7 @@ export const Tag = new GqlObject({
       type: User,
       description: `The User who created the Tag.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ author: userId }, args, { flickr }) => loadUser(flickr).load(userId)
+      resolve: ({ author: userId }, args, { user }) => user.load(userId)
     },
     text: {
       type: GqlString,

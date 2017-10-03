@@ -1,5 +1,3 @@
-import { loadLicenses } from "./loaders"
-
 export const License = new GqlObject({
   name: `License`,
   description: `A Flickr License Description`,
@@ -22,7 +20,7 @@ export const License = new GqlObject({
 export const Queries = {
   getLicenses: {
     type: License,
-    resolve: (parent, args, { flickr }) => loadLicenses(flickr).load(`licenses`)
+    resolve: (parent, args, { licenses }) => licenses.load(`licenses`)
   }
 }
 

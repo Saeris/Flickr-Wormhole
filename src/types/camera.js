@@ -1,4 +1,3 @@
-import { loadCamerasByBrand, loadBrands } from "./loaders"
 import { Brand } from "./brand"
 
 export const Camera = new GqlObject({
@@ -17,7 +16,7 @@ export const Camera = new GqlObject({
       type: Brand,
       description: `The Brand of the Camera.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ brand }, args, { flickr }) => await loadBrands(flickr).load(`brands`)
+      resolve: async({ brand }, args, { brands }) => await brands.load(`brands`)
         .then(results => results.filter(res => res.id === brand)[0]) || null
     },
     megapixels: {
@@ -52,7 +51,7 @@ export const Queries = {
         description: `A Brand ID used to fetch Cameras of that Brand.`
       }
     },
-    resolve: (parent, { id }, { flickr }) => loadCamerasByBrand(flickr).load(id)
+    resolve: (parent, { id }, { cameras }) => cameras.load(id)
   }
 }
 

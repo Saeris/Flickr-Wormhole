@@ -1,5 +1,4 @@
-import { loadBrands } from "./loaders"
-import { fetchPhotoByID, fetchCamerasByBrand, fetchPhotoExif } from "./resolvers"
+import { fetchPhotoExif } from "@/resolvers"
 import { Photo } from "./photo"
 import { Brand } from "./brand"
 import { Camera } from "./camera"
@@ -12,7 +11,7 @@ export const Exif = new GqlObject({
       type: Photo,
       description: `The Photo this EXIF Data belongs to.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ photoId }, args, { flickr }) => fetchPhotoByID({ flickr, photoId })
+      resolve: ({ photoId }, args, { photo }) => photo.load(photoId)
     },
     camera: {
       type: GqlString,
@@ -22,8 +21,8 @@ export const Exif = new GqlObject({
       type: Brand,
       description: `The Brand of of Camera used to take this Photo.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ make }, args, { flickr }) => !!make
-        ? await loadBrands(flickr).load(`brands`)
+      resolve: async({ make }, args, { brands }) => !!make
+        ? await brands.load(`brands`)
           .then(results => results.filter(({ id }) => id === make.toLowerCase())[0])
         : null
     },
@@ -31,8 +30,8 @@ export const Exif = new GqlObject({
       type: Camera,
       description: `The Camera used to take this Photo.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ make, model }, args, { flickr }) => !!make
-        ? await fetchCamerasByBrand({ flickr, brand: make.toLowerCase() })
+      resolve: async({ make, model }, args, { cameras }) => !!make
+        ? await cameras.load(make.toLowerCase())
           .then(results => results.filter(({ id }) => id === model.toLowerCase().replace(` `, `_`))[0])
         : null
     },

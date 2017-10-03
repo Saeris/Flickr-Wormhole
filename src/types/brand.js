@@ -1,5 +1,3 @@
-import { loadBrands } from "./loaders"
-
 export const Brand = new GqlObject({
   name: `Brand`,
   description: `A Flickr Camera Brand Object.`,
@@ -18,7 +16,7 @@ export const Brand = new GqlObject({
 export const Queries = {
   getBrands: {
     type: new GqlList(Brand),
-    resolve: (parent, args, { flickr }) => loadBrands(flickr).load(`brands`)
+    resolve: (parent, args, { brands }) => brands.load(`brands`)
   }
 }
 

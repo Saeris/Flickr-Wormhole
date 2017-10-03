@@ -1,4 +1,3 @@
-import { loadUser } from "./loaders"
 import { User } from "./user"
 
 export const Person = new GqlObject({
@@ -9,13 +8,13 @@ export const Person = new GqlObject({
       type: User,
       description: `The User tagged in the Photo.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ person: userId }, args, { flickr }) => loadUser(flickr).load(userId)
+      resolve: ({ person: userId }, args, { user }) => user.load(userId)
     },
     addedBy: {
       type: User,
       description: `The User who tagged this Person in the Photo.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ addedBy: userId }, args, { flickr }) => loadUser(flickr).load(userId)
+      resolve: ({ addedBy: userId }, args, { user }) => user.load(userId)
     },
     x: {
       type: GqlInt,

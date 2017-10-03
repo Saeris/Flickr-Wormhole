@@ -1,6 +1,5 @@
 import "isomorphic-fetch"
-import { missingArgument } from "@/config/errors"
-import { invariant } from "@/utilities"
+import { invariant, missingArgument } from "@/utilities"
 
 const snake = str => str.trim().split(``).map(char => (/[A-Z]/.test(char) ? `_${char.toLowerCase()}` : char)).join(``)
 
@@ -9,9 +8,7 @@ export class Flickr {
     invariant(apiKey, missingArgument({ apiKey }))
     this.apiKey = apiKey
 
-    this.loader = new Dataloader(this.fetch.bind(this), {
-      batch: false
-    })
+    this.loader = new Dataloader(this.fetch.bind(this))
   }
 
   endpoint = `https://api.flickr.com/services/rest/`
