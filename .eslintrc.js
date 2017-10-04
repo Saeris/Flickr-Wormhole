@@ -13,11 +13,11 @@ module.exports = {
     "plugin:flowtype/recommended"
   ],
   "plugins": [
-    "compat",
-    "react",
-    "flowtype",
-    "import",
-    "promise"
+    "compat", // https://github.com/amilajack/eslint-plugin-compat
+    "react", // https://github.com/yannickcr/eslint-plugin-react
+    "flowtype", // https://github.com/gajus/eslint-plugin-flowtype
+    "import", // https://github.com/benmosher/eslint-plugin-import
+    "promise" // https://github.com/xjamundx/eslint-plugin-promise
   ],
   "settings": {
     "flowtype": { "onlyFilesWithFlowAnnotation": false },

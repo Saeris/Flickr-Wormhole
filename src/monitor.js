@@ -1,4 +1,4 @@
-import good from "good"
+import good from "good" // https://github.com/hapijs/good
 import Winston from 'winston' // https://github.com/winstonjs/winston
 import GoodWinston from 'good-winston' // https://github.com/lancespeelmon/good-winston
 //import 'winston-loggly-bulk' // https://github.com/loggly/winston-loggly-bulk

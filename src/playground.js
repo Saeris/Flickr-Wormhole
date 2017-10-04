@@ -1,4 +1,4 @@
-import { hapi as playground } from 'graphql-playground/middleware'
+import { hapi as playground } from 'graphql-playground/middleware' // https://github.com/graphcool/graphql-playground#as-hapi-middleware
 
 export default {
   register: playground,
