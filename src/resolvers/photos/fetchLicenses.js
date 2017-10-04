@@ -1,11 +1,9 @@
-import { invariant, missingArgument } from "@/utilities"
 import { License } from "@/models"
 import getInfo from "@/methods/photos/licenses/getInfo"
 
-async function fetchLicenses({ flickr } = {}) {
-  invariant(flickr, missingArgument({ flickr }))
+async function fetchLicenses() {
   try {
-    const { licenses = {} } = await getInfo({ flickr })
+    const { licenses = {} } = await getInfo()
     const results = licenses?.license?.map(data => new License(data)) || []
 
     info(`Successfully ran fetchLicenses`, { results })

@@ -77,10 +77,14 @@ export const User = new GqlObject({
 })
 
 export const Queries = {
-  getUserByID: {
+  user: {
     type: User,
+    description: `Gets a User by their ID.`,
     args: {
-      id: { type: new GqlNonNull(GqlID) }
+      id: {
+        type: new GqlNonNull(GqlID),
+        description: `The ID of the User to fetch. (Required)`
+      }
     },
     resolve: (parent, { id: userId }, { user }) => user.load(userId)
   }

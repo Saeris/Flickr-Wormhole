@@ -69,7 +69,7 @@ For now only a few Queries will work! Here are a few you can try to demo the fun
 **Get all Camera Brands:**
 ```graphql
 query Brands {
-  getBrands {
+  brands {
     id
     name
   }
@@ -79,7 +79,7 @@ query Brands {
 **Get all Sony Cameras:**
 ```graphql
 query SonyCameras {
-  getCamerasByBrand(id: "sony") {
+  cameras(brand: "sony") {
     id
     name
   }
@@ -89,7 +89,7 @@ query SonyCameras {
 **Get the EXIF data for a single photo:**
 ```graphql
 query Exif {
-  getPhotoExif(id: "34701580850") {
+  exif(photo: "34701580850") {
     camera
     make {
       name
@@ -114,7 +114,7 @@ query Exif {
 > *Warning, this will take a long time to load depending on how many photos the user has!*
 ```graphql
 query User {
-  getUserByID(id: "146688070@N05") {
+  user(id: "146688070@N05") {
     fullname
     username
     bio

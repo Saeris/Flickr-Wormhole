@@ -1,4 +1,3 @@
-import { fetchPhotoTags } from "@/resolvers"
 import { User } from "./user"
 
 export const Tag = new GqlObject({
@@ -23,16 +22,6 @@ export const Tag = new GqlObject({
 })
 
 export const Queries = {
-  getPhotoTags: {
-    type: Tag,
-    args: {
-      id: {
-        type: new GqlNonNull(GqlID),
-        description: `A Photo ID to fetch Tags for. (Required)`
-      }
-    },
-    resolve: (parent, { id: photoId }, context) => fetchPhotoTags({ flickr, photoId })
-  }
 }
 
 export const Definition = Tag

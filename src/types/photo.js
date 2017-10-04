@@ -139,12 +139,13 @@ export const Photo = new GqlObject({
 })
 
 export const Queries = {
-  getPhotoById: {
+  photo: {
     type: Photo,
+    description: `Gets a Photo by it's ID.`,
     args: {
       id: {
         type: new GqlNonNull(GqlID),
-        description: ``
+        description: `The ID of the Photo to fetch. (Required)`
       }
     },
     resolve: (parent, { id: photoId }, { photo }) => photo.load(photoId)

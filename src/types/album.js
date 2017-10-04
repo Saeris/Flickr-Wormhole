@@ -92,13 +92,20 @@ export const Album = new GqlObject({
 })
 
 export const Queries = {
-  getAlbumByID: {
+  album: {
     type: Album,
+    description: `Gets the specified Album for the given User. Use the 'albums' query to get a list of Albums belonging to a particular User.`,
     args: {
-      user: { type: new GqlNonNull(GqlID) },
-      id: { type: new GqlNonNull(GqlID) }
+      user: {
+        type: new GqlNonNull(GqlID),
+        description: `The ID of the User who owns this Album. (Required)`
+      },
+      album: {
+        type: new GqlNonNull(GqlID),
+        description: `The ID of the Album to fetch. (Required)`
+      }
     },
-    resolve: (parent, { user: userId, id: photosetId }, { flickr }) => fetchAlbumByID({ flickr, userId, photosetId })
+    resolve: (parent, { user: userId, album: photosetId }, { flickr }) => fetchAlbumByID({ flickr, userId, photosetId })
   }
 }
 

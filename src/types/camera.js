@@ -43,15 +43,16 @@ export const Camera = new GqlObject({
 })
 
 export const Queries = {
-  getCamerasByBrand: {
+  cameras: {
     type: new GqlList(Camera),
+    description: `Gets a list of Camera models belonging to a particular Brand. Use the 'brands' query to get a list of queriable brands.`,
     args: {
-      id: {
+      brand: {
         type: new GqlNonNull(GqlID),
-        description: `A Brand ID used to fetch Cameras of that Brand.`
+        description: `The ID of the Brand of Cameras to fetch. (Required)`
       }
     },
-    resolve: (parent, { id }, { cameras }) => cameras.load(id)
+    resolve: (parent, { brand }, { cameras }) => cameras.load(brand)
   }
 }
 

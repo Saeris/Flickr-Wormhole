@@ -159,15 +159,16 @@ export const Exif = new GqlObject({
 })
 
 export const Queries = {
-  getPhotoExif: {
+  exif: {
     type: Exif,
+    description: `Gets the EXIF data for the given Photo.`,
     args: {
-      id: {
+      photo: {
         type: new GqlNonNull(GqlID),
-        description: `ID of the Photo to get EXIF data for.`
+        description: `ID of the Photo to get EXIF data for. (Required)`
       }
     },
-    resolve: (parent, { id: photoId }, { flickr }) => fetchPhotoExif({ flickr, photoId })
+    resolve: (parent, { photo: photoId }, { flickr }) => fetchPhotoExif({ flickr, photoId })
   }
 }
 

@@ -14,8 +14,9 @@ export const Brand = new GqlObject({
 })
 
 export const Queries = {
-  getBrands: {
+  brands: {
     type: new GqlList(Brand),
+    description: `Gets a list of Camera Brands, used to query for Camera models.`,
     resolve: (parent, args, { brands }) => brands.load(`brands`)
   }
 }

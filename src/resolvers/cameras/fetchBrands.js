@@ -1,11 +1,9 @@
-import { invariant, missingArgument } from "@/utilities"
 import { Brand } from "@/models"
 import getBrands from "@/methods/cameras/getBrands"
 
-async function fetchBrands({ flickr } = {}) {
-  invariant(flickr, missingArgument({ flickr }))
+async function fetchBrands() {
   try {
-    const { brands = {} } = await getBrands({ flickr })
+    const { brands = {} } = await getBrands()
     const results = brands?.brand?.map(data => new Brand(data)) || []
 
     info(`Successfully ran fetchBrands`, { results })

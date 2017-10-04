@@ -18,8 +18,9 @@ export const License = new GqlObject({
 })
 
 export const Queries = {
-  getLicenses: {
+  licenses: {
     type: License,
+    description: `Gets a list of Licenses that a Photo can have.`,
     resolve: (parent, args, { licenses }) => licenses.load(`licenses`)
   }
 }
