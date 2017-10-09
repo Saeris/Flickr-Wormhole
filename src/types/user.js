@@ -1,23 +1,43 @@
-import { fetchUserGalleries, fetchUserFavorites } from "@/resolvers"
-import { Photo } from "./photo"
-import { Gallery } from "./gallery"
-import { Album } from "./album"
+import {
+  fetchUserGalleries,
+  fetchUserAlbums,
+  fetchUserFavorites,
+  applyFilters,
+  filters,
+  order,
+  pagination,
+  Range
+} from "@/resolvers"
+import { Photo, PhotoFilter, PhotoOrder } from "./photo"
+import { Gallery, GalleryFilter, GalleryOrder } from "./gallery"
+import { Album, AlbumFilter, AlbumOrder } from "./album"
 
 export const User = new GqlObject({
   name: `User`,
   description: `A Flickr User.`,
-  fields: () => ({
-    id: {
+  fields: disabled => ({
+    id: globalId(`User`),
+    userId: {
       type: GqlID,
       description: `The User's ID.`
     },
     username: {
       type: GqlString,
-      description: `The User's Flickr username.`
+      description: `The User's Flickr username.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `A username or a list of usernames.`
+      }
     },
     fullname: {
       type: GqlString,
-      description: `The User's full name.`
+      description: `The User's full name.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `A full name or a list of full names.`
+      }
     },
     bio: {
       type: GqlString,
@@ -25,45 +45,102 @@ export const User = new GqlObject({
     },
     location: {
       type: GqlString,
-      description: `The User's location as shown in their profile.`
+      description: `The User's location as shown in their profile.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `A location name or a list of location names.`
+      }
     },
     profile: {
       type: GqlURL,
       description: `URL to the User's profile page.`
     },
+    views: {
+      type: GqlInt,
+      description: `The number of views the user's photos have received.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
+    },
+    photoCount: {
+      type: GqlInt,
+      description: `How many photos user has uploaded.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
+    },
     photos: {
-      type: new GqlList(Photo),
+      type: !disabled && new GqlList(Photo),
+      description: `A list of the User's photos.`,
+      args: {
+        first: { type: GqlInt },
+        last: { type: GqlInt },
+        count: { type: GqlInt },
+        offset: { type: GqlInt },
+        filter: { type: PhotoFilter },
+        orderBy: { type: PhotoOrder }
+      },
+      complexity: (args, childComplexity) => childComplexity * 5,
+      resolve: async({ userId, total: photoCount }, args, { flickr, photo }) =>
+        applyFilters(await photo.loadMany(
+          await fetchUserPhotos({ flickr, userId, ...pagination({...args, total}) })
+        ), args)
+    },
+    galleries: {
+      type: !disabled && new GqlList(Gallery),
+      description: `A list of the User's galleries.`,
       args: {
         first: { type: GqlInt },
         count: { type: GqlInt },
-        offset: { type: GqlInt }
+        offset: { type: GqlInt },
+        filter: { type: GalleryFilter },
+        orderBy: { type: GalleryOrder }
       },
-      description: `A list of the User's photos.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ id: userId }, args, { userPhotos }) => userPhotos.load(userId)
-    },
-    galleries: {
-      type: new GqlList(Gallery),
-      description: `A list of the User's galleries.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ id: userId }, args, { flickr }) => fetchUserGalleries({ flickr, userId })
+      complexity: (args, childComplexity) => childComplexity * 5,
+      resolve: async({ userId }, args, { flickr, gallery }) =>
+        applyFilters(await gallery.loadMany(await fetchUserGalleries({ flickr, userId, ...pagination(args) })), args)
     },
     albums: {
-      type: new GqlList(Album),
+      type: !disabled && new GqlList(Album),
       description: `A list of the User's albums.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ id: userId }, args, { userAlbums }) => userAlbums.load(userId)
+      args: {
+        first: { type: GqlInt },
+        count: { type: GqlInt },
+        offset: { type: GqlInt },
+        filter: { type: AlbumFilter },
+        orderBy: { type: AlbumOrder }
+      },
+      complexity: (args, childComplexity) => childComplexity * 5,
+      resolve: async({ userId }, args, { flickr, album }) =>
+        applyFilters(await album.loadMany(await fetchUserAlbums({ flickr, userId, ...pagination(args) })), args)
     },
     favorites: {
-      type: new GqlList(Photo),
+      type: !disabled && new GqlList(Photo),
       description: `A list of Photos this User has favorited.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ id: userId }, args, { flickr, photo }) => await fetchUserFavorites({ flickr, userId })
-        .then(results => results.length > 0 ? photo.loadMany(results) : [])
+      args: {
+        first: { type: GqlInt },
+        count: { type: GqlInt },
+        offset: { type: GqlInt },
+        filter: { type: PhotoFilter },
+        orderBy: { type: PhotoOrder }
+      },
+      complexity: (args, childComplexity) => childComplexity * 5,
+      resolve: async({ userId}, args, { flickr, photo }) =>
+        applyFilters(await photo.loadMany(await fetchUserFavorites({ flickr, userId, ...pagination(args) })), args)
     },
     isPro: {
       type: GqlBool,
-      description: `Flag specifying whether the User is a professional user.`
+      description: `Flag specifying whether the User is a professional user.`,
+      sortable: true,
+      filter: {
+        type: GqlBool,
+        description: `Filter by whether the User is a Pro user or not.`
+      }
     },
     icon: {
       type: GqlURL,
@@ -76,6 +153,9 @@ export const User = new GqlObject({
   })
 })
 
+export const UserFilter = filters(User)
+export const UserOrder = order(User)
+
 export const Queries = {
   user: {
     type: User,
@@ -87,6 +167,19 @@ export const Queries = {
       }
     },
     resolve: (parent, { id: userId }, { user }) => user.load(userId)
+  },
+  users: {
+    type: new GqlList(User),
+    description: `Gets a list of Users by their IDs.`,
+    args: {
+      id: {
+        type: new GqlList(new GqlNonNull(GqlID)),
+        description: `The IDs of the Users to fetch. (Required)`
+      },
+      filter: { type: UserFilter },
+      orderBy: { type: UserOrder }
+    },
+    resolve: (parent, args, { user }) => applyFilters(user.loadMany(args.id), args)
   }
 }
 

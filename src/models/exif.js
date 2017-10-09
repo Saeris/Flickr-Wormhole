@@ -3,7 +3,8 @@ import { invariant, missingArgument } from "@/utilities"
 export default class Exif {
   constructor(data) {
     invariant(data, missingArgument({ data }))
-    this.photoId = data.photoId
+    this.id = data?.photoId
+    this.photoId = data?.photoId
     this.camera = data?.camera || null
     this.make = (data?.IFD0)?.Make || null
     this.model = (data?.IFD0)?.Model || null

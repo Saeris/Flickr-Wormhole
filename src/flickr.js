@@ -8,7 +8,7 @@ export class Flickr {
     invariant(apiKey, missingArgument({ apiKey }))
     this.apiKey = apiKey
 
-    this.loader = new Dataloader(this.fetch.bind(this))
+    this.loader = new Dataloader(this.fetch.bind(this), { batch: false })
   }
 
   endpoint = `https://api.flickr.com/services/rest/`

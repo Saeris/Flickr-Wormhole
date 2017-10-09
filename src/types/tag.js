@@ -4,7 +4,8 @@ export const Tag = new GqlObject({
   name: `Tag`,
   description: `A Flickr Tag Object.`,
   fields: () => ({
-    id: {
+    id: globalId(`Tag`),
+    tagId: {
       type: GqlID,
       description: `The Tag's ID.`
     },

@@ -1,35 +1,57 @@
+import { filters, order, Range } from "@/resolvers"
 import { Brand } from "./brand"
 
 export const Camera = new GqlObject({
   name: `Camera`,
   description: `A Flickr Camera Object.`,
   fields: () => ({
-    id: {
+    id: globalId(`Camera`),
+    cameraId: {
       type: GqlID,
       description: `The Camera's ID.`
     },
     name: {
       type: GqlString,
-      description: `The name of the Camera.`
+      description: `The name of the Camera.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `An Camera name or a list of Camera names.`
+      }
     },
     brand: {
       type: Brand,
       description: `The Brand of the Camera.`,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ brand }, args, { brands }) => await brands.load(`brands`)
-        .then(results => results.filter(res => res.id === brand)[0]) || null
+      resolve: async({ brand }, args, { brands }) =>
+        (await brands.load(`brands`).then(results => results.filter(res => res.id === brand)[0])) || null
     },
     megapixels: {
       type: GqlFloat,
-      description: `The megapixel count of the Camera, if specified.`
+      description: `The megapixel count of the Camera, if specified.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     zoom: {
       type: GqlFloat,
-      description: `The zoom factor of the Camera, if specified.`
+      description: `The zoom factor of the Camera, if specified.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     lcdSize: {
       type: GqlFloat,
-      description: `The size of the Camera's LCD display, if specified.`
+      description: `The size of the Camera's LCD display, if specified.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     storage: {
       type: new GqlList(GqlString),
@@ -41,6 +63,9 @@ export const Camera = new GqlObject({
     }
   })
 })
+
+export const CameraFilter = filters(Camera)
+export const CameraOrder = order(Camera)
 
 export const Queries = {
   cameras: {

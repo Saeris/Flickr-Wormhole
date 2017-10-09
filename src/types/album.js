@@ -1,35 +1,59 @@
-import { fetchAlbumPhotos, fetchAlbumComments, fetchAlbumByID } from "@/resolvers"
+import {
+  fetchAlbumPhotos,
+  fetchAlbumComments,
+  fetchAlbumByID,
+  applyFilters,
+  filters,
+  order,
+  pagination,
+  Range
+} from "@/resolvers"
 import { User } from "./user"
-import { Photo } from "./photo"
-import { Comment } from "./comment"
+import { Photo, PhotoFilter, PhotoOrder } from "./photo"
+import { Comment, CommentFilter, CommentOrder } from "./comment"
 
 export const Album = new GqlObject({
   name: `Album`,
   description: `A Flickr Album (Photoset) Object.`,
-  fields: () => ({
-    id: {
+  fields: disabled => ({
+    id: globalId(`Album`),
+    albumId: {
       type: new GqlNonNull(GqlID),
       description: `The album's ID.`
     },
     title: {
       type: GqlString,
-      description: `The name of this album.`
+      description: `The name of this album.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `An Album title or a list of Album titles.`
+      }
     },
     description: {
       type: GqlString,
       description: `A description of the album.`
     },
     owner: {
-      type: new GqlNonNull(User),
+      type: !disabled && new GqlNonNull(User),
       description: `The User who is the owner of this album.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
+      complexity: (args, childComplexity) => childComplexity * 5,
       resolve: ({ owner: userId }, args, { user }) => user.load(userId)
+    },
+    slug: {
+      type: GqlString,
+      description: `A string generated from the Album's title, used as a URL slug to filter a list of Albums by name.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `An Album slug or a list of Album slugs.`
+      }
     },
     primary: {
       type: Photo,
       description: `The primary Photo of this album, used as a thumbnail and banner image.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ primary: photoID }, args, { photo }) => photo.load(photoId)
+      complexity: (args, childComplexity) => childComplexity * 5,
+      resolve: ({ primary: photoId }, args, { photo }) => photo.load(photoId)
     },
     url: {
       type: GqlURL,
@@ -37,59 +61,91 @@ export const Album = new GqlObject({
     },
     photoCount: {
       type: GqlInt,
-      description: `How many photos are in this album.`
+      description: `How many photos are in this album.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     videoCount: {
       type: GqlInt,
-      description: `How many videos are in this album.`
+      description: `How many videos are in this album.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     commentCount: {
       type: GqlInt,
-      description: `How many comments this album has.`
+      description: `How many comments this album has.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     views: {
       type: GqlInt,
-      description: `How many views this album has.`
+      description: `How many views this album has.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     photos: {
-      type: new GqlList(Photo),
+      type: !disabled && new GqlList(Photo),
       description: `A list of Photos belonging to this Album.`,
       args: {
-        first: { type: GqlInt, defaultValue: 0 },
-        last : { type: GqlInt, defaultValue: 0 },
-        count: { type: GqlInt, defaultValue: 500 },
-        offset: { type: GqlInt, defaultValue: 0 }
+        first: { type: GqlInt },
+        last: { type: GqlInt },
+        count: { type: GqlInt },
+        offset: { type: GqlInt },
+        filter: { type: PhotoFilter },
+        orderBy: { type: PhotoOrder }
       },
       complexity: ({ count }, childComplexity) => childComplexity * count,
-      resolve: async({ owner: userId, id: photosetId, photoCount, videoCount }, { first, last, count, offset }, { flickr, photo }) =>
-        await fetchAlbumPhotos({
-          flickr,
-          userId,
-          photosetId,
-          offset: !!last
-            ? Math.floor((photoCount + videoCount) / ((photoCount + videoCount) - (last + offset))) // count offset by n from the total
-            : !!first // total pages
-              ? (Math.floor((photoCount + videoCount) / first) || 1) * (first + offset)
-              : offset || 1, //
-          perPage: !!last ? (photoCount + videoCount) : first || count || (photoCount + videoCount)
-        }).then(results => results.length > 0 ? photo.loadMany(results) : [])
+      resolve: async({ owner: userId, albumId: photosetId, photoCount, videoCount }, args, { flickr, photo }) =>
+        applyFilters(await photo.loadMany(
+          await fetchAlbumPhotos({
+            flickr,
+            userId,
+            photosetId,
+            ...pagination({ ...args, total: photoCount + videoCount })
+          })
+        ), args)
     },
     comments: {
-      type: new GqlList(Comment),
+      type: !disabled && new GqlList(Comment),
       description: `A list of Comments left on this Album.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: ({ id: photosetId }, args, { flickr }) => fetchAlbumComments({ flickr, photosetId })
+      args: {
+        first: { type: GqlInt },
+        count: { type: GqlInt },
+        offset: { type: GqlInt },
+        filter: { type: CommentFilter },
+        orderBy: { type: CommentOrder }
+      },
+      complexity: (args, childComplexity) => childComplexity * 5,
+      resolve: async({ albumId: photosetId }, args, { flickr }) =>
+        applyFilters(await fetchAlbumComments({ flickr, photosetId, ...pagination(args) }), args)
     },
     created: {
       type: new GqlNonNull(GqlDateTime),
-      description: `The date and time when this album was created.`
+      description: `The date and time when this album was created.`,
+      sortable: true
     },
     updated: {
       type: new GqlNonNull(GqlDateTime),
-      description: `The last date and time that this album was updated.`
+      description: `The last date and time that this album was updated.`,
+      sortable: true
     }
   })
 })
+
+export const AlbumFilter = filters(Album)
+export const AlbumOrder = order(Album)
 
 export const Queries = {
   album: {

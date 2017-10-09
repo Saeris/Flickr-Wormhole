@@ -4,6 +4,7 @@ export const Person = new GqlObject({
   name: `Person`,
   description: `A tag referencing a User in a photo.`,
   fields: () => ({
+    id: globalId(`Person`),
     person: {
       type: User,
       description: `The User tagged in the Photo.`,

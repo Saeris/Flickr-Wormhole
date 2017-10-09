@@ -37,3 +37,11 @@ export {
   fetchUserGalleries,
   fetchUserPhotos
 } from "./users"
+
+export {
+  applyFilters,
+  filters,
+  order,
+  pagination,
+  Range
+} from "./utilities"

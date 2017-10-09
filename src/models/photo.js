@@ -6,6 +6,7 @@ export default class Photo {
   constructor(data) {
     invariant(data, missingArgument({ data }))
     this.id = data?.id
+    this.photoId = data?.id
     this.secret = data?.secret
     this.server = data?.server
     this.license = data?.license
@@ -21,7 +22,7 @@ export default class Photo {
     this.notes = data?.notes?.note?.map(note => new Note({ photo: data?.id, ...note }))
     this.tags = data?.tags?.tag?.map(tag => new Tag({ photo: data?.id, ...tag }))
     this.hasLocation = !!data.location
-    this.hasComments = parseInt(data.comments?._content || 0, 10)
+    this.commentsCount = parseInt(data.comments?._content || 0, 10)
     this.hasPeople = !!data.people?.haspeople
     this.posted = data.dates?.posted
     this.taken = data.dates?.taken

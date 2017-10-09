@@ -3,9 +3,10 @@ import { invariant, missingArgument } from "@/utilities"
 export default class Place {
   constructor(data) {
     invariant(data, missingArgument({ data }))
+    this.id = data?.placeId
     this.name = data?.name
-    this.id = data?.place_id
-    this.woe = data?.woeid
+    this.placeId = data?.place_id
+    this.woeId = data?.woeid
     this.lat = data?.latitude
     this.lon = data?.longitude
     this.url = data?.place_url

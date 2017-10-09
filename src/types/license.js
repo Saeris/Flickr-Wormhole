@@ -1,14 +1,22 @@
+import { filters, order } from "@/resolvers"
+
 export const License = new GqlObject({
   name: `License`,
   description: `A Flickr License Description`,
   fields: () => ({
-    id: {
+    id: globalId(`License`),
+    licenseId: {
       type: GqlID,
       description: `The License' ID.`
     },
     name: {
       type: GqlString,
-      description: `The name of the License.`
+      description: `The name of the License.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `A license name or list of license names.`
+      }
     },
     url: {
       type: GqlURL,
@@ -16,6 +24,9 @@ export const License = new GqlObject({
     }
   })
 })
+
+export const LicenseFilter = filters(License)
+export const LicenseOrder = order(License)
 
 export const Queries = {
   licenses: {

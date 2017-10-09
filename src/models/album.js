@@ -4,15 +4,31 @@ export default class Album {
   constructor(data) {
     invariant(data, missingArgument({ data }))
     this.id = data?.id
+    this.albumId = data?.id
     this.title = (data?.title)?._content
     this.description = (data?.description)?._content
     this.owner = data?.owner
-    this.photoCount = data?.count_photos
-    this.videoCount = data?.count_videos
-    this.views = data?.count_views
-    this.commentCount = data?.count_comments
+    this.slug = this.toSlug(this.title)
+    this.photoCount = parseInt(data?.count_photos || 0, 10)
+    this.videoCount = parseInt(data?.count_videos || 0, 10)
+    this.views = parseInt(data?.count_views || 0, 10)
+    this.commentCount = parseInt(data?.count_comments || 0, 10)
     this.created = data?.date_create
     this.updated = data?.date_update
     this.primary = data?.primary
+  }
+
+  toSlug(text) {
+    return text.toString().toLowerCase()
+      // Replace spaces with -
+      .replace(/\s+/g, `-`)
+      // Remove all non-word chars
+      .replace(/[^\w\-]+/g, ``)
+      // Replace multiple - with single -
+      .replace(/\-\-+/g, `-`)
+      // Trim - from start of text
+      .replace(/^-+/, ``)
+      // Trim - from end of text
+      .replace(/-+$/, ``)
   }
 }

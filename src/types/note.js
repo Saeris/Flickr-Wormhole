@@ -5,7 +5,8 @@ export const Note = new GqlObject({
   name: `Note`,
   description: `A Note placed on top of a Photo.`,
   fields: () => ({
-    id: {
+    id: globalId(`Note`),
+    noteId: {
       type: GqlID,
       description: `The Note's ID. Used for editing and deleting notes on photos.`
     },

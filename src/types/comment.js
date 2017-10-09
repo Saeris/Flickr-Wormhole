@@ -1,4 +1,4 @@
-import { fetchGalleryByID } from "@/resolvers"
+import { fetchGalleryByID, filters, order } from "@/resolvers"
 import { User } from "./user"
 import { Photo } from "./photo"
 import { Album } from "./album"
@@ -8,7 +8,8 @@ export const Comment = new GqlObject({
   name: `Comment`,
   description: `A Flickr Comment Object.`,
   fields: () => ({
-    id: {
+    id: globalId(`Comment`),
+    commentId: {
       type: GqlID,
       description: `The Comment's ID.`
     },
@@ -38,7 +39,8 @@ export const Comment = new GqlObject({
     },
     created: {
       type: GqlDateTime,
-      description: `The date and time the Comment was created.`
+      description: `The date and time the Comment was created.`,
+      sortable: true
     },
     url: {
       type: GqlURL,
@@ -50,6 +52,9 @@ export const Comment = new GqlObject({
     }
   })
 })
+
+export const CommentFilter = filters(Comment)
+export const CommentOrder = order(Comment)
 
 export const Queries = {
 }

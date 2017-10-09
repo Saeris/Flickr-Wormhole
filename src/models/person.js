@@ -3,6 +3,8 @@ import { invariant, missingArgument } from "@/utilities"
 export default class Person {
   constructor(data) {
     invariant(data, missingArgument({ data }))
+    this.id = `${data?.photoId}-${data?.nsid}`
+    this.photo = data?.photoId
     this.person = data?.nsid
     this.addedBy = data?.added_by
     this.icon = (!!data?.iconfarm && !!data?.iconserver && !!data?.nsid)

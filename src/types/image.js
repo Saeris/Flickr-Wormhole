@@ -1,54 +1,88 @@
+import { filters, order, Range } from "@/resolvers"
 import { Photo } from "./photo"
+
+export const ImageSizes = new GqlEnum({
+  name: `ImageSizes`,
+  values: {
+    Square: {},
+    Large_Square: {},
+    Thumbnail: {},
+    Small: {},
+    Small_320: {},
+    Medium: {},
+    Medium_640: {},
+    Medium_800: {},
+    Large: {},
+    Large_1600: {},
+    Large_2048: {},
+    Original: {}
+  }
+})
 
 export const Image = new GqlObject({
   name: `Image`,
   description: `A Flickr Image Object`,
   fields: () => ({
+    id: globalId(`Image`),
     photo: {
       type: Photo,
       description: `Rhe Photo this Image is associated with.`,
-      complexity: (args, childComplexity) => childComplexity * 10,
+      complexity: (args, childComplexity) => childComplexity * 5,
       resolve: ({ photoId }, args, { photo }) => photo.load(photoId)
     },
     canBlog: {
       type: GqlBool,
-      description: `Flag determining whether the Image can be posted in a Blog or not.`
+      description: `Flag determining whether the Image can be posted in a Blog or not.`,
+      sortable: true,
+      filter: {
+        type: GqlBool,
+        description: `Whether to filter based on if the Image can be Blogged or not.`
+      }
     },
     canPrint: {
       type: GqlBool,
-      description: `Flag determining whether a Print of the Image can be requested.`
+      description: `Flag determining whether a Print of the Image can be requested.`,
+      sortable: true,
+      filter: {
+        type: GqlBool,
+        description: `Whether to filter based on if the Image can be Printed or not.`
+      }
     },
     canDownload: {
       type: GqlBool,
-      description: `Flag determining whether the Image can be downloaded or not.`
+      description: `Flag determining whether the Image can be downloaded or not.`,
+      sortable: true,
+      filter: {
+        type: GqlBool,
+        description: `Whether to filter based on if the Image can be Downloaded or not.`
+      }
     },
-    label: {
-      type: new GqlEnum({
-        name: `ImageLabel`,
-        values: {
-          Square: {},
-          Large_Square: {},
-          Thumbnail: {},
-          Small: {},
-          Small_320: {},
-          Medium: {},
-          Medium_640: {},
-          Medium_800: {},
-          Large: {},
-          Large_1600: {},
-          Large_2048: {},
-          Original: {}
-        }
-      }),
-      description: `A Label describing the size of the photo.`
+    size: {
+      type: ImageSizes,
+      description: `The size of the Image.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(ImageSizes),
+        description: `A Size or a List of Sizes to fetch.`
+      }
     },
     width: {
       type: GqlInt,
-      description: `The Width of the Image.`
+      description: `The Width of the Image.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     height: {
       type: GqlInt,
-      description: `The Height of the Image.`
+      description: `The Height of the Image.`,
+      sortable: true,
+      filter: {
+        type: Range,
+        description: `A value to filter against, or a min and a max value.`
+      }
     },
     source: {
       type: GqlURL,
@@ -60,10 +94,18 @@ export const Image = new GqlObject({
     },
     media: {
       type: GqlString,
-      description: `The type of Image resource this is.`
+      description: `The type of Image resource this is.`,
+      sortable: true,
+      filter: {
+        type: new GqlList(GqlString),
+        description: `A media type or a list of media types.`
+      }
     }
   })
 })
+
+export const ImageFilter = filters(Image)
+export const ImageOrder = order(Image)
 
 export const Queries = {
 }

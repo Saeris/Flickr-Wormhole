@@ -4,6 +4,7 @@ export default class Camera {
   constructor(data) {
     invariant(data, missingArgument({ data }))
     this.id = data?.id
+    this.cameraId = data?.id
     this.name = (data?.name)?._content
     this.brand = data.brand
     this.megapixels = ((data?.details)?.megapixels)?._content || null

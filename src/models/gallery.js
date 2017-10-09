@@ -4,6 +4,7 @@ export default class Gallery {
   constructor(data) {
     invariant(data, missingArgument({ data }))
     this.id = data?.id
+    this.galleryId = data?.id
     this.title = (data?.title)?._content
     this.description = (data?.description)?._content
     this.owner = data?.owner
