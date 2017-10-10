@@ -32,8 +32,8 @@ export default class Exif {
     this.focalPlaneXResolution = (data?.ExifIFD)?.FocalPlaneXResolution || null
     this.focalPlaneYResolution = (data?.ExifIFD)?.FocalPlaneYResolution || null
     this.focalPlaneUnit = (data?.ExifIFD)?.FocalPlaneResolutionUnit || null
-    this.created = (data?.ExifIFD)?.DateTimeOriginal || null
-    this.modified = (data?.ExifIFD)?.ModifyDate || null
+    this.created = new Date(...(data?.ExifIFD)?.DateTimeOriginal.replace(/(:| )/g, `,`).split(`,`))
+    this.modified = new Date(...(data?.IFD0)?.ModifyDate.replace(/(:| )/g, `,`).split(`,`))
     this.source = (data?.ExifIFD)?.FileSource || null
     this.sceneType = (data?.ExifIFD)?.SceneType || null
     this.sceneCaptureType = (data?.ExifIFD)?.SceneCaptureType || null

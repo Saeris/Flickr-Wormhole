@@ -14,7 +14,7 @@ export default class Gallery {
     this.videoCount = data?.count_videos
     this.commentCount = data?.count_comments
     this.views = data?.count_views
-    this.created = data?.date_create
-    this.updated = data?.date_update
+    this.created = new Date(parseInt((data?.date_create || 0) * 1000, 10))
+    this.updated = new Date(parseInt((data?.date_update || 0) * 1000, 10))
   }
 }

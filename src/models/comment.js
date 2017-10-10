@@ -9,7 +9,7 @@ export default class Comment {
     this.photo = data?.photo
     this.album = data?.album
     this.gallery = data?.gallery
-    this.created = data?.datecreate
+    this.created = new Date(parseInt((data?.datecreate || 0) * 1000, 10))
     this.url = decodeURI(data?.permalink)
     this.text = data?._content
   }

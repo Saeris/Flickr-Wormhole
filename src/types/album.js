@@ -10,7 +10,11 @@ import {
 } from "@/resolvers"
 import { User } from "./user"
 import { Photo, PhotoFilter, PhotoOrder } from "./photo"
-import { Comment, CommentFilter, CommentOrder } from "./comment"
+import {
+  Comment,
+  //CommentFilter,
+  CommentOrder
+} from "./comment"
 
 export const Album = new GqlObject({
   name: `Album`,
@@ -124,7 +128,7 @@ export const Album = new GqlObject({
         first: { type: GqlInt },
         count: { type: GqlInt },
         offset: { type: GqlInt },
-        filter: { type: CommentFilter },
+        //filter: { type: CommentFilter },
         orderBy: { type: CommentOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,

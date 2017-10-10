@@ -10,7 +10,7 @@ import { invariant, missingArgument, isNumber } from "@/utilities"
 // Overall, providing a generic pagination interface for a REST API is difficult at best.
 export function pagination({ first = 0, last = 0, count = 0, offset = 0, total = 0 } = {}) {
   invariant(isNumber(first) || isNumber(last) || isNumber(count), `Please set either 'first', 'last', or 'count'.`)
-  invariant(!!total && isNumber(total), missingArgument({ total }, `number`))
+  invariant(isNumber(total), missingArgument({ total }, `number`))
   isNumber(offset)
   const minPerPage = (totalItems, minLimit) => {
     if (totalItems === minLimit) return minLimit

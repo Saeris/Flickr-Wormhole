@@ -1,4 +1,8 @@
-import { fetchGalleryByID, filters, order } from "@/resolvers"
+import {
+  fetchGalleryByID,
+  //filters,
+  order
+} from "@/resolvers"
 import { User } from "./user"
 import { Photo } from "./photo"
 import { Album } from "./album"
@@ -53,7 +57,7 @@ export const Comment = new GqlObject({
   })
 })
 
-export const CommentFilter = filters(Comment)
+//export const CommentFilter = filters(Comment)
 export const CommentOrder = order(Comment)
 
 export const Queries = {

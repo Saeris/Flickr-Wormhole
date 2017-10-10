@@ -24,8 +24,8 @@ export default class Photo {
     this.hasLocation = !!data.location
     this.commentsCount = parseInt(data.comments?._content || 0, 10)
     this.hasPeople = !!data.people?.haspeople
-    this.posted = data.dates?.posted
-    this.taken = data.dates?.taken
-    this.updated = data.dates?.lastupdate
+    this.posted = new Date(parseInt((data.dates?.posted || 0) * 1000, 10))
+    this.taken = new Date(...data.dates?.taken.replace(/(:| |-)/g, `,`).split(`,`))
+    this.updated = new Date(parseInt((data.dates?.lastupdate || 0) * 1000, 10))
   }
 }

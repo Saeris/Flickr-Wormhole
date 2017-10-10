@@ -13,8 +13,8 @@ export default class Album {
     this.videoCount = parseInt(data?.count_videos || 0, 10)
     this.views = parseInt(data?.count_views || 0, 10)
     this.commentCount = parseInt(data?.count_comments || 0, 10)
-    this.created = data?.date_create
-    this.updated = data?.date_update
+    this.created = new Date(parseInt((data?.date_create || 0) * 1000, 10))
+    this.updated = new Date(parseInt((data?.date_update || 0) * 1000, 10))
     this.primary = data?.primary
   }
 

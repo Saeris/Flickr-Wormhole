@@ -7,7 +7,6 @@ import {
   applyFilters,
   filters,
   order,
-  pagination,
   Range
 } from "@/resolvers"
 import { License } from "./license"
@@ -174,17 +173,11 @@ export const Photo = new GqlObject({
       type: !disabled && new GqlList(Comment),
       description: `A list of Comments left on this Photo.`,
       args: {
-        first: { type: GqlInt },
-        last: { type: GqlInt },
-        count: { type: GqlInt },
-        offset: { type: GqlInt },
         orderBy: { type: CommentOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ photoId, total: commentsCount }, args, { flickr }) =>
-        !!total
-          ? applyFilters(await fetchPhotoComments({ flickr, photoId, ...pagination({ ...args, total }) }), args)
-          : []
+      resolve: async({ photoId, commentsCount }, args, { flickr }) =>
+        !!commentsCount ? applyFilters(await fetchPhotoComments({ flickr, photoId }), args) : []
     },
     people: {
       type: !disabled && new GqlList(Person),

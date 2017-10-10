@@ -116,8 +116,8 @@ export const User = new GqlObject({
         orderBy: { type: AlbumOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ userId }, args, { flickr, album }) =>
-        applyFilters(await album.loadMany(await fetchUserAlbums({ flickr, userId, ...pagination(args) })), args)
+      resolve: async({ userId }, args, { flickr }) =>
+        applyFilters(await fetchUserAlbums({ flickr, userId, ...pagination(args) }), args)
     },
     favorites: {
       type: !disabled && new GqlList(Photo),
