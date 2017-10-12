@@ -19,7 +19,9 @@
     "start:prod": "cross-env NODE_ENV=production serverless --stage=production offline start --dontPrintOutput",
     "deploy": "npm run deploy:dev",
     "deploy:dev": "cross-env NODE_ENV=development serverless --stage=dev deploy",
-    "deploy:prod": "cross-env NODE_ENV=production serverless --stage=production deploy"
+    "deploy:prod": "cross-env NODE_ENV=production serverless --stage=production deploy",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "apollo-server-hapi": "^1.1.2",
@@ -41,7 +43,8 @@
     "hapi": "^16.6.2",
     "hapi-rate-limit": "^1.4.0",
     "isomorphic-fetch": "^2.2.1",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "snyk": "^1.42.6"
   },
   "devDependencies": {
     "aws-sdk": "^2.125.0",
@@ -87,5 +90,6 @@
       "eslint --fix",
       "git add"
     ]
-  }
+  },
+  "snyk": true
 }
