@@ -1,13 +1,15 @@
-import { invariant, missingArgument, isNumber, isString, isArray, isObject } from "@/utilities"
+import { invariant, missingArgument, isBoolean, isNumber, isString, isArray, isObject, isDate } from "@/utilities"
 
 export function applyFilters(results, args) {
-  invariant(isObject(results, true), missingArgument({ results }, `object`))
+  invariant(isArray(results, true), missingArgument({ results }, `array`))
   invariant(isObject(args, true), missingArgument({ args }, `object`))
 
-  const withinRange = (rule, res) => {
-    const { value, min, max, operator } = rule
-    info(`Evaluation if results is within range:`, rule, res)
-    if (!!value && !!operator) {
+  const withinRange = (rule, res, date = false) => {
+    const value = date ? rule?.date?.getTime() : rule?.value
+    const min = date ? rule?.startDate?.getTime() : rule?.min
+    const max = date ? rule?.endDate?.getTime() : rule?.max
+    const { operator } = rule
+    if ((!!value && isNumber(value)) && (!!operator && isString(operator))) {
       switch (operator) {
         case `gte`: return res >= value
         case `gt`: return res > value
@@ -16,7 +18,7 @@ export function applyFilters(results, args) {
         default: return res === value
       }
     }
-    if (!!min && !!max) return res >= min && res <= max
+    if ((!!min && isNumber(min)) && (!!max && isNumber(max))) return res >= min && res <= max
   }
 
   if (!!args.filter) {
@@ -24,7 +26,9 @@ export function applyFilters(results, args) {
       results = results.filter(
         res => isArray(rule)
           ? rule.includes(res[field])
-          : isString(rule) ? res[field] === rule : withinRange(rule, res[field])
+          : isString(rule) || isBoolean(rule)
+            ? res[field] === rule
+            : withinRange(rule, res[field], isDate(rule))
       )
     }
   }
@@ -32,15 +36,17 @@ export function applyFilters(results, args) {
   if (!!args.orderBy) {
     const { field, sort } = args.orderBy
     results.sort((a, b) => {
-      if (isNumber(a[field] && isNumber(b[field]))) sort === `asc` ? a[field] - b[field] : b[field] - a[field]
+      if (isNumber(a[field] && isNumber(b[field]))) return a[field] - b[field]
+
+      if (isDate(a[field]) && isDate(b[field])) return a[field].getTime() - b[field].getTime()
 
       if (isString(a[field]) && isString(b[field])) {
         const fieldA = a[field].toUpperCase()
         const fieldB = b[field].toUpperCase()
-        if (sort === `asc`) return fieldA < fieldB ? -1 : fieldA > fieldB ? 1 : 0
-        return fieldA > fieldB ? -1 : fieldA < fieldB ? 1 : 0
+        return fieldA < fieldB ? -1 : fieldA > fieldB ? 1 : 0
       }
     })
+    if (sort === `desc`) results.reverse()
   }
 
   return results

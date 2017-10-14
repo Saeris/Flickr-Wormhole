@@ -1,4 +1,4 @@
-import { fetchPhotoExif, filters, order  } from "@/resolvers"
+import { fetchPhotoExif, createFilter, createOrder, DateRange } from "@/resolvers"
 import { Photo } from "./photo"
 import { Brand } from "./brand"
 import { Camera } from "./camera"
@@ -238,12 +238,20 @@ export const Exif = new GqlObject({
     created: {
       type: GqlDateTime,
       description: `The Date and Time this image was captured.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     },
     modified: {
       type: GqlDateTime,
       description: `The Date and Time this image was modified.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     },
     source: {
       type: GqlString,
@@ -280,8 +288,8 @@ export const Exif = new GqlObject({
   })
 })
 
-export const ExifFilter = filters(Exif)
-export const ExifOrder = order(Exif)
+export const ExifFilter = createFilter(Exif)
+export const ExifOrder = createOrder(Exif)
 
 export const Queries = {
   exif: {

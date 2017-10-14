@@ -1,5 +1,4 @@
 import { invariant, missingArgument } from "@/utilities"
-import { Album } from "@/models"
 import getList from "@/methods/photosets/getList"
 
 async function fetchUserAlbums({ flickr, userId = ``, start = 1, perPage = 500, skip = 0 } = {}) {
@@ -15,10 +14,11 @@ async function fetchUserAlbums({ flickr, userId = ``, start = 1, perPage = 500, 
 
       total = perPage < 500 ? 1 : perPage > 500 ? parseInt(perPage / 500, 10) : photosets?.pages
 
-      photosets?.photoset?.map(data => results.push(new Album(data)))
+      photosets?.photoset?.map(data => !!data?.id && results.push([userId, data.id]))
     } while (page <= total)
 
-    info(`Successfully ran fetchUserAlbums`, { userId, results })
+    results.splice(skip < 0 ? skip : 0, Math.abs(skip))
+    info(`Successfully ran fetchUserAlbums`, { userId, start, perPage, skip, results })
     return results
   } catch (err) {
     error(`Failed to run fetchUserAlbums`, err)

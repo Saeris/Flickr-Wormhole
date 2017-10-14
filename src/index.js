@@ -1,32 +1,20 @@
 import server from "./server"
 
 exports.handler = (event, context, callback) => { // eslint-disable-line
+  const { path, queryStringParameters: params, httpMethod: method, body: payload, headers } = event
   server.makeReady((err) => { //eslint-disable-line
     if (err) throw err
 
-    let path = event.path
-    if (event.queryStringParameters) {
-      const qs = Object.keys(event.queryStringParameters).map(key => key + `=` + event.queryStringParameters[key])
-      if (qs.length > 0) path += `?` + qs.join(`&`)
-    }
-    const options = {
-      method: event.httpMethod,
-      url: path,
-      payload: event.body,
-      headers: event.headers,
-      validate: false
+    let url = path
+    if (params) {
+      const qs = Object.keys(params).map(key => `${key}=${params[key]}`)
+      if (qs.length > 0) url = `${url}?${qs.join(`&`)}`
     }
 
-    server.inject(options, function(res){ // eslint-disable-line
-      delete res.headers[`content-encoding`]
-      delete res.headers[`transfer-encoding`]
-
-      const response = {
-        statusCode: res.statusCode,
-        headers: res.headers,
-        body: res.result
-      }
-      callback(null, response) // eslint-disable-line
+    server.inject({ method, url, payload, headers, validate: false }, ({ statusCode, headers, result: body }) => { // eslint-disable-line
+      delete headers[`content-encoding`]
+      delete headers[`transfer-encoding`]
+      callback(null, { statusCode, headers, body }) // eslint-disable-line
     })
   })
 }

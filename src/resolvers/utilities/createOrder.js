@@ -9,7 +9,7 @@ const Sort = new GqlEnum({
   }
 })
 
-export function order(type) {
+export function createOrder(type) {
   invariant(isObject(type, true), missingArgument({ type }, `object`))
   const FieldsEnum = new GqlEnum({
     name: `${type._typeConfig.name.toLowerCase()}OrderByFields`,

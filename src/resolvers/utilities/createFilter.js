@@ -1,6 +1,6 @@
 import { invariant, missingArgument, isObject } from "@/utilities"
 
-export function filters(type) {
+export function createFilter(type) {
   invariant(isObject(type, true), missingArgument({ type }, `object`))
   return new GqlInput({
     name: `${type._typeConfig.name.toLowerCase()}Filter`,

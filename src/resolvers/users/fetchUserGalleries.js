@@ -18,7 +18,8 @@ async function fetchUserGalleries({ flickr, userId = ``, start = 1, perPage = 50
       galleries?.gallery?.map(data => results.push(new Gallery(data)))
     } while (page <= total)
 
-    info(`Successfully ran fetchUserGalleries`, { userId, results })
+    results.splice(skip < 0 ? skip : 0, Math.abs(skip))
+    info(`Successfully ran fetchUserGalleries`, { userId, start, perPage, skip, results })
     return results
   } catch (err) {
     error(`Failed to run fetchUserGalleries`, err)

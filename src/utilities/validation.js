@@ -74,3 +74,8 @@ export const isObject = (value, checkEmpty = false) => {
   }
   return typeof value === `object` && checkEmpty ? true : isEmpty(value)
 }
+
+export const isDate = (value) => {
+  invariant(!isNullish(value), `Must pass value to isDate in order to validate.`)
+  return Object.prototype.toString.call(value) === `[object Date]`
+}

@@ -3,8 +3,8 @@ import {
   fetchUserAlbums,
   fetchUserFavorites,
   applyFilters,
-  filters,
-  order,
+  createFilter,
+  createOrder,
   pagination,
   Range
 } from "@/resolvers"
@@ -116,8 +116,8 @@ export const User = new GqlObject({
         orderBy: { type: AlbumOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ userId }, args, { flickr }) =>
-        applyFilters(await fetchUserAlbums({ flickr, userId, ...pagination(args) }), args)
+      resolve: async({ userId }, args, { flickr, album }) =>
+        applyFilters(await album.loadMany(await fetchUserAlbums({ flickr, userId, ...pagination(args) })), args)
     },
     favorites: {
       type: !disabled && new GqlList(Photo),
@@ -153,8 +153,8 @@ export const User = new GqlObject({
   })
 })
 
-export const UserFilter = filters(User)
-export const UserOrder = order(User)
+export const UserFilter = createFilter(User)
+export const UserOrder = createOrder(User)
 
 export const Queries = {
   user: {

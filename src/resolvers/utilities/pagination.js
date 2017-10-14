@@ -24,22 +24,22 @@ export function pagination({ first = 0, last = 0, count = 0, offset = 0, total =
     const perPage = first
     const start = 1
     const skip = 0
-
+    info(`Fetching first ${first} results...`, { start, perPage, skip })
     return { start, perPage, skip }
   }
-  if (!!last) {
+  if (!!last && !!total) {
     const cursor = total - last
     const perPage = minPerPage(total, last)
     const start = Math.ceil(cursor / perPage) || 1
-    const skip = cursor % perPage
-
+    const skip = cursor % perPage || 0
+    info(`Fetching last ${last} results...`, { start, perPage, skip })
     return { start, perPage, skip }
   }
   if (!!count) {
     const perPage = offset > count ? minPerPage(offset, count) : count
     const start = offset > count ? Math.ceil(offset / perPage) : 1
-    const skip = perPage - count <= 0 ? 0 : perPage - count
-
+    const skip = perPage - count <= 0 ? 0 : perPage - count || 0
+    info(`Fetching ${count} results...`, { start, perPage, skip })
     return { start, perPage, skip }
   }
   return {}

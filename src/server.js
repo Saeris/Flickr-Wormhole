@@ -21,13 +21,12 @@ const plugins = [
 ]
 
 let loaded = false
-server.makeReady = function(onServerReady) {
+server.makeReady = (onServerReady) => {
   if (!loaded) {
     server.register(plugins, onServerReady)
     loaded = true
-  } else {
-    onServerReady(null)
   }
+  onServerReady(null)
 }
 
 export default server

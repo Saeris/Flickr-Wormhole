@@ -1,4 +1,4 @@
-import { filters, order } from "@/resolvers"
+import { createFilter, createOrder } from "@/resolvers"
 
 export const PlaceTypes = new GqlEnum({
   name: `PlaceType`,
@@ -67,8 +67,8 @@ export const Place = new GqlObject({
   })
 })
 
-export const PlaceFilter = filters(Place)
-export const PlaceOrder = order(Place)
+export const PlaceFilter = createFilter(Place)
+export const PlaceOrder = createOrder(Place)
 
 export const Queries = {
 }

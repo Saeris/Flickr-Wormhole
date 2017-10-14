@@ -40,8 +40,9 @@ export {
 
 export {
   applyFilters,
-  filters,
-  order,
+  createFilter,
+  createOrder,
   pagination,
-  Range
+  Range,
+  DateRange
 } from "./utilities"

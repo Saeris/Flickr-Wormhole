@@ -10,6 +10,7 @@ jspm_packages
 npm-debug.log*
 yarn-error.log*
 .env
+engine.json
 /dist
 /build
 /typings

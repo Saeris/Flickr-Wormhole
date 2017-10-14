@@ -15,11 +15,11 @@ async function fetchAlbumPhotos({ flickr, userId = ``, photosetId = ``, start = 
 
       total = perPage < 500 ? 1 : perPage > 500 ? parseInt(perPage / 500, 10) : photoset?.pages
 
-      photoset?.photo?.map(res => results.push(res?.id))
+      photoset?.photo?.map(data => !!data?.id && results.push(data.id))
     } while (page <= total)
 
-    info(`Successfully ran fetchAlbumPhotos`, { userId, photosetId, start, perPage, skip, results })
     results.splice(skip < 0 ? skip : 0, Math.abs(skip))
+    info(`Successfully ran fetchAlbumPhotos`, { userId, photosetId, start, perPage, skip, results })
     return results
   } catch (err) {
     error(`Failed to run fetchAlbumPhotos`, err)

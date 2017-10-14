@@ -1,5 +1,5 @@
 import "isomorphic-fetch"
-import { invariant, missingArgument } from "@/utilities"
+import { invariant, missingArgument, isString } from "@/utilities"
 
 const snake = str => str.trim().split(``).map(char => (/[A-Z]/.test(char) ? `_${char.toLowerCase()}` : char)).join(``)
 
@@ -15,16 +15,17 @@ export class Flickr {
 
   fetchResource = async(method = ``, args = {}, options = {}, requiresAuth = false) => {
     try {
+      invariant(isString(method), missingArgument({ method }))
       const required = Object.entries(args)
         .map(([key, value]) => {
-          invariant(value, missingArgument({ [snake(`${key}`)]: key }))
+          invariant(isString(value), missingArgument({ [snake(`${key}`)]: key }))
           return `&${snake(`${key}`)}=${value}`
         })
-        .join(``)
+        .join(``) || ``
 
       const optional = Object.entries(options)
         .map(([key, value]) => (!!value ? `&${snake(`${key}`)}=${value}` : ``))
-        .join(``)
+        .join(``) || ``
 
       const data = await this.loader.load(`${method}${required}${optional}`)
 

@@ -1,7 +1,8 @@
 import {
   fetchGalleryByID,
-  //filters,
-  order
+  createFilter,
+  createOrder,
+  DateRange
 } from "@/resolvers"
 import { User } from "./user"
 import { Photo } from "./photo"
@@ -44,7 +45,11 @@ export const Comment = new GqlObject({
     created: {
       type: GqlDateTime,
       description: `The date and time the Comment was created.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     },
     url: {
       type: GqlURL,
@@ -57,8 +62,8 @@ export const Comment = new GqlObject({
   })
 })
 
-//export const CommentFilter = filters(Comment)
-export const CommentOrder = order(Comment)
+export const CommentFilter = createFilter(Comment)
+export const CommentOrder = createOrder(Comment)
 
 export const Queries = {
 }

@@ -3,18 +3,15 @@ import {
   fetchAlbumComments,
   fetchAlbumByID,
   applyFilters,
-  filters,
-  order,
+  createFilter,
+  createOrder,
   pagination,
-  Range
+  Range,
+  DateRange
 } from "@/resolvers"
 import { User } from "./user"
 import { Photo, PhotoFilter, PhotoOrder } from "./photo"
-import {
-  Comment,
-  //CommentFilter,
-  CommentOrder
-} from "./comment"
+import { Comment, CommentFilter, CommentOrder } from "./comment"
 
 export const Album = new GqlObject({
   name: `Album`,
@@ -128,7 +125,7 @@ export const Album = new GqlObject({
         first: { type: GqlInt },
         count: { type: GqlInt },
         offset: { type: GqlInt },
-        //filter: { type: CommentFilter },
+        filter: { type: CommentFilter },
         orderBy: { type: CommentOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
@@ -138,18 +135,26 @@ export const Album = new GqlObject({
     created: {
       type: new GqlNonNull(GqlDateTime),
       description: `The date and time when this album was created.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     },
     updated: {
       type: new GqlNonNull(GqlDateTime),
       description: `The last date and time that this album was updated.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     }
   })
 })
 
-export const AlbumFilter = filters(Album)
-export const AlbumOrder = order(Album)
+export const AlbumFilter = createFilter(Album)
+export const AlbumOrder = createOrder(Album)
 
 export const Queries = {
   album: {

@@ -5,9 +5,10 @@ import {
   fetchPhotoComments,
   fetchPeopleInPhoto,
   applyFilters,
-  filters,
-  order,
-  Range
+  createFilter,
+  createOrder,
+  Range,
+  DateRange
 } from "@/resolvers"
 import { License } from "./license"
 import { User } from "./user"
@@ -135,17 +136,29 @@ export const Photo = new GqlObject({
     posted: {
       type: GqlDateTime,
       description: `Date and time on which the Photo was first uploaded.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     },
     taken: {
       type: GqlDateTime,
       description: `Date and time on which the Photo was taken.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     },
     updated: {
       type: GqlDateTime,
       description: `Date and time on which the photo was last updated.`,
-      sortable: true
+      sortable: true,
+      filter: {
+        type: DateRange,
+        description: `A date to filter against, or a start and an end date.`
+      }
     },
     location: {
       type: Place,
@@ -203,8 +216,8 @@ export const Photo = new GqlObject({
   })
 })
 
-export const PhotoOrder = order(Photo)
-export const PhotoFilter = filters(Photo)
+export const PhotoFilter = createFilter(Photo)
+export const PhotoOrder = createOrder(Photo)
 
 export const Queries = {
   photo: {

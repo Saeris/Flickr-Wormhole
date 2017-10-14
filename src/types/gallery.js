@@ -1,4 +1,4 @@
-import { filters, order, Range } from "@/resolvers"
+import { createFilter, createOrder, Range } from "@/resolvers"
 import { User } from "./user"
 import { Photo, PhotoOrder } from "./photo"
 import { Comment } from "./comment"
@@ -101,8 +101,8 @@ export const Gallery = new GqlObject({
   })
 })
 
-export const GalleryFilter = filters(Gallery)
-export const GalleryOrder = order(Gallery)
+export const GalleryFilter = createFilter(Gallery)
+export const GalleryOrder = createOrder(Gallery)
 
 export const Queries = {
 }

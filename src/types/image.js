@@ -1,4 +1,4 @@
-import { filters, order, Range } from "@/resolvers"
+import { createFilter, createOrder, Range } from "@/resolvers"
 import { Photo } from "./photo"
 
 export const ImageSizes = new GqlEnum({
@@ -104,8 +104,8 @@ export const Image = new GqlObject({
   })
 })
 
-export const ImageFilter = filters(Image)
-export const ImageOrder = order(Image)
+export const ImageFilter = createFilter(Image)
+export const ImageOrder = createOrder(Image)
 
 export const Queries = {
 }

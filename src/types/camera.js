@@ -1,4 +1,4 @@
-import { filters, order, Range } from "@/resolvers"
+import { createFilter, createOrder, Range } from "@/resolvers"
 import { Brand } from "./brand"
 
 export const Camera = new GqlObject({
@@ -64,8 +64,8 @@ export const Camera = new GqlObject({
   })
 })
 
-export const CameraFilter = filters(Camera)
-export const CameraOrder = order(Camera)
+export const CameraFilter = createFilter(Camera)
+export const CameraOrder = createOrder(Camera)
 
 export const Queries = {
   cameras: {
