@@ -17,10 +17,10 @@ export default {
   register: graphqlHapi,
   options: {
     path: `/graphql`,
-    graphqlOptions: (request) => {
+    graphqlOptions: request => {
       const flickr = new Flickr(FLICKR_API_KEY)
       return {
-        schema: schema,
+        schema,
         context: {
           flickr,
           album: loaders.loadAlbum(flickr),
@@ -35,13 +35,13 @@ export default {
           userPhotos: loaders.loadUserPhotos(flickr)
         },
         root_value: schema,
-        formatError: formatError,
+        formatError,
         validationRules: [
           depthLimit(4),
           queryComplexity({
             maximumComplexity: 2000,
             variables: {},
-            onComplete: (complexity) => { info(`Determined query complexity: ${complexity}`) },
+            onComplete: complexity => { info(`Determined query complexity: ${complexity}`) },
             createError: (max, actual) =>
               new GqlError(`Query is too complex: ${actual}. Maximum allowed complexity: ${max}`)
           })

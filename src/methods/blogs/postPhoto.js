@@ -1,15 +1,13 @@
 import Flickr from "@/flickr"
 
-async function postPhoto(
+export default function postPhoto(
   { flickr = Flickr, photoId = ``, title = ``, description = `` } = {},
   { blogId = ``, blogPassword = ``, service = `` } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.blogs.postPhoto`,
     { photoId, title, description },
     { blogId, blogPassword, service },
     `write`
   )
 }
-
-export default postPhoto

@@ -108,7 +108,7 @@ export const Album = new GqlObject({
         orderBy: { type: PhotoOrder }
       },
       complexity: ({ count }, childComplexity) => childComplexity * count,
-      resolve: async({ owner: userId, albumId: photosetId, photoCount, videoCount }, args, { flickr, photo }) =>
+      resolve: async ({ owner: userId, albumId: photosetId, photoCount, videoCount }, args, { flickr, photo }) =>
         applyFilters(await photo.loadMany(
           await fetchAlbumPhotos({
             flickr,
@@ -129,7 +129,7 @@ export const Album = new GqlObject({
         orderBy: { type: CommentOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ albumId: photosetId }, args, { flickr }) =>
+      resolve: async ({ albumId: photosetId }, args, { flickr }) =>
         applyFilters(await fetchAlbumComments({ flickr, photosetId, ...pagination(args) }), args)
     },
     created: {

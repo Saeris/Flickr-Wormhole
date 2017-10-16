@@ -7,7 +7,7 @@ async function fetchPhotoComments({ flickr, photoId = `` } = {}) {
   invariant(photoId, missingArgument({ photoId }))
   try {
     const { comments = {} } = await getList({ flickr, photoId })
-    const results = comments?.comment?.map(data => new Comment({ photo: photoId, ...data})) || []
+    const results = comments?.comment?.map(data => new Comment({ photo: photoId, ...data })) || []
 
     info(`Successfully ran fetchPhotoComments`, { photoId, results })
     return results

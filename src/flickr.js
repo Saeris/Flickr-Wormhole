@@ -1,7 +1,12 @@
 import "isomorphic-fetch"
-import { invariant, missingArgument, isString } from "@/utilities"
+import { isString } from "lodash"
+import { invariant, missingArgument } from "@/utilities"
 
-const snake = str => str.trim().split(``).map(char => (/[A-Z]/.test(char) ? `_${char.toLowerCase()}` : char)).join(``)
+const snake = str => str
+  .trim()
+  .split(``)
+  .map(char => (/[A-Z]/.test(char) ? `_${char.toLowerCase()}` : char))
+  .join(``)
 
 export class Flickr {
   constructor(apiKey) {
@@ -13,19 +18,21 @@ export class Flickr {
 
   endpoint = `https://api.flickr.com/services/rest/`
 
-  fetchResource = async(method = ``, args = {}, options = {}, requiresAuth = false) => {
+  fetchResource = async (method = ``, args = {}, options = {}, requiresAuth = false) => {
     try {
       invariant(isString(method), missingArgument({ method }))
-      const required = Object.entries(args)
-        .map(([key, value]) => {
-          invariant(isString(value), missingArgument({ [snake(`${key}`)]: key }))
-          return `&${snake(`${key}`)}=${value}`
-        })
-        .join(``) || ``
+      const required =
+        Object.entries(args)
+          .map(([key, value]) => {
+            invariant(isString(value), missingArgument({ [snake(`${key}`)]: key }))
+            return `&${snake(`${key}`)}=${value}`
+          })
+          .join(``) || ``
 
-      const optional = Object.entries(options)
-        .map(([key, value]) => (!!value ? `&${snake(`${key}`)}=${value}` : ``))
-        .join(``) || ``
+      const optional =
+        Object.entries(options)
+          .map(([key, value]) => (value ? `&${snake(`${key}`)}=${value}` : ``))
+          .join(``) || ``
 
       const data = await this.loader.load(`${method}${required}${optional}`)
 
@@ -41,9 +48,9 @@ export class Flickr {
 
   fetch = urls =>
     Promise.all(
-      urls.map(url =>
-        fetch(`${this.endpoint}?method=${url}&api_key=${this.apiKey}&format=json&nojsoncallback=1`)
-          .then(res => res.json()) //eslint-disable-line
+      urls.map(
+        url => fetch(`${this.endpoint}?method=${url}&api_key=${this.apiKey}&format=json&nojsoncallback=1`)
+          .then(res => res.json()) // eslint-disable-line
       )
     )
 }

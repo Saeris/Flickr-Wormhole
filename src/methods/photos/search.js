@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-async function search(
+export default function search(
   { flickr = Flickr } = {},
   {
     userId = ``,
@@ -39,7 +39,7 @@ async function search(
     sort = ``
   } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.photos.search`,
     {},
     {
@@ -80,5 +80,3 @@ async function search(
     }
   )
 }
-
-export default search

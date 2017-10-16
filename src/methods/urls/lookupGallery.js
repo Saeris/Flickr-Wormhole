@@ -1,7 +1,5 @@
 import Flickr from "@/flickr"
 
-async function lookupGallery({ flickr = Flickr, url = `` } = {}) {
-  return await flickr.fetchResource(`flickr.urls.lookupGallery`, { url })
+export default function lookupGallery({ flickr = Flickr, url = `` } = {}) {
+  return flickr.fetchResource(`flickr.urls.lookupGallery`, { url })
 }
-
-export default lookupGallery

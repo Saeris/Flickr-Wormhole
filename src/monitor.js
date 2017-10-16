@@ -1,6 +1,6 @@
 import good from "good" // https://github.com/hapijs/good
-import Winston from 'winston' // https://github.com/winstonjs/winston
-import GoodWinston from 'good-winston' // https://github.com/lancespeelmon/good-winston
+import Winston from "winston" // https://github.com/winstonjs/winston
+import GoodWinston from "good-winston" // https://github.com/lancespeelmon/good-winston
 //import 'winston-loggly-bulk' // https://github.com/loggly/winston-loggly-bulk
 
 Winston.configure({
@@ -13,7 +13,7 @@ Winston.configure({
       json: true
     }),
     */
-    new (Winston.transports.Console)({
+    new Winston.transports.Console({
       level: ENV === `production` ? `error` : LOGLEVEL || `info`,
       prettyPrint: true,
       handleExceptions: true,
@@ -24,7 +24,11 @@ Winston.configure({
   ]
 })
 
-const goodWinstonStream = new GoodWinston({ winston: require(`winston`), format: `MM/DD/YYYY h:mm:ss:SSS a`, utc: false })
+const goodWinstonStream = new GoodWinston({
+  winston: require(`winston`),
+  format: `MM/DD/YYYY h:mm:ss:SSS a`,
+  utc: false
+})
 
 export default {
   register: good,
@@ -33,7 +37,7 @@ export default {
       interval: 1000
     },
     reporters: {
-      winston: [ goodWinstonStream ]
+      winston: [goodWinstonStream]
     }
   }
 }

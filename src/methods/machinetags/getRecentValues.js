@@ -1,7 +1,8 @@
 import Flickr from "@/flickr"
 
-async function getRecentValues({ flickr = Flickr } = {}, { namespace = ``, predicate = ``, addedSince = `` } = {}) {
-  return await flickr.fetchResource(`flickr.machinetags.getRecentValues`, {}, { namespace, predicate, addedSince })
+export default function getRecentValues(
+  { flickr = Flickr } = {},
+  { namespace = ``, predicate = ``, addedSince = `` } = {}
+) {
+  return flickr.fetchResource(`flickr.machinetags.getRecentValues`, {}, { namespace, predicate, addedSince })
 }
-
-export default getRecentValues

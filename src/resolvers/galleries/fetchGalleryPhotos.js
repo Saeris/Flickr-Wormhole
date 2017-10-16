@@ -1,7 +1,7 @@
 import { invariant, missingArgument } from "@/utilities"
 import getPhotos from "@/methods/galleries/getPhotos"
 
-async function fetchGalleryPhotos({ flickr, galleryId = ``, start = 1, perPage = 500, skip = 0  } = {}) {
+async function fetchGalleryPhotos({ flickr, galleryId = ``, start = 1, perPage = 500, skip = 0 } = {}) {
   invariant(flickr, missingArgument({ flickr }))
   invariant(galleryId, missingArgument({ galleryId }))
   try {
@@ -10,7 +10,7 @@ async function fetchGalleryPhotos({ flickr, galleryId = ``, start = 1, perPage =
     const results = []
 
     do {
-      const { photos = {} } = await getPhotos({ flickr, galleryId }, { page: page++, perPage })
+      const { photos = {} } = await getPhotos({ flickr, galleryId }, { page: page++, perPage })  // eslint-disable-line
 
       total = perPage < 500 ? 1 : perPage > 500 ? parseInt(perPage / 500, 10) : photos?.pages
 

@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-async function getWithGeoData(
+export default function getWithGeoData(
   { flickr = Flickr } = {},
   {
     minUploadDate = ``,
@@ -14,12 +14,10 @@ async function getWithGeoData(
     perPage = 100
   } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.photos.getWithGeoData`,
     {},
     { minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, privacyFilter, media, extras, page, perPage },
     `read`
   )
 }
-
-export default getWithGeoData

@@ -7,7 +7,7 @@ async function fetchPeopleInPhoto({ flickr, photoId = `` } = {}) {
   invariant(photoId, missingArgument({ photoId }))
   try {
     const { people = {} } = await getList({ flickr, photoId })
-    const results = people?.person?.map(data => new Person({ photoId, ...data})) || []
+    const results = people?.person?.map(data => new Person({ photoId, ...data })) || []
 
     info(`Successfully ran fetchPeopleInPhoto`, { photoId, results })
     return results

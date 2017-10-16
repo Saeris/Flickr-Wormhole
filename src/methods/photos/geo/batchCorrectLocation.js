@@ -1,15 +1,13 @@
 import Flickr from "@/flickr"
 
-async function batchCorrectLocation(
+export default function batchCorrectLocation(
   { flickr = Flickr, lat = ``, lon = ``, accuracy = `` } = {},
   { placeId = ``, woeId = `` } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.photos.geo.batchCorrectLocation`,
     { lat, lon, accuracy },
     { placeId, woeId },
     `write`
   )
 }
-
-export default batchCorrectLocation

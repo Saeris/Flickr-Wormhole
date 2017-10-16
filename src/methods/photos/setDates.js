@@ -1,15 +1,13 @@
 import Flickr from "@/flickr"
 
-async function setDates(
+export default function setDates(
   { flickr = Flickr, photoId = `` } = {},
   { datePosted = ``, dateTaken = ``, dateTakenGranularity = `` } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.photos.setDates`,
     { photoId },
     { datePosted, dateTaken, dateTakenGranularity },
     `write`
   )
 }
-
-export default setDates

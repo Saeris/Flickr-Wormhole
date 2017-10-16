@@ -26,7 +26,7 @@ export const Brand = new GqlObject({
   })
 })
 
-export const BrandFilters = createFilter(Brand)
+export const BrandFilter = createFilter(Brand)
 export const BrandOrder = createOrder(Brand)
 
 export const Queries = {

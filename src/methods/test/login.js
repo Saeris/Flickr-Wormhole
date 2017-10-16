@@ -1,7 +1,5 @@
 import Flickr from "@/flickr"
 
-async function login({ flickr = Flickr } = {}) {
-  return await flickr.fetchResource(`flickr.test.login`, {}, {}, `read`)
+export default function login({ flickr = Flickr } = {}) {
+  return flickr.fetchResource(`flickr.test.login`, {}, {}, `read`)
 }
-
-export default login

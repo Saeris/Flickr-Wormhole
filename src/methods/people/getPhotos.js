@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-async function getPhotos(
+export default function getPhotos(
   { flickr = Flickr, userId = `` } = {},
   {
     safeSearch = 0,
@@ -15,7 +15,7 @@ async function getPhotos(
     perPage = 100
   } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.people.getPhotos`,
     { userId },
     {
@@ -32,5 +32,3 @@ async function getPhotos(
     }
   )
 }
-
-export default getPhotos

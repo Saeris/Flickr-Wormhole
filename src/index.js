@@ -2,7 +2,7 @@ import server from "./server"
 
 exports.handler = (event, context, callback) => { // eslint-disable-line
   const { path, queryStringParameters: params, httpMethod: method, body: payload, headers } = event
-  server.makeReady((err) => { //eslint-disable-line
+  server.makeReady(err => { //eslint-disable-line
     if (err) throw err
 
     let url = path

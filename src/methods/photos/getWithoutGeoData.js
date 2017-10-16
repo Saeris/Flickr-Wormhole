@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-async function getWithoutGeoData(
+export default function getWithoutGeoData(
   { flickr = Flickr } = {},
   {
     minUploadDate = ``,
@@ -14,12 +14,10 @@ async function getWithoutGeoData(
     perPage = 100
   } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.photos.getWithoutGeoData`,
     {},
     { minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, privacyFilter, media, extras, page, perPage },
     `read`
   )
 }
-
-export default getWithoutGeoData

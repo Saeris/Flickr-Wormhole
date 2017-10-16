@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-async function placesForTags(
+export default function placesForTags(
   { flickr = Flickr, placeTypeId = `` } = {},
   {
     tags = ``,
@@ -16,13 +16,13 @@ async function placesForTags(
     woeId = ``
   } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.places.placesForTags`,
     { placeTypeId },
     {
       tags,
       tagsMode,
-      machinetags,
+      machineTags,
       machineTagsMode,
       minUploadDate,
       maxUploadDate,
@@ -34,5 +34,3 @@ async function placesForTags(
     }
   )
 }
-
-export default placesForTags

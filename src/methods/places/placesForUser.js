@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-async function placesForUser(
+export default function placesForUser(
   { flickr = Flickr, userId = ``, placeTypeId = `` } = {},
   {
     minUploadDate = ``,
@@ -12,12 +12,10 @@ async function placesForUser(
     woeId = ``
   } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.places.placesForUser`,
     { userId, placeTypeId },
     { minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, threshold, placeId, woeId },
     `read`
   )
 }
-
-export default placesForUser

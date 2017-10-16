@@ -1,4 +1,5 @@
-import { invariant, missingArgument, isNumber } from "@/utilities"
+import { isNumber } from "lodash"
+import { invariant, missingArgument } from "@/utilities"
 
 // TODO: This function really needs tests written for it to ensure it's working correctly.
 // For now it seems first and last work, but they need to be capped and short-circuited if
@@ -20,14 +21,14 @@ export function pagination({ first = 0, last = 0, count = 0, offset = 0, total =
     }
     return perPage
   }
-  if (!!first) {
+  if (first) {
     const perPage = first
     const start = 1
     const skip = 0
     info(`Fetching first ${first} results...`, { start, perPage, skip })
     return { start, perPage, skip }
   }
-  if (!!last && !!total) {
+  if (last && total) {
     const cursor = total - last
     const perPage = minPerPage(total, last)
     const start = Math.ceil(cursor / perPage) || 1
@@ -35,7 +36,7 @@ export function pagination({ first = 0, last = 0, count = 0, offset = 0, total =
     info(`Fetching last ${last} results...`, { start, perPage, skip })
     return { start, perPage, skip }
   }
-  if (!!count) {
+  if (count) {
     const perPage = offset > count ? minPerPage(offset, count) : count
     const start = offset > count ? Math.ceil(offset / perPage) : 1
     const skip = perPage - count <= 0 ? 0 : perPage - count || 0

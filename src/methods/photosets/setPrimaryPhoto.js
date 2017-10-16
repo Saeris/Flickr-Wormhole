@@ -1,7 +1,5 @@
 import Flickr from "@/flickr"
 
-async function setPrimaryPhoto({ flickr = Flickr, photosetId = ``, photoId = `` } = {}) {
-  return await flickr.fetchResource(`flickr.photosets.setPrimaryPhoto`, { photoset, photoId }, {}, `write`)
+export default function setPrimaryPhoto({ flickr = Flickr, photosetId = ``, photoId = `` } = {}) {
+  return flickr.fetchResource(`flickr.photosets.setPrimaryPhoto`, { photosetId, photoId }, {}, `write`)
 }
-
-export default setPrimaryPhoto

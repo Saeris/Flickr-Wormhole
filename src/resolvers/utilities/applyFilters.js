@@ -1,8 +1,10 @@
-import { invariant, missingArgument, isBoolean, isNumber, isString, isArray, isObject, isDate } from "@/utilities"
+import { isBoolean, isNumber, isString, isArray, isObject, isDate } from "lodash"
+import { invariant, missingArgument } from "@/utilities"
 
 export function applyFilters(results, args) {
-  invariant(isArray(results, true), missingArgument({ results }, `array`))
-  invariant(isObject(args, true), missingArgument({ args }, `object`))
+  invariant(isArray(results), missingArgument({ results }, `array`))
+  invariant(isObject(args), missingArgument({ args }, `object`))
+  let filtered = results
 
   const withinRange = (rule, res, date = false) => {
     const value = date ? rule?.date?.getTime() : rule?.value
@@ -21,21 +23,21 @@ export function applyFilters(results, args) {
     if ((!!min && isNumber(min)) && (!!max && isNumber(max))) return res >= min && res <= max
   }
 
-  if (!!args.filter) {
+  if (args?.filter) {
     for (const [field, rule] of Object.entries(args.filter)) {
-      results = results.filter(
-        res => isArray(rule)
+      filtered = results.filter(
+        res => (isArray(rule)
           ? rule.includes(res[field])
           : isString(rule) || isBoolean(rule)
             ? res[field] === rule
-            : withinRange(rule, res[field], isDate(rule))
+            : withinRange(rule, res[field], isDate(rule)))
       )
     }
   }
 
-  if (!!args.orderBy) {
+  if (args?.orderBy) {
     const { field, sort } = args.orderBy
-    results.sort((a, b) => {
+    filtered.sort((a, b) => {
       if (isNumber(a[field] && isNumber(b[field]))) return a[field] - b[field]
 
       if (isDate(a[field]) && isDate(b[field])) return a[field].getTime() - b[field].getTime()
@@ -45,6 +47,8 @@ export function applyFilters(results, args) {
         const fieldB = b[field].toUpperCase()
         return fieldA < fieldB ? -1 : fieldA > fieldB ? 1 : 0
       }
+
+      return 0
     })
     if (sort === `desc`) results.reverse()
   }

@@ -42,7 +42,7 @@ export const Photo = new GqlObject({
       description: `The License the Photo was released under.`,
       sortable: true,
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ license }, args, { licenses }) => await licenses.load(`licenses`)
+      resolve: async ({ license }, args, { licenses }) => await licenses.load(`licenses`)
         .then(results => results.filter(({ id }) => id === license)[0]) || null
     },
     owner: {
@@ -164,10 +164,10 @@ export const Photo = new GqlObject({
       type: Place,
       description: `The Place where the Photo was taken.`,
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ photoId, hasLocation }, args, { flickr }) => !!hasLocation
-        ? await fetchPhotoLocation({ flickr, photoId })
-          .then(placeId => !!placeId ? fetchPlaceByID(({ flickr, placeId })) : null)
-        : null
+      resolve: ({ photoId, hasLocation }, args, { flickr }) => (hasLocation
+        ? fetchPhotoLocation({ flickr, photoId })
+          .then(placeId => !!placeId && fetchPlaceByID(({ flickr, placeId }))) // eslint-disable-line
+        : null)
     },
     notes: {
       type: !disabled && new GqlList(Note),
@@ -189,15 +189,15 @@ export const Photo = new GqlObject({
         orderBy: { type: CommentOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ photoId, commentsCount }, args, { flickr }) =>
-        !!commentsCount ? applyFilters(await fetchPhotoComments({ flickr, photoId }), args) : []
+      resolve: async ({ photoId, commentsCount }, args, { flickr }) =>
+        (commentsCount ? applyFilters(await fetchPhotoComments({ flickr, photoId }), args) : [])
     },
     people: {
       type: !disabled && new GqlList(Person),
       description: `A list of People who are tagged in this photo.`,
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ photoId, hasPeople }, args, { flickr }) =>
-        await !!hasPeople ? fetchPeopleInPhoto({ flickr, photoId }) : []
+      resolve: ({ photoId, hasPeople }, args, { flickr }) =>
+        (hasPeople ? fetchPeopleInPhoto({ flickr, photoId }) : [])
     },
     tags: {
       type: !disabled && new GqlList(Tag),
@@ -211,7 +211,7 @@ export const Photo = new GqlObject({
         orderBy: { type: ImageOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ photoId }, args, { images }) => applyFilters(await images.load(photoId), args)
+      resolve: async ({ photoId }, args, { images }) => applyFilters(await images.load(photoId), args)
     }
   })
 })

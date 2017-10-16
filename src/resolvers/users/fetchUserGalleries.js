@@ -11,7 +11,7 @@ async function fetchUserGalleries({ flickr, userId = ``, start = 1, perPage = 50
     const results = []
 
     do {
-      const { galleries = {} } = await getList({ flickr, userId }, { page: page++, perPage })
+      const { galleries = {} } = await getList({ flickr, userId }, { page: page++, perPage }) // eslint-disable-line
 
       total = perPage < 500 ? 1 : perPage > 500 ? parseInt(perPage / 500, 10) : galleries?.pages
 

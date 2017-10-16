@@ -11,7 +11,7 @@ async function fetchAlbumPhotos({ flickr, userId = ``, photosetId = ``, start = 
     const results = []
 
     do {
-      const { photoset = {} } = await getPhotos({ flickr, userId, photosetId }, { page: page++, perPage })
+      const { photoset = {} } = await getPhotos({ flickr, userId, photosetId }, { page: page++, perPage })  // eslint-disable-line
 
       total = perPage < 500 ? 1 : perPage > 500 ? parseInt(perPage / 500, 10) : photoset?.pages
 

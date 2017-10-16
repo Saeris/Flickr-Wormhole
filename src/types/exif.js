@@ -28,20 +28,19 @@ export const Exif = new GqlObject({
       description: `The Brand of of Camera used to take this Photo.`,
       sortable: true,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ make }, args, { brands }) => !!make
-        ? await brands.load(`brands`)
-          .then(results => results.filter(({ id }) => id === make.toLowerCase())[0])
-        : null
+      resolve: ({ make }, args, { brands }) => (make
+        ? brands.load(`brands`).then(results => results.filter(({ id }) => id === make.toLowerCase())[0]) // eslint-disable-line
+        : null)
     },
     model: {
       type: Camera,
       description: `The Camera used to take this Photo.`,
       sortable: true,
       complexity: (args, childComplexity) => childComplexity * 10,
-      resolve: async({ make, model }, args, { cameras }) => !!make
-        ? await cameras.load(make.toLowerCase())
-          .then(results => results.filter(({ id }) => id === model.toLowerCase().replace(` `, `_`))[0])
-        : null
+      resolve: ({ make, model }, args, { cameras }) => (make
+        ? cameras.load(make.toLowerCase())
+          .then(results => results.filter(({ id }) => id === model.toLowerCase().replace(` `, `_`))[0]) // eslint-disable-line
+        : null)
     },
     xResolution: {
       type: GqlString,

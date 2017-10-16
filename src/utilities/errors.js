@@ -17,7 +17,7 @@ export class ExtendableError extends Error {
       writable : true
     })
 
-    if (Error.hasOwnProperty(`captureStackTrace`)) {
+    if (Error.hasOwnProperty(`captureStackTrace`)) { // eslint-disable-line
       Error.captureStackTrace(this, this.constructor)
       return
     }
@@ -33,15 +33,15 @@ export class ExtendableError extends Error {
 
 // https://github.com/thebigredgeek/apollo-errors
 export class ApolloError extends ExtendableError {
-  constructor(name, { message, timeThrown = (new Date()).toISOString(), data = {}, options = {}}) {
-    const m = (arguments[2] && arguments[2].message) || message
-    const opts = Object.assign({}, options, ((arguments[2] && arguments[2].options) || {}))
+  constructor(name, { message, timeThrown = (new Date()).toISOString(), data = {}, options = {} }) {
+    const m = !!message || message
+    const opts = Object.assign({}, options, (!!options || {}))
     super(m)
 
     this.name = name
     this.message = m
-    this.time_thrown = (arguments[2] && arguments[2].timeThrown) || timeThrown
-    this.data = Object.assign({}, data, ((arguments[2] && arguments[2].data) || {}))
+    this.time_thrown = !!timeThrown || timeThrown
+    this.data = Object.assign({}, data, (!!data || {}))
     this.showLocations = !!opts.showLocations
   }
 
@@ -61,8 +61,8 @@ export class ApolloError extends ExtendableError {
 
 export const isInstance = e => e instanceof ApolloError
 
-export const createError = (name, data = { message: `An error has occurred`, options }) =>
-  ApolloError.bind(null, name, data)
+export const createError = (name, { message = `An error has occurred`, options }) =>
+  ApolloError.bind(null, name, { message, options })
 
 export const formatError = (error, returnNull = false) => {
   const originalError = error ? error.originalError || error : null

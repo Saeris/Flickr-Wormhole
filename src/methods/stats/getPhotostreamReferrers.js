@@ -1,10 +1,8 @@
 import Flickr from "@/flickr"
 
-async function getPhotostreamReferrers(
+export default function getPhotostreamReferrers(
   { flickr = Flickr, date = ``, domain = `` } = {},
   { page = 1, perPage = 25 } = {}
 ) {
-  return await flickr.fetchResource(`flickr.stats.getPhotostreamReferrers`, { date, domain }, { page, perPage }, `read`)
+  return flickr.fetchResource(`flickr.stats.getPhotostreamReferrers`, { date, domain }, { page, perPage }, `read`)
 }
-
-export default getPhotostreamReferrers

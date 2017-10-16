@@ -2,7 +2,7 @@ import { invariant, missingArgument } from "@/utilities"
 import { Gallery } from "@/models"
 import getInfo from "@/methods/galleries/getInfo"
 
-async function fetchGalleryByID({ flickr, galleryId = `` } = {}) {
+async function fetchGalleryByID({ flickr, userId = ``, galleryId = `` } = {}) {
   invariant(flickr, missingArgument({ flickr }))
   invariant(galleryId, missingArgument({ galleryId }))
   try {

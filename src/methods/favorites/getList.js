@@ -1,14 +1,12 @@
 import Flickr from "@/flickr"
 
-async function getList(
+export default function getList(
   { flickr = Flickr } = {},
   { userId = ``, minFaveDate = ``, maxFaveDate = ``, extras = ``, page = 1, perPage = 100 } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.favorites.getList`,
     {},
     { userId, minFaveDate, maxFaveDate, extras, page, perPage }
   )
 }
-
-export default getList

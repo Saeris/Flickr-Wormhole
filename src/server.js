@@ -21,7 +21,7 @@ const plugins = [
 ]
 
 let loaded = false
-server.makeReady = (onServerReady) => {
+server.makeReady = onServerReady => {
   if (!loaded) {
     server.register(plugins, onServerReady)
     loaded = true

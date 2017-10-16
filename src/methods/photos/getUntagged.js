@@ -1,6 +1,6 @@
 import Flickr from "@/flickr"
 
-async function getUntagged(
+export default function getUntagged(
   { flickr = Flickr } = {},
   {
     minUploadDate = ``,
@@ -14,12 +14,10 @@ async function getUntagged(
     perPage = 100
   } = {}
 ) {
-  return await flickr.fetchResource(
+  return flickr.fetchResource(
     `flickr.photos.getUntagged`,
     {},
     { minUploadDate, maxUploadDate, minTakenDate, maxTakenDate, privacyFilter, media, extras, page, perPage },
     `read`
   )
 }
-
-export default getUntagged

@@ -1,4 +1,5 @@
-import { invariant, missingArgument, isObject } from "@/utilities"
+import { isObject } from "lodash"
+import { invariant, missingArgument } from "@/utilities"
 
 const Sort = new GqlEnum({
   name: `Sort`,
@@ -10,7 +11,7 @@ const Sort = new GqlEnum({
 })
 
 export function createOrder(type) {
-  invariant(isObject(type, true), missingArgument({ type }, `object`))
+  invariant(isObject(type), missingArgument({ type }, `object`))
   const FieldsEnum = new GqlEnum({
     name: `${type._typeConfig.name.toLowerCase()}OrderByFields`,
     description: `A list of field names that this type can be ordered by.`,

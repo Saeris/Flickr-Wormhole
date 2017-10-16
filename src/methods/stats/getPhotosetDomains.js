@@ -1,10 +1,8 @@
 import Flickr from "@/flickr"
 
-async function getPhotosetDomains(
+export default function getPhotosetDomains(
   { flickr = Flickr, date = `` } = {},
   { photosetId = ``, page = 1, perPage = 25 } = {}
 ) {
-  return await flickr.fetchResource(`flickr.stats.getPhotosetDomains`, { date }, { photosetId, page, perPage }, `read`)
+  return flickr.fetchResource(`flickr.stats.getPhotosetDomains`, { date }, { photosetId, page, perPage }, `read`)
 }
-
-export default getPhotosetDomains

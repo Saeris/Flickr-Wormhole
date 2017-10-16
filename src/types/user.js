@@ -1,4 +1,5 @@
 import {
+  fetchUserPhotos,
   fetchUserGalleries,
   fetchUserAlbums,
   fetchUserFavorites,
@@ -86,9 +87,9 @@ export const User = new GqlObject({
         orderBy: { type: PhotoOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ userId, total: photoCount }, args, { flickr, photo }) =>
+      resolve: async ({ userId, photoCount: total }, args, { flickr, photo }) =>
         applyFilters(await photo.loadMany(
-          await fetchUserPhotos({ flickr, userId, ...pagination({...args, total}) })
+          await fetchUserPhotos({ flickr, userId, ...pagination({ ...args, total }) })
         ), args)
     },
     galleries: {
@@ -102,7 +103,7 @@ export const User = new GqlObject({
         orderBy: { type: GalleryOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ userId }, args, { flickr, gallery }) =>
+      resolve: async ({ userId }, args, { flickr, gallery }) =>
         applyFilters(await gallery.loadMany(await fetchUserGalleries({ flickr, userId, ...pagination(args) })), args)
     },
     albums: {
@@ -116,7 +117,7 @@ export const User = new GqlObject({
         orderBy: { type: AlbumOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ userId }, args, { flickr, album }) =>
+      resolve: async ({ userId }, args, { flickr, album }) =>
         applyFilters(await album.loadMany(await fetchUserAlbums({ flickr, userId, ...pagination(args) })), args)
     },
     favorites: {
@@ -130,7 +131,7 @@ export const User = new GqlObject({
         orderBy: { type: PhotoOrder }
       },
       complexity: (args, childComplexity) => childComplexity * 5,
-      resolve: async({ userId}, args, { flickr, photo }) =>
+      resolve: async ({ userId }, args, { flickr, photo }) =>
         applyFilters(await photo.loadMany(await fetchUserFavorites({ flickr, userId, ...pagination(args) })), args)
     },
     isPro: {

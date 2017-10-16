@@ -10,6 +10,8 @@ jspm_packages
 npm-debug.log*
 yarn-error.log*
 .env
+.nyc_output
+coverage.lcov
 engine.json
 /dist
 /build
