@@ -1,4 +1,6 @@
 # Flickr-Wormhole
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Saeris/Flickr-Wormhole.svg)](https://greenkeeper.io/)
 *A Serverless GraphQL to REST Gateway Wrapper for the Flickr API*
 
 ## <a name="contents"></a> Table of Contents
