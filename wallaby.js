@@ -14,10 +14,9 @@ module.exports = wallaby => ({
   debug: true,
 
   setup: () => {
-    require(`dotenv`).config()
-    require(`isomorphic-fetch`)
     require(`babel-register`)
     require(`babel-polyfill`)
+    require(`isomorphic-fetch`)
   },
 
   compilers: {

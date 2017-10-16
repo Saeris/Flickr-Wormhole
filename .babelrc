@@ -57,13 +57,5 @@
     }],
     "stage-0",
     "flow"
-  ],
-  "env": {
-		"test": {
-			"sourceMaps": "inline",
-      "plugins": [
-        "istanbul"
-      ]
-		}
-	}
+  ]
 }

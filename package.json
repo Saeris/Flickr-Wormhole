@@ -20,8 +20,8 @@
     "deploy": "npm run deploy:dev",
     "deploy:dev": "cross-env NODE_ENV=development serverless --stage=dev deploy",
     "deploy:prod": "cross-env NODE_ENV=production serverless --stage=production deploy",
-    "test": "cross-env NODE_ENV=test nyc ava --tap",
-    "test:watch": "cross-env NODE_ENV=test ava --watch",
+    "test": "nyc ava --verbose --color --tap | tap-nyan",
+    "test:watch": "ava --watch",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "coverage:report": "nyc report --color",
     "snyk-protect": "snyk protect",
@@ -54,8 +54,8 @@
   "devDependencies": {
     "ava": "^0.22.0",
     "aws-sdk": "^2.125.0",
-    "babel-cli": "^7.0.0-beta.0",
-    "babel-core": "^7.0.0-beta.0",
+    "babel-cli": "7.0.0-beta.2",
+    "babel-core": "7.0.0-beta.2",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
     "babel-minify-webpack-plugin": "^0.2.0",
@@ -67,14 +67,14 @@
     "babel-plugin-provide-modules": "^1.0.3",
     "babel-plugin-transform-es2015-shorthand-properties": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-optional-chaining": "^7.0.0-beta.0",
+    "babel-plugin-transform-optional-chaining": "7.0.0-beta.2",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-env": "2.0.0-beta.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-power-assert": "^1.0.0",
     "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^7.0.0-beta.0",
+    "babel-register": "7.0.0-beta.2",
     "codecov": "^2.3.1",
     "cross-env": "^5.0.5",
     "dotenv": "^4.0.0",
@@ -101,7 +101,6 @@
     "serverless-offline": "^3.15.3",
     "serverless-webpack": "^3.1.0",
     "tap-nyan": "^1.1.0",
-    "wallaby-webpack": "^0.0.42",
     "webpack": "^3.6.0",
     "webpack-node-externals": "^1.6.0"
   },
@@ -129,16 +128,20 @@
     "tap": "tap-nyan",
     "powerAssert": true,
     "require": [
-      "dotenv/config",
       "babel-register",
       "babel-polyfill",
       "isomorphic-fetch"
     ],
-    "babel": "inherit"
+    "babel": {
+      "babelrc": true,
+      "sourceMaps": "inline",
+      "plugins": [
+        "istanbul"
+      ]
+    }
   },
   "nyc": {
     "require": [
-      "dotenv/config",
       "babel-register"
     ],
     "cache": true,

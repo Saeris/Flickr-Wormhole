@@ -1,7 +1,7 @@
 import test from "ava"
-import {Brand, Queries } from "../brand"
+import { Brand, Queries } from "../brand"
 
-test(`Brand Type`, (t) => {
+test(`Brand Type`, t => {
   t.is(Brand.name, `Brand`, `Brand Type should be named 'Brand'`)
   t.truthy(Brand.description, `Brand Type should have a description`)
 
@@ -19,7 +19,7 @@ test(`Brand Type`, (t) => {
   t.is(Fields.name.sortable, true, `name field should be sortable`)
 })
 
-test(`Brand Queries`, (t) => {
+test(`Brand Queries`, t => {
   t.truthy(Queries.brands, `Queries should have a brands query`)
   t.deepEqual(Queries.brands.type, new GqlList(Brand), `Brands query type should be a list of type Brand`)
 })
