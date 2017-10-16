@@ -1,3 +1,4 @@
 /* eslint-disable */
 'use strict';
-require('fs').createReadStream('.env.default').pipe(fs.createWriteStream('.env'));
+var fs = require('fs');
+fs.createReadStream('.env.default').pipe(fs.createWriteStream('.env'));
