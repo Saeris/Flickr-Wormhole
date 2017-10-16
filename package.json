@@ -21,10 +21,10 @@
     "deploy:dev": "cross-env NODE_ENV=development serverless --stage=dev deploy",
     "deploy:prod": "cross-env NODE_ENV=production serverless --stage=production deploy",
     "setup": "node setup.js",
-    "test": "nyc ava --verbose --color --tap",
+    "test": "cross-env NODE_ENV=test nyc ava --verbose --color --tap",
     "test:watch": "ava --watch",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "coverage:report": "nyc report --color",
+    "coverage": "cross-env NODE_ENV=test nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "coverage:report": "cross-env NODE_ENV=test nyc report --color",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect"
   },
@@ -133,13 +133,7 @@
       "babel-polyfill",
       "isomorphic-fetch"
     ],
-    "babel": {
-      "babelrc": true,
-      "sourceMaps": "inline",
-      "plugins": [
-        "istanbul"
-      ]
-    }
+    "babel": "inherit"
   },
   "nyc": {
     "require": [
