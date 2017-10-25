@@ -1,6 +1,21 @@
+// @flow
 import { invariant, missingArgument } from "@/utilities"
 
 export default class Album {
+  id: ID
+  albumId: ID
+  title: string
+  description: string
+  owner: string
+  slug: string
+  photoCount: number
+  videoCount: number
+  views: number
+  commentCount: number
+  created: Date
+  updated: Date
+  primary: string
+
   constructor(data) {
     invariant(data, missingArgument({ data }))
     this.id = data?.id
@@ -18,7 +33,7 @@ export default class Album {
     this.primary = data?.primary
   }
 
-  toSlug(text) {
+  toSlug(text: string): string {
     return text.toString().toLowerCase()
       // Replace spaces with -
       .replace(/\s+/g, `-`)

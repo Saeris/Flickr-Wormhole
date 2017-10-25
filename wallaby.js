@@ -1,3 +1,5 @@
+process.env.NODE_ENV = `test`
+
 module.exports = wallaby => ({
   files: [`src/**/*.js`, `!src/**/__TEST__/*.spec.js`],
 

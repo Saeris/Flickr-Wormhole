@@ -24,25 +24,38 @@ export function applyFilters(results, args) {
   }
 
   if (args?.filter) {
+    info(`Applying filters...`)
     for (const [field, rule] of Object.entries(args.filter)) {
-      filtered = results.filter(
-        res => (isArray(rule)
-          ? rule.includes(res[field])
-          : isString(rule) || isBoolean(rule)
-            ? res[field] === rule
-            : withinRange(rule, res[field], isDate(rule)))
-      )
+      filtered = results.filter(res => {
+        if (isArray(rule)) {
+          info(`Filtering results by ruleset: `, rule)
+          return rule.includes(res[field])
+        }
+        if (isString(rule) || isBoolean(rule)) {
+          info(`Filtering results by rule: `, rule)
+          return res[field] === rule
+        }
+        info(`Filtering results by range: `, rule)
+        return withinRange(rule, res[field], isDate(rule))
+      })
     }
   }
 
   if (args?.orderBy) {
     const { field, sort } = args.orderBy
     filtered.sort((a, b) => {
-      if (isNumber(a[field] && isNumber(b[field]))) return a[field] - b[field]
+      if (isNumber(a[field] && isNumber(b[field]))) {
+        info(`Ordering results...`)
+        return a[field] - b[field]
+      }
 
-      if (isDate(a[field]) && isDate(b[field])) return a[field].getTime() - b[field].getTime()
+      if (isDate(a[field]) && isDate(b[field])) {
+        info(`Ordering results by date...`)
+        return a[field].getTime() - b[field].getTime()
+      }
 
       if (isString(a[field]) && isString(b[field])) {
+        info(`Ordering results alphabetically...`)
         const fieldA = a[field].toUpperCase()
         const fieldB = b[field].toUpperCase()
         return fieldA < fieldB ? -1 : fieldA > fieldB ? 1 : 0
@@ -53,5 +66,5 @@ export function applyFilters(results, args) {
     if (sort === `desc`) results.reverse()
   }
 
-  return results
+  return filtered
 }

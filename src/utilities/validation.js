@@ -1,6 +1,7 @@
-const production = process.env.NODE_ENV === `production`
+// @flow
+const production: boolean = process.env.NODE_ENV === `production`
 
-export function invariant(condition, message) {
+export function invariant(condition: boolean, message: string): boolean {
   if (!production && typeof message !== `string`) throw new Error(`invariant(...): Second argument must be a string.`)
   if (!condition) {
     let err = production
@@ -12,7 +13,7 @@ export function invariant(condition, message) {
   return true
 }
 
-export function missingArgument(argName, type) {
+export function missingArgument<ArgName>(argName: ArgName, type?: string): string {
   invariant(
     !!argName && typeof argName === `object` && Object.keys(argName).length === 1,
     `Missing Required Argument: Must pass a hash containing a single key.`

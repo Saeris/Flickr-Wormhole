@@ -91,7 +91,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.4.0",
     "flow": "^0.2.3",
-    "flow-bin": "^0.57.2",
+    "flow-bin": "^0.57.3",
     "graphql-tag": "^2.4.2",
     "lint-staged": "^4.2.3",
     "lodash-webpack-plugin": "^0.11.4",
@@ -103,6 +103,7 @@
     "serverless-webpack": "^3.1.0",
     "tap-nyan": "^1.1.0",
     "webpack": "^3.6.0",
+    "webpack-monitor": "^1.0.13",
     "webpack-node-externals": "^1.6.0"
   },
   "lint-staged": {

@@ -50,7 +50,6 @@
     }]
   ],
   "presets": [
-    "babel-preset-power-assert",
     ["env", {
       "targets": { "node": "6.10" },
       "useBuiltIns": "usage"
@@ -63,6 +62,9 @@
       "sourceMaps": "inline",
       "plugins": [
         "istanbul"
+      ],
+      "presets": [
+        "babel-preset-power-assert"
       ]
     }
   }

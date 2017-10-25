@@ -1,5 +1,12 @@
+// @flow
 import Flickr from "@/flickr"
 
-export default function getInfo({ flickr = Flickr, photosetId = ``, userId = `` } = {}) {
+type Required = {
+  flickr: any,
+  photosetId: ID,
+  userId: ID
+}
+
+export default function getInfo({ flickr = Flickr, photosetId = ``, userId = `` }: Required = {}): Promise<any> {
   return flickr.fetchResource(`flickr.photosets.getInfo`, { photosetId, userId })
 }

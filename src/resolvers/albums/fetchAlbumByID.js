@@ -1,8 +1,12 @@
+// @flow
+import { Flickr } from "@/flickr"
 import { invariant, missingArgument } from "@/utilities"
 import { Album } from "@/models"
 import getInfo from "@/methods/photosets/getInfo"
 
-async function fetchAlbumByID({ flickr, userId = ``, photosetId = `` } = {}) {
+async function fetchAlbumByID<Required: { flickr: Flickr, userId: string, photosetId: string}>(
+  { flickr, userId = ``, photosetId = `` }: Required
+): Album {
   invariant(flickr, missingArgument({ flickr }))
   invariant(userId, missingArgument({ userId }))
   invariant(photosetId, missingArgument({ photosetId }))

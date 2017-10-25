@@ -1,6 +1,17 @@
+// @flow
 import { invariant, missingArgument } from "@/utilities"
 
 export default class Camera {
+  id: ID
+  cameraId: ID
+  name: string
+  brand: ID
+  megapixels: ?string
+  zoom: ?string
+  lcdSize: ?string
+  storage: Array<string>
+  images: Array<mixed>
+
   constructor(data) {
     invariant(data, missingArgument({ data }))
     this.id = data?.id

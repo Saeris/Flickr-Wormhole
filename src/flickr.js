@@ -1,8 +1,9 @@
+// @flow
 import "isomorphic-fetch"
 import { isString } from "lodash"
 import { invariant, missingArgument } from "@/utilities"
 
-const snake = str => str
+const snake = (str: string): string => str
   .trim()
   .split(``)
   .map(char => (/[A-Z]/.test(char) ? `_${char.toLowerCase()}` : char))
@@ -18,7 +19,7 @@ export class Flickr {
 
   endpoint = `https://api.flickr.com/services/rest/`
 
-  fetchResource = async (method = ``, args = {}, options = {}, requiresAuth = false) => {
+  fetchResource(method: string = ``, args = {}, options = {}, requiresAuth: boolean = false): Promise<any> {
     try {
       invariant(isString(method), missingArgument({ method }))
       const required =
@@ -34,7 +35,7 @@ export class Flickr {
           .map(([key, value]) => (value ? `&${snake(`${key}`)}=${value}` : ``))
           .join(``) || ``
 
-      const data = await this.loader.load(`${method}${required}${optional}`)
+      const data = this.loader.load(`${method}${required}${optional}`)
 
       if (data.stat === `fail`) throw new Error(data.message)
 
@@ -46,13 +47,12 @@ export class Flickr {
     }
   }
 
-  fetch = urls =>
-    Promise.all(
-      urls.map(
-        url => fetch(`${this.endpoint}?method=${url}&api_key=${this.apiKey}&format=json&nojsoncallback=1`)
-          .then(res => res.json()) // eslint-disable-line
-      )
+  fetch = (urls: Array<string>): Promise<any> => Promise.all(
+    urls.map(
+      url => fetch(`${this.endpoint}?method=${url}&api_key=${this.apiKey}&format=json&nojsoncallback=1`)
+        .then(res => res.json()) // eslint-disable-line
     )
+  )
 }
 
 export default new Flickr(FLICKR_API_KEY)

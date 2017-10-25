@@ -25,7 +25,7 @@ Winston.configure({
 })
 
 const goodWinstonStream = new GoodWinston({
-  winston: require(`winston`),
+  winston: Winston,
   format: `MM/DD/YYYY h:mm:ss:SSS a`,
   utc: false
 })
