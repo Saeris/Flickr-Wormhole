@@ -10,7 +10,7 @@ export default class User {
     this.bio = (data?.description)?._content
     this.location = (data?.location)?._content
     this.profile = (data?.profileurl)?._content
-    this.isPro = !!data?.isPro
+    this.isPro = !!data?.ispro
     this.photoCount = parseInt(data?.photos?.count?._content || 0, 10)
     this.views = parseInt(data?.photos?.views?._content || 0, 10)
     this.icon = (!!data?.iconfarm && !!data?.iconserver && !!data?.id)
