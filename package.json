@@ -46,7 +46,7 @@
     "graphql-relay": "^0.5.2",
     "graphql-tools": "^2.5.0",
     "hapi": "^16.6.2",
-    "hapi-rate-limit": "^1.4.0",
+    "hapi-rate-limit": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "snyk": "^1.42.6",
