@@ -93,7 +93,7 @@
     "flow": "^0.2.3",
     "flow-bin": "^0.58.0",
     "graphql-tag": "^2.4.2",
-    "lint-staged": "^4.2.3",
+    "lint-staged": "^5.0.0",
     "lodash-webpack-plugin": "^0.11.4",
     "nyc": "^11.2.1",
     "power-assert": "^1.4.4",
