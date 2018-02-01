@@ -37,7 +37,7 @@
     "date-fns": "^1.28.5",
     "good": "^8.0.0",
     "good-winston": "^4.0.0",
-    "graphql": "0.10.5",
+    "graphql": "0.12.0",
     "graphql-custom-types": "^1.1.0",
     "graphql-depth-limit": "^1.1.0",
     "graphql-iso-date": "^3.3.0",
