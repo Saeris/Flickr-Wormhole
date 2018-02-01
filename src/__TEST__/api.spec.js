@@ -1,5 +1,5 @@
 import test from "ava"
 
-test(t => {
+test(`src/api`, t => {
   t.pass(``)
 })

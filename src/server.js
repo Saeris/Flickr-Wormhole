@@ -3,30 +3,38 @@ import hapi from "hapi" // https://hapijs.com/
 //import memory from "catbox-memory" // https://github.com/hapijs/catbox-memory
 import monitor from "./monitor" // Monitoring and Logging
 //import limiter from "./limiter" // Rate Limiting
+import playground from "./playground" // GraphQL Playground Route
 import api from "./api" // GraphQL API Endpoint
-import graphiql from "./graphiql" // Graphiql Interface Endpoint
-import playground from "./playground" // GraphQL Playground Interface Endpoint
 
 const server = new hapi.Server({
-  //cache: { engine: memory } // https://hapijs.com/tutorials/caching
+  host: `localhost`,
+  port: PORT,
+  routes: { cors: true }
 })
-server.connection({ routes: { cors: true } })
 
 const plugins = [
   //limiter,
   monitor,
-  api,
-  graphiql,
-  playground
+  api
 ]
 
-let loaded = false
-server.makeReady = onServerReady => {
-  if (!loaded) {
-    server.register(plugins, onServerReady)
-    loaded = true
+async function setup() {
+  info(`Setting up server...`)
+  try {
+    if (LOCAL) plugins.push(playground)
+    await server.register(plugins)
+    info(`Successfully setup server!`)
+    if (LOCAL) {
+      await server.start()
+      info(`Server running at: ${server.info.uri}`)
+    }
+  } catch (err) {
+    error(`Failed to setup server:`, err)
   }
-  onServerReady(null)
 }
+
+let loaded = !module.parent
+
+if (loaded) setup()
 
 export default server

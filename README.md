@@ -62,7 +62,7 @@ To start the server, simply run the following command:
 npm start
 ```
 
-The server should now be listening on port `1337`. To access GraphiQL and begin exploring the API documentation, navigate to [http://127.0.0.1:1337/graphiql](http://127.0.0.1:1337/graphiql) in your browser of choice.
+The server should now be listening on port `1337`. To access the Graphql Playground and begin exploring the API documentation, navigate to [http://127.0.0.1:1337/graphiql](http://127.0.0.1:1337/playground) in your browser of choice.
 
 ## <a name="examples"></a> Example Queries
 
@@ -146,7 +146,6 @@ query User {
           maxAperture
         }
         images {
-          label
           width
           height
           source

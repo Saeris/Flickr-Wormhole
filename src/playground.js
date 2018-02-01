@@ -1,9 +1,9 @@
-import { hapi as playground } from "graphql-playground/middleware" // https://github.com/graphcool/graphql-playground#as-hapi-middleware
+import hapiPlayground from "graphql-playground-middleware-hapi"
 
 export default {
-  register: playground,
+  plugin: hapiPlayground,
   options: {
     path: `/playground`,
-    endpoint: `${ENV === `production` ? `/production` : ``}/graphql`
+    endpoint: `/graphql`
   }
 }

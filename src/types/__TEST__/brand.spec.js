@@ -1,7 +1,7 @@
 import test from "ava"
 import { Brand, Queries } from "../brand"
 
-test(`Brand Type`, t => {
+test(`types/brand`, t => {
   t.is(Brand.name, `Brand`, `Brand Type should be named 'Brand'`)
   t.truthy(Brand.description, `Brand Type should have a description`)
 

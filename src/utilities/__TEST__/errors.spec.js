@@ -1,5 +1,5 @@
 import test from "ava"
 
-test(t => {
+test(`utilites/errors`, t => {
   t.pass(``)
 })

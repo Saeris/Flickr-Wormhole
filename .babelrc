@@ -3,16 +3,15 @@
     "src/**/_TEST_/*.spec.js"
   ],
   "plugins": [
-    "transform-optional-chaining",
-    "transform-object-rest-spread",
-    "transform-es2015-shorthand-properties",
     ["babel-plugin-webpack-alias", { "findConfig": true }],
+    "inline-dotenv",
     ["inline-replace-variables", {
       "ENV": { "type": "node", "replacement": "process.env.NODE_ENV" },
+      "PORT": { "type": "node", "replacement": "process.env.PORT" },
+      "LOCAL": { "type": "node", "replacement": "process.env.LOCAL" },
       "LOGLEVEL": { "type": "node", "replacement": "process.env.LOGLEVEL" },
       "FLICKR_API_KEY": { "type": "node", "replacement": "process.env.FLICKR_API_KEY" }
     }],
-    "inline-dotenv",
     ["provide-modules", {
       "graphql": [
         { "GraphQLBoolean": "GqlBool" },
@@ -61,10 +60,59 @@
     "test": {
       "sourceMaps": "inline",
       "plugins": [
-        "istanbul"
+        "istanbul",
+        ["babel-plugin-webpack-alias", { "findConfig": true }],
+        "inline-dotenv",
+        ["inline-replace-variables", {
+          "ENV": { "type": "node", "replacement": "process.env.NODE_ENV" },
+          "PORT": { "type": "node", "replacement": "process.env.PORT" },
+          "LOCAL": { "type": "node", "replacement": "process.env.LOCAL" },
+          "LOGLEVEL": { "type": "node", "replacement": "process.env.LOGLEVEL" },
+          "FLICKR_API_KEY": { "type": "node", "replacement": "process.env.FLICKR_API_KEY" }
+        }],
+        ["provide-modules", {
+          "graphql": [
+            { "GraphQLBoolean": "GqlBool" },
+            { "GraphQLEnumType": "GqlEnum" },
+            { "GraphQLError": "GqlError" },
+            { "GraphQLFloat": "GqlFloat" },
+            { "GraphQLID": "GqlID" },
+            { "GraphQLInputObjectType": "GqlInput" },
+            { "GraphQLInt": "GqlInt" },
+            { "GraphQLInterfaceType": "GqlInterface" },
+            { "GraphQLList": "GqlList" },
+            { "GraphQLNonNull": "GqlNonNull" },
+            { "GraphQLObjectType": "GqlObject" },
+            { "GraphQLScalarType": "GqlScalar" },
+            { "GraphQLSchema": "GqlSchema" },
+            { "GraphQLString":  "GqlString" },
+            { "GraphQLUnion": "GqlUnion" }
+          ],
+          "graphql-iso-date": [
+            { "GraphQLDate": "GqlDate" },
+            { "GraphQLDateTime": "GqlDateTime" },
+            { "GraphQLTime": "GqlTime" }
+          ],
+          "graphql-custom-types": [
+            { "GraphQLEmail": "GqlEmail" },
+            { "GraphQLURL": "GqlURL" }
+          ],
+          "graphql-relay": [
+            { "globalIdField": "globalId" },
+            "toGlobalId",
+            "fromGlobalId"
+          ],
+          "dataloader": "Dataloader",
+          "winston": [ "log", "info", "debug", "error" ]
+        }]
       ],
       "presets": [
-        "babel-preset-power-assert"
+        ["env", {
+          "targets": { "node": "current" },
+          "useBuiltIns": "usage"
+        }],
+        "stage-0",
+        "flow"
       ]
     }
   }

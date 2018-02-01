@@ -19,9 +19,16 @@ custom:
 
 functions:
   api:
-    handler: src/index.handler
+    handler: src/index.server
     events:
       - http:
           path: "{proxy+}"
           method: any
           cors: true
+  playground:
+      handler: src/index.playground
+      events:
+        - http:
+            path: "/playground"
+            method: get
+            cors: true

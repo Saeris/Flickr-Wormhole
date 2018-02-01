@@ -15,6 +15,8 @@ module.exports = {
   globals: {
     // Environment Variables
     ENV: false,
+    PORT: false,
+    LOCAL: false,
     LOGLEVEL: false,
     FLICKR_API_KEY: false,
     // Built-Ins

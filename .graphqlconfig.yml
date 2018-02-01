@@ -1,0 +1,5 @@
+projects:
+  app:
+    extensions:
+      endpoints:
+        default: http://localhost:1337/graphql

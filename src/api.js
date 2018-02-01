@@ -14,7 +14,7 @@ import { Flickr } from "./flickr"
 // https://github.com/apollographql/GitHunt-API/blob/cc67a4506c31310b4ba8d811dda11d258c7d60d6/api/github/connector.js
 
 export default {
-  register: graphqlHapi,
+  plugin: graphqlHapi,
   options: {
     path: `/graphql`,
     graphqlOptions: ({ payload }) => {
@@ -38,7 +38,7 @@ export default {
         root_value: schema,
         formatError,
         validationRules: [
-          depthLimit(4),
+          depthLimit(5),
           queryComplexity({
             maximumComplexity: 2000,
             variables: payload?.[0]?.variables || payload?.variables || {},
