@@ -1,7 +1,10 @@
 # Flickr-Wormhole
+*A Serverless GraphQL to REST Gateway Wrapper for the Flickr API*
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/Saeris/Flickr-Wormhole.svg)](https://greenkeeper.io/)
-*A Serverless GraphQL to REST Gateway Wrapper for the Flickr API*
+[![Build Status](https://travis-ci.org/Saeris/Flickr-Wormhole.svg?branch=develop)](https://travis-ci.org/Saeris/Flickr-Wormhole)
+[![codecov](https://codecov.io/gh/Saeris/Flickr-Wormhole/branch/develop/graph/badge.svg)](https://codecov.io/gh/Saeris/Flickr-Wormhole)
+[![Known Vulnerabilities](https://snyk.io/test/github/Saeris/Flickr-Wormhole/badge.svg)](https://snyk.io/test/github/Saeris/Flickr-Wormhole)
 
 ## <a name="contents"></a> Table of Contents
 
