@@ -45,7 +45,7 @@
     "graphql-query-complexity": "^0.1.1",
     "graphql-relay": "^0.5.2",
     "graphql-tools": "^2.5.0",
-    "hapi": "^16.6.2",
+    "hapi": "^17.0.0",
     "hapi-rate-limit": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
