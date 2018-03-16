@@ -5228,6 +5228,12 @@ graphql@^0.11.7:
   dependencies:
     iterall "1.1.3"
 
+graphql@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
+  dependencies:
+    iterall "^1.2.1"
+
 h2o2@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/h2o2/-/h2o2-5.4.0.tgz#d6857ca05355200c890b34a66606caba0229ed58"
@@ -6205,6 +6211,10 @@ iterall@1.1.3:
 iterall@^1.1.0, iterall@^1.1.1, iterall@^1.1.3:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.4.tgz#0db40d38fdcf53ae14dc8ec674e62ab190d52cfc"
+
+iterall@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
 
 jackpot@>=0.0.6:
   version "0.0.6"
