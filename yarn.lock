@@ -3196,6 +3196,16 @@ cross-spawn@^6.0.3:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+cross-spawn@^6.0.5:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
+  dependencies:
+    nice-try "^1.0.4"
+    path-key "^2.0.1"
+    semver "^5.5.0"
+    shebang-command "^1.2.0"
+    which "^1.2.9"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -3750,11 +3760,11 @@ entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
-env-cmd@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/env-cmd/-/env-cmd-7.0.0.tgz#d1fcfea6e0cbe6bf50b7130221d568907b6349bd"
+env-cmd@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/env-cmd/-/env-cmd-8.0.1.tgz#0070518b29e78b1102f2e753551eaae3f971a335"
   dependencies:
-    cross-spawn "^5.0.1"
+    cross-spawn "^6.0.5"
 
 equal-length@^1.0.0:
   version "1.0.1"
