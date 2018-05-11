@@ -3171,6 +3171,13 @@ cross-fetch@1.1.1:
     node-fetch "1.7.3"
     whatwg-fetch "2.0.3"
 
+cross-fetch@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-2.0.0.tgz#a17475449561e0f325146cea636a8619efb9b382"
+  dependencies:
+    node-fetch "2.0.0"
+    whatwg-fetch "2.0.3"
+
 cross-spawn@^4:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-4.0.2.tgz#7b9247621c23adfdd3856004a823cbe397424d41"
@@ -3940,11 +3947,11 @@ eslint-plugin-flowtype@^2.37.0:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-graphql@^1.4.0-1:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-graphql/-/eslint-plugin-graphql-1.5.0.tgz#1f0861b6499906f7ce153f9e83633659e4374ef6"
+eslint-plugin-graphql@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-graphql/-/eslint-plugin-graphql-2.1.1.tgz#dae5d597080075320ea8e98795056309ffe73a18"
   dependencies:
-    graphql-config "~1.0.9"
+    graphql-config "^2.0.1"
     lodash "^4.11.1"
 
 eslint-plugin-import@^2.7.0:
@@ -4989,15 +4996,15 @@ graphql-config@^1.0.0, graphql-config@^1.2.0:
     lodash "^4.17.4"
     minimatch "^3.0.4"
 
-graphql-config@~1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-1.0.9.tgz#8fa416a7c2bdb8f62f441324775dd3ff8a266652"
+graphql-config@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-2.0.1.tgz#d34a9bdf1d7360af7b01db9b20260a342ddc7390"
   dependencies:
-    graphql "^0.11.7"
-    graphql-request "^1.4.0"
+    graphql-import "^0.4.4"
+    graphql-request "^1.5.0"
     js-yaml "^3.10.0"
+    lodash "^4.17.4"
     minimatch "^3.0.4"
-    rimraf "^2.6.2"
 
 graphql-custom-types@^1.1.0:
   version "1.3.0"
@@ -5037,6 +5044,12 @@ graphql-import@^0.4.0:
   resolved "https://registry.yarnpkg.com/graphql-import/-/graphql-import-0.4.2.tgz#e4925e838cf41d69d81d3879788ef8ee77532977"
   dependencies:
     graphql "^0.12.3"
+    lodash "^4.17.4"
+
+graphql-import@^0.4.4:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/graphql-import/-/graphql-import-0.4.5.tgz#e2f18c28d335733f46df8e0733d8deb1c6e2a645"
+  dependencies:
     lodash "^4.17.4"
 
 graphql-iso-date@^3.3.0:
@@ -5170,6 +5183,12 @@ graphql-request@^1.4.0:
   dependencies:
     cross-fetch "1.1.1"
 
+graphql-request@^1.5.0:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.5.2.tgz#cf329fad59e36daf6925f41751b4ba8ad93371c3"
+  dependencies:
+    cross-fetch "2.0.0"
+
 graphql-schema-linter@0.0.28:
   version "0.0.28"
   resolved "https://registry.yarnpkg.com/graphql-schema-linter/-/graphql-schema-linter-0.0.28.tgz#ec16ab07324f6baa6ef4a5dc690b8b6d0d68ec84"
@@ -5224,12 +5243,6 @@ graphql@^0.10.1, graphql@^0.10.5:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.10.5.tgz#c9be17ca2bdfdbd134077ffd9bbaa48b8becd298"
   dependencies:
     iterall "^1.1.0"
-
-graphql@^0.11.7:
-  version "0.11.7"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.11.7.tgz#e5abaa9cb7b7cccb84e9f0836bf4370d268750c6"
-  dependencies:
-    iterall "1.1.3"
 
 h2o2@^5.4.0:
   version "5.4.0"
@@ -7257,6 +7270,10 @@ node-fetch@1.7.3, node-fetch@^1.0.1, node-fetch@^1.7.3:
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
+
+node-fetch@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.0.0.tgz#982bba43ecd4f2922a29cc186a6bbb0bb73fcba6"
 
 node-fingerprint@0.0.2:
   version "0.0.2"
