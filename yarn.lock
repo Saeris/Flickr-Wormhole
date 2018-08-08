@@ -2536,12 +2536,13 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-catbox-memcached@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/catbox-memcached/-/catbox-memcached-1.1.1.tgz#730cc379096933155dc33f800d3329452cd2cb37"
+catbox-memcached@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/catbox-memcached/-/catbox-memcached-2.0.1.tgz#dfe3e4df819f2b39e86e00808c359169ce90348c"
   dependencies:
-    hoek "2.x.x"
-    memcached "^2.0.0"
+    boom "7.x.x"
+    hoek "5.x.x"
+    memcached "2.x.x"
 
 catbox-memory@2.x.x:
   version "2.0.4"
@@ -6943,7 +6944,7 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memcached@^2.0.0:
+memcached@2.x.x:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/memcached/-/memcached-2.2.2.tgz#68f86ccfd84bcf93cc25ed46d6d7fc0c7521c9d5"
   dependencies:
