@@ -60,7 +60,7 @@
     "babel-cli": "7.0.0-beta.3",
     "babel-core": "7.0.0-beta.3",
     "babel-eslint": "^8.0.1",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^8.0.3",
     "babel-minify-webpack-plugin": "^0.2.0",
     "babel-node": "7.0.0-beta.3",
     "babel-plugin-espower": "^2.3.2",
