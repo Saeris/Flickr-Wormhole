@@ -42,7 +42,7 @@
     "graphql-depth-limit": "^1.1.0",
     "graphql-iso-date": "^3.3.0",
     "graphql-playground": "^1.0.4",
-    "graphql-playground-middleware-hapi": "^1.5.1",
+    "graphql-playground-middleware-hapi": "^1.7.5",
     "graphql-playground-middleware-lambda": "^1.4.2",
     "graphql-query-complexity": "^0.1.1",
     "graphql-relay": "^0.5.2",
