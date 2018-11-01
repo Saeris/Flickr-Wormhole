@@ -2549,13 +2549,20 @@ catbox-memory@2.x.x:
   dependencies:
     hoek "4.x.x"
 
-catbox-memory@3.x.x, catbox-memory@^3.0.0:
+catbox-memory@3.x.x:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/catbox-memory/-/catbox-memory-3.1.1.tgz#4f398835a3d8f5992c31ddee24378467498a9c9a"
   dependencies:
     big-time "2.x.x"
     boom "7.x.x"
     hoek "5.x.x"
+
+catbox-memory@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/catbox-memory/-/catbox-memory-4.0.0.tgz#3d841cc56cbf17b4bc963a68735e3aa7de9b3452"
+  dependencies:
+    boom "7.x.x"
+    hoek "6.x.x"
 
 catbox@10.x.x:
   version "10.0.2"
@@ -5501,6 +5508,10 @@ hoek@4.X.X, hoek@4.x.x, hoek@^4.1.0:
 hoek@5.x.x, hoek@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-5.0.2.tgz#d2f2c95d36fe7189cf8aa8c237abc1950eca1378"
+
+hoek@6.x.x:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-6.0.0.tgz#747680290249203ad096ff33d1699adf5e8e73bd"
 
 hoist-non-react-statics@^1.2.0:
   version "1.2.0"
