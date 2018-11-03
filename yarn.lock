@@ -5298,9 +5298,9 @@ hapi@14.2.0:
     subtext "4.x.x"
     topo "2.x.x"
 
-hapi@^17.0.0:
-  version "17.2.0"
-  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.2.0.tgz#e5d74b65235b443225e05d7b7510cdb80d4887e7"
+hapi@^17.6.4:
+  version "17.6.4"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.6.4.tgz#5cec5c720e3daf40258618bc8d50bceb3c34d463"
   dependencies:
     accept "3.x.x"
     ammo "3.x.x"
@@ -5310,8 +5310,8 @@ hapi@^17.0.0:
     catbox "10.x.x"
     catbox-memory "3.x.x"
     heavy "6.x.x"
-    hoek "5.x.x"
-    joi "13.x.x"
+    hoek "6.x.x"
+    joi "14.x.x"
     mimos "4.x.x"
     podium "3.x.x"
     shot "4.x.x"
@@ -5501,6 +5501,10 @@ hoek@4.X.X, hoek@4.x.x, hoek@^4.1.0:
 hoek@5.x.x, hoek@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-5.0.2.tgz#d2f2c95d36fe7189cf8aa8c237abc1950eca1378"
+
+hoek@6.x.x:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-6.0.1.tgz#15ae90f8d30ad114e2feabe4967567014a783078"
 
 hoist-non-react-statics@^1.2.0:
   version "1.2.0"
@@ -6259,6 +6263,14 @@ joi@13.x.x:
   resolved "https://registry.yarnpkg.com/joi/-/joi-13.1.1.tgz#1f306a5c3ded496da46629915d09e1ae3825185c"
   dependencies:
     hoek "5.x.x"
+    isemail "3.x.x"
+    topo "3.x.x"
+
+joi@14.x.x:
+  version "14.0.4"
+  resolved "https://registry.yarnpkg.com/joi/-/joi-14.0.4.tgz#f066f79330f6bd6f3dda243be6d2c211f83a5f9b"
+  dependencies:
+    hoek "6.x.x"
     isemail "3.x.x"
     topo "3.x.x"
 
