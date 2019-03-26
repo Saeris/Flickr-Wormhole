@@ -2235,11 +2235,18 @@ boom@6.x.x:
   dependencies:
     hoek "5.x.x"
 
-boom@7.x.x, boom@^7.1.0, boom@^7.1.1:
+boom@7.x.x, boom@^7.1.0:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/boom/-/boom-7.1.1.tgz#50392a4e3417e971f1ad28622c20e832275260bb"
   dependencies:
     hoek "5.x.x"
+
+boom@^7.2.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/boom/-/boom-7.3.0.tgz#733a6d956d33b0b1999da3fe6c12996950d017b9"
+  integrity sha512-Swpoyi2t5+GhOEGw8rEsKvTxFLIDiiKoUc2gsoV6Lyr43LHBIzch3k2MvYUs8RTROrIkVJ3Al0TkaOGjnb+B6A==
+  dependencies:
+    hoek "6.x.x"
 
 bops@~0.1.1:
   version "0.1.1"
@@ -5267,12 +5274,13 @@ hapi-cors-headers@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/hapi-cors-headers/-/hapi-cors-headers-1.0.3.tgz#856b0a9870f435249492c5a52d2744317a8cc1fd"
 
-hapi-rate-limit@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/hapi-rate-limit/-/hapi-rate-limit-2.1.1.tgz#424c21ab4caf49fe25302ed54dc77e98c8d3be68"
+hapi-rate-limit@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/hapi-rate-limit/-/hapi-rate-limit-3.1.2.tgz#99e4818dc821f43b1655d2bddcf267c85f00c4af"
+  integrity sha512-BfPYkmE8OPeKY06vnurhRtpcUEuCDApaeEsQqXIJdirlxVjANLCRaqn4bcTUpxcwRl/NjlHdIdtiiVg5hPa92A==
   dependencies:
-    boom "^7.1.1"
-    hoek "^5.0.2"
+    boom "^7.2.0"
+    joi "^14.3.0"
 
 hapi@14.2.0:
   version "14.2.0"
@@ -5498,9 +5506,14 @@ hoek@4.X.X, hoek@4.x.x, hoek@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
 
-hoek@5.x.x, hoek@^5.0.2:
+hoek@5.x.x:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-5.0.2.tgz#d2f2c95d36fe7189cf8aa8c237abc1950eca1378"
+
+hoek@6.x.x:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-6.1.2.tgz#99e6d070561839de74ee427b61aa476bd6bddfd6"
+  integrity sha512-6qhh/wahGYZHFSFw12tBbJw5fsAhhwrrG/y3Cs0YMTv2WzMnL0oLPnQJjv1QJvEfylRSOFuP+xCu+tdx0tD16Q==
 
 hoist-non-react-statics@^1.2.0:
   version "1.2.0"
@@ -6271,6 +6284,15 @@ joi@9.X.X, joi@9.x.x:
     items "2.x.x"
     moment "2.x.x"
     topo "2.x.x"
+
+joi@^14.3.0:
+  version "14.3.1"
+  resolved "https://registry.yarnpkg.com/joi/-/joi-14.3.1.tgz#164a262ec0b855466e0c35eea2a885ae8b6c703c"
+  integrity sha512-LQDdM+pkOrpAn4Lp+neNIFV3axv1Vna3j38bisbQhETPMANYRbFJFUyOZcOClYvM/hppMhGWuKSFEK9vjrB+bQ==
+  dependencies:
+    hoek "6.x.x"
+    isemail "3.x.x"
+    topo "3.x.x"
 
 joi@^6.10.1:
   version "6.10.1"
