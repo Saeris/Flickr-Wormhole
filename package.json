@@ -97,7 +97,7 @@
     "lodash-webpack-plugin": "^0.11.4",
     "nodemon": "^1.14.11",
     "npm-run-all": "^4.1.2",
-    "nyc": "^11.2.1",
+    "nyc": "^14.1.1",
     "power-assert": "^1.4.4",
     "prettier": "^1.7.0",
     "serverless-domain-manager": "^2.0.0",
