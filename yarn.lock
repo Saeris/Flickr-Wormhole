@@ -5169,9 +5169,12 @@ graphql-playground@^1.0.4:
     styled-theming "^2.2.0"
     subscriptions-transport-ws "^0.8.1"
 
-graphql-query-complexity@^0.1.1:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.1.2.tgz#8b5fb443452d8f6571f4461917991268f31562c9"
+graphql-query-complexity@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.3.0.tgz#71a44e124b7591a185d9d8cde55205aa57680c5d"
+  integrity sha512-JVqHT81Eh9O17iOjs1r1qzsh5YY2upfA3zoUsQGggT4d+1hajWitk4GQQY5SZtq5eul7y6jMsM9qRUSOAKhDJQ==
+  dependencies:
+    lodash.get "^4.4.2"
 
 graphql-relay@^0.5.2:
   version "0.5.4"
