@@ -357,6 +357,39 @@
   dependencies:
     arrify "^1.0.1"
 
+"@hapi/address@2.x.x":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.0.0.tgz#9f05469c88cb2fd3dcd624776b54ee95c312126a"
+  integrity sha512-mV6T0IYqb0xL1UALPFplXYQmR0twnXG0M6jUswpquqT2sD12BOiCiLy3EvMp/Fy7s3DZElC4/aPjEjo2jeZpvw==
+
+"@hapi/boom@^7.4.2":
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/@hapi/boom/-/boom-7.4.2.tgz#c16957cd09796f6c1bfb4031bdc39d66d6d750c3"
+  integrity sha512-T2CYcTI0AqSvC6YC7keu/fh9LVSMzfoMLharBnPbOwmc+Cexj9joIc5yNDKunaxYq9LPuOwMS0f2B3S1tFQUNw==
+  dependencies:
+    "@hapi/hoek" "6.x.x"
+
+"@hapi/hoek@6.x.x":
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-6.2.4.tgz#4b95fbaccbfba90185690890bdf1a2fbbda10595"
+  integrity sha512-HOJ20Kc93DkDVvjwHyHawPwPkX44sIrbXazAUDiUXaY2R9JwQGo2PhFfnQtdrsIe4igjG2fPgMra7NYw7qhy0A==
+
+"@hapi/joi@^15.0.3":
+  version "15.0.3"
+  resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-15.0.3.tgz#e94568fd859e5e945126d5675e7dd218484638a7"
+  integrity sha512-z6CesJ2YBwgVCi+ci8SI8zixoj8bGFn/vZb9MBPbSyoxsS2PnWYjHcyTM17VLK6tx64YVK38SDIh10hJypB+ig==
+  dependencies:
+    "@hapi/address" "2.x.x"
+    "@hapi/hoek" "6.x.x"
+    "@hapi/topo" "3.x.x"
+
+"@hapi/topo@3.x.x":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-3.1.0.tgz#5c47cd9637c2953db185aa957a27bcb2a8b7a6f8"
+  integrity sha512-gZDI/eXOIk8kP2PkUKjWu9RW8GGVd2Hkgjxyr/S7Z+JF+0mr7bAlbw+DkTRxnD580o8Kqxlnba9wvqp5aOHBww==
+  dependencies:
+    "@hapi/hoek" "6.x.x"
+
 "@kbrandwijk/swagger-to-graphql@1.4.2":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@kbrandwijk/swagger-to-graphql/-/swagger-to-graphql-1.4.2.tgz#3d15b9396cc0f519e81f156202dbb6c7147971c9"
@@ -2235,7 +2268,7 @@ boom@6.x.x:
   dependencies:
     hoek "5.x.x"
 
-boom@7.x.x, boom@^7.1.0, boom@^7.1.1:
+boom@7.x.x, boom@^7.1.0:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/boom/-/boom-7.1.1.tgz#50392a4e3417e971f1ad28622c20e832275260bb"
   dependencies:
@@ -5267,12 +5300,13 @@ hapi-cors-headers@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/hapi-cors-headers/-/hapi-cors-headers-1.0.3.tgz#856b0a9870f435249492c5a52d2744317a8cc1fd"
 
-hapi-rate-limit@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/hapi-rate-limit/-/hapi-rate-limit-2.1.1.tgz#424c21ab4caf49fe25302ed54dc77e98c8d3be68"
+hapi-rate-limit@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/hapi-rate-limit/-/hapi-rate-limit-3.1.3.tgz#c76d0331c4a0a9146598ac4e5ff24d5cc876eee3"
+  integrity sha512-iVbr/ddprCRS22UJX8ddpmNjqh6Ec1PanJgM+lXynO9mwdKjbw1mYDe0fCSys7edLHXy8K9gwSVKbHaUaNp4Wg==
   dependencies:
-    boom "^7.1.1"
-    hoek "^5.0.2"
+    "@hapi/boom" "^7.4.2"
+    "@hapi/joi" "^15.0.3"
 
 hapi@14.2.0:
   version "14.2.0"
@@ -5498,7 +5532,7 @@ hoek@4.X.X, hoek@4.x.x, hoek@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
 
-hoek@5.x.x, hoek@^5.0.2:
+hoek@5.x.x:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-5.0.2.tgz#d2f2c95d36fe7189cf8aa8c237abc1950eca1378"
 
