@@ -104,7 +104,7 @@
     "serverless-offline": "^3.15.3",
     "serverless-webpack": "^4.0.0",
     "tap-nyan": "^1.1.0",
-    "webpack": "^3.6.0",
+    "webpack": "^4.35.0",
     "webpack-monitor": "^1.0.13",
     "webpack-node-externals": "^1.6.0"
   },
