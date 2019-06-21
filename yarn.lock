@@ -3193,17 +3193,7 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^6.0.3:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.4.tgz#bbf44ccb30fb8314a08f178b62290c669c36d808"
-  dependencies:
-    nice-try "^1.0.4"
-    path-key "^2.0.1"
-    semver "^5.5.0"
-    shebang-command "^1.2.0"
-    which "^1.2.9"
-
-cross-spawn@^6.0.5:
+cross-spawn@^6.0.3, cross-spawn@^6.0.5:
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
   dependencies:
@@ -3997,9 +3987,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^4.8.0:
-  version "4.16.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.16.0.tgz#934ada9e98715e1d7bbfd6f6f0519ed2fab35cc1"
+eslint@^4.18.2:
+  version "4.18.2"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.18.2.tgz#0f81267ad1012e7d2051e186a9004cc2267b8d45"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
@@ -4036,7 +4026,7 @@ eslint@^4.8.0:
     semver "^5.3.0"
     strip-ansi "^4.0.0"
     strip-json-comments "~2.0.1"
-    table "^4.0.1"
+    table "4.0.2"
     text-table "~0.2.0"
 
 espower-location-detector@^1.0.0:
@@ -9914,7 +9904,7 @@ symbol-observable@^1.0.3, symbol-observable@^1.0.4, symbol-observable@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
 
-table@^4.0.1:
+table@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/table/-/table-4.0.2.tgz#a33447375391e766ad34d3486e6e2aedc84d2e36"
   dependencies:
