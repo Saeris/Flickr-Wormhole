@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "ava": "^1.0.0-beta.1",
-    "aws-sdk": "^2.125.0",
+    "aws-sdk": "^2.541.0",
     "babel-cli": "7.0.0-beta.3",
     "babel-core": "7.0.0-beta.3",
     "babel-eslint": "^8.0.1",
