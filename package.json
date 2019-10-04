@@ -29,7 +29,7 @@
     "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
-    "apollo-server-hapi": "^1.1.2",
+    "apollo-server-hapi": "^2.9.5",
     "babel-polyfill": "7.0.0-beta.3",
     "catbox-memcached": "^1.1.1",
     "catbox-memory": "^3.0.0",
